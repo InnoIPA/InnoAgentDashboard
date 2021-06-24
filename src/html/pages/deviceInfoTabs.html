@@ -1,0 +1,157 @@
+<!-- Device information tabs -->
+<ul class="pt-3 nav nav-tabs" id="device-info-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="device-tab" data-toggle="tab" href="#nav-device" role="tab"
+            aria-controls="device-tab" aria-selected="true" data-api-target="deviceInfoAPI">Device</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="networking-tab" data-toggle="tab" href="#nav-networking" role="tab"
+            aria-controls="networking-tab" aria-selected="false" data-api-target="deviceNetworkAPI">Networking</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="board-config-tab" data-toggle="tab" href="#nav-board-config" role="tab"
+            aria-controls="board-config-tab" aria-selected="false" data-api-target="getOOBDeviceConfigAPI">Board
+            config</a>
+    </li>
+</ul>
+
+
+<div class="tab-content" id="navTabContent" style="height:600px">
+    <div class="tab-pane fade show active pt-3 pb-5" id="nav-device" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="col-12 pad5">
+            <div class="cardbox">
+                <div class="panel-heading row mar0">
+                    <div class="col-12">
+                        Device Information
+                    </div>
+                </div>
+                <div class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>App version</td>
+                                <td class="value" id="AppVersion">-</td>
+                            </tr>
+                            <tr>
+                                <td>Server IP</td>
+                                <td class="value" id="ConnectedIPAddress">-</td>
+                            </tr>
+                            <tr>
+                                <td>Server port</td>
+                                <td class="value" id="Port">-</td>
+                            </tr>
+                            <tr>
+                                <td>Enable UART Ports</td>
+                                <td class="value" id="UART_Pins">-</td>
+                            </tr>
+                            <tr>
+                                <td>Enable GPIO Pins</td>
+                                <td class="value" id="GPIO_Pins">-</td>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade pt-3 pb-5" id="nav-networking" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="col-12 pad5">
+            <div class="cardbox">
+                <div class="panel-heading row mar0">
+                    <div class="col-12">
+                        Networking Information
+                    </div>
+                </div>
+                <div class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Interface name</td>
+                                <td class="value" id="NAME">-</td>
+                            </tr>
+                            <tr>
+                                <td>IP address</td>
+                                <td class="value" id="IP">-</td>
+                            </tr>
+                            <tr>
+                                <td>MAC address</td>
+                                <td class="value" id="MAC">-</td>
+                            </tr>
+                            <tr>
+                                <td>Subnet mask</td>
+                                <td class="value" id="MASK">-</td>
+                            </tr>
+                            <tr>
+                                <td>Gateway</td>
+                                <td class="value" id="GATEWAY">-</td>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade pt-3 pb-5" id="nav-board-config" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="col-12 pad5">
+            <div class="cardbox">
+                <div class="panel-heading row mar0">
+                    <div class="col-12">
+                        Current board config
+                    </div>
+                </div>
+                <div class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>DHCP mode</td>
+                                <td class="value" id="NETWORK_TYPE">-</td>
+                            </tr>
+                            <tr class="staticMode">
+                                <td>IP address</td>
+                                <td class="value" id="NETWORK_STATIC_IP">-</td>
+                            </tr>
+                            <tr class="staticMode">
+                                <td>Gateway</td>
+                                <td class="value" id="NETWORK_STATIC_DEFAULT_GATEWAY">-</td>
+                            </tr>
+                            <tr class="staticMode">
+                                <td>Subnet mask</td>
+                                <td class="value" id="NETWORK_STATIC_NETMASK">-</td>
+                            </tr>
+                            <tr class="staticMode">
+                                <td>Network static metric</td>
+                                <td class="value" id="NETWORK_STATIC_METRIC">-</td>
+                            </tr>
+                            <tr>
+                                <td>Server IP</td>
+                                <td class="value" id="SERVER_IP">-</td>
+                            </tr>
+                            <tr>
+                                <td>Port</td>
+                                <td class="value" id="SERVER_PORT">-</td>
+                            </tr>
+                            <tr>
+                                <td>Server username</td>
+                                <td class="value" id="SERVER_USERNAME">-</td>
+                            </tr>
+                            <tr>
+                                <td>Server password</td>
+                                <td class="value" id="SERVER_PASSWORD">-</td>
+                            </tr>
+                            <tr>
+                                <td>Board system timezone</td>
+                                <td class="value" id="SYSTIME_ZONE">-</td>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</nav>

@@ -1,0 +1,25 @@
+version: "3.8" # Specify docker compose file version.
+services:
+  # innoAgent dashboard
+  innoagentdashboardv5:
+    image: innoagent-dashboard:v1 # Image name:tag
+    ports: # Listen port config, "Host:Container".
+      - "80:80"
+    restart: always # Always restart container.
+    build:
+      context: . # Build "./innoAgentnt-dashboard" all code.
+      dockerfile: ./DockerFile # innoAgentnt dashboard docker file.
+    networks:
+      innoagent_webservice_net:
+        ipv4_address: 172.99.0.102 # Fixed IP address.
+    container_name: innoAgent-Dashboard # Container name.
+
+# Virtual network device config.
+networks:
+  innoagent_webservice_net: # Network name.
+    name: innoagent_webservice_net # Network name.
+    driver: bridge # Network mode.
+    ipam:
+      driver: default # Use default driver.
+      config:
+        - subnet: 172.99.0.0/16 # Network subnet.

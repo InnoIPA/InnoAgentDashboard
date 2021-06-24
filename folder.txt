@@ -1,0 +1,80 @@
+.
+|-- dist
+    |-- ...
+|-- node_modules
+|   |-- ...
+|-- release
+|   |-- ...
+|-- src
+|   |-- assets
+|   |   |-- download.png
+|   |   |-- giphy.gif
+|   |   |-- logo.png
+|   |   |-- titleicon0.png
+|   |   `-- titleicon1.png
+|   |-- html
+|   |   `-- pages
+|   |       |-- deviceInfoTabs.html
+|   |       |-- gpioButtonAlert.html
+|   |       |-- header.html
+|   |       |-- powerSwitchAlert.html
+|   |       |-- uartPassThruAlert.html
+|   |       `-- updateDeviceConfigAlert.html
+|   |-- js
+|   |   |-- components
+|   |   |   |-- device
+|   |   |   |   |-- boardConfigButton.component.js
+|   |   |   |   |-- deviceConfigTab.component.js
+|   |   |   |   |-- deviceInfoTab.component.js
+|   |   |   |   |-- deviceNetworkingTab.component.js
+|   |   |   |   |-- deviceTabs.component.js
+|   |   |   |   |-- gpioButton.component.js
+|   |   |   |   |-- onlineStatus.component.js
+|   |   |   |   |-- powerButton.component.js
+|   |   |   |   |-- systemRebootButton.component.js
+|   |   |   |   `-- uartPassThruButton.component.js
+|   |   |   `-- pages
+|   |   |       |-- deviceIndexGroupButton.component.js
+|   |   |       |-- deviceName.component.js
+|   |   |       |-- ledIndicator.component.js
+|   |   |       `-- pageFooter.component.js
+|   |   |-- config
+|   |   |   |-- commonConfig.js
+|   |   |   `-- deviceConfig.js
+|   |   |-- library
+|   |   |   |-- utils
+|   |   |   |   |-- DOMElementUtils.js
+|   |   |   |   |-- deepCopy.js
+|   |   |   |   `-- formUtils.js
+|   |   |   |-- APILibrary.js
+|   |   |   |-- alertUtils.js
+|   |   |   |-- buttonHandler.js
+|   |   |   |-- functionTestHandler.js
+|   |   |   |-- funnyLibrary.js
+|   |   |   |-- getElementsFromDeviceConfig.js
+|   |   |   `-- pageLoadingAnimateEffect.js
+|   |   |-- pages
+|   |   |   |-- main.js
+|   |   |   `-- sideBar.js
+|   |   |-- applicationConstants.js
+|   |   `-- sharedVariable.js
+|   |-- style
+|   |   `-- css
+|   |       |-- webfonts
+|   |       |   |-- ...
+|   |       |-- customToggle.css
+|   |       |-- device-config-style.css
+|   |       |-- moivefonts.css
+|   |       |-- style.css
+|   |       `-- style2.css
+|   |-- index.html
+|   `-- index.js
+|-- ReadMe.md
+|-- dashboard.png
+|-- favicon.ico
+|-- folder.txt
+|-- package-lock.json
+|-- package.json
+|-- release-win.cmd
+|-- release.sh
+`-- webpack.config.js

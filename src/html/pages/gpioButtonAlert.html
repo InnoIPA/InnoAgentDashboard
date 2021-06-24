@@ -1,0 +1,32 @@
+<p>Please specify the pin number, direction and value, if left blank, the default value will be used.</p>
+<div class="border"></div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="gpio-pin-number">Pin:</label>
+            <select class="form-control" id="gpio-pin-number" title="Available GPIO pins">
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="gpio-direction">Direction:</label>
+            <select class="form-control" id="gpio-direction" title="GPIO direction">
+                <option>input</option>
+                <option>output</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 mb-3">
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="gpio-value">Value:</label>
+            <select class="form-control" id="gpio-value" title="0 is low level, 1 is high level">
+                <option>0</option>
+                <option>1</option>
+            </select>
+        </div>
+    </div>
+</div>

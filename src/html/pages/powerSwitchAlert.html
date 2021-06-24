@@ -1,0 +1,31 @@
+<p>Please specify the trigger mode and time, if left blank, the default value will be used.</p>
+<div class="border"></div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="trigger-mode">Trigger mode:</label>
+            <select class="form-control" id="trigger-mode" title="0 is low level, 1 is high level">
+                <option>0</option>
+                <option>1</option>
+            </select>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="time-unit">Time unit:</label>
+            <select class="form-control" id="time-unit" title="time unit">
+                <option>ms</option>
+                <option>s</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="trigger-time">Time:</label>
+            <input type="text" class="form-control" id="trigger-time" placeholder="Trigger time length" value="500">
+            </input>
+        </div>
+    </div>

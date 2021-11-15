@@ -1,0 +1,52 @@
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ml15{
+    margin-left: 15px;
+}
+
+.rightDiv{
+    display: grid;
+    grid-template-columns:repeat(auto-fit, minmax(150px, auto));
+    gap: 10px;
+    flex-grow: 1;
+    
+}
+.leftDiv{
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+.logWrapper{
+    margin-top: 20px;
+    height: 500px;
+    border: #c5b1b1 1px solid;
+    border-radius: 1%;
+    padding: 10px;
+    max-height: 100%;
+    line-break: anywhere;
+    overflow-y: auto;
+}
+
+.log{
+    margin-bottom: 2px;
+}
+
+.tabContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.realTimeLogWrapper{
+    height: 100%;
+}
+
+.fg1{
+    flex-grow: 1;
+}
+
+.radioGroup{
+    min-width: fit-content;
+}

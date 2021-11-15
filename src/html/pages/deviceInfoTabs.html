@@ -13,10 +13,15 @@
             aria-controls="board-config-tab" aria-selected="false" data-api-target="getOOBDeviceConfigAPI">Board
             config</a>
     </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="real-time-log" data-toggle="tab" href="#nav-real-time-log" role="tab"
+            aria-controls="real-time-log" aria-selected="false" data-api-target="getOOBDeviceConfigAPI">Real time
+            log</a>
+    </li>
 </ul>
 
 
-<div class="tab-content" id="navTabContent" style="height:600px">
+<div class="tab-content tabContent" id="navTabContent" style="height:600px">
     <div class="tab-pane fade show active pt-3 pb-5" id="nav-device" role="tabpanel" aria-labelledby="nav-home-tab">
         <div class="col-12 pad5">
             <div class="cardbox">
@@ -149,6 +154,77 @@
                         </thead>
                     </table>
                 </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade pt-3 pb-5 fg1" id="nav-real-time-log" role="tabpanel" aria-labelledby="nav-contact-tab">
+        <div class="col-12 pad5 realTimeLogWrapper">
+            <div class="toolbar">
+
+                <div class="leftDiv">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Enable</label>
+                    </div>
+
+                    <div class="radioGroup">
+                        <div class="custom-control custom-radio custom-control-inline ml15">
+                            <input type="radio" id="customRadioInline1" name="customRadioInline"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline1">UART</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadioInline2" name="customRadioInline"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="customRadioInline2">RS232</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="rightDiv">
+                    <button type="button" class="btn btn-danger">Stop</button>
+                    <button type="button" class="btn btn-primary">Start</button>
+                    <button type="button" class="btn btn-info">Download</button>
+                </div>
+            </div>
+            <div class="logWrapper">
+                <p class="log">
+                    12312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+                </p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
+                <p class="log">123</p>
 
             </div>
         </div>

@@ -8,6 +8,8 @@ import "./style/css/style2.css";
 // Stylesheet for device config page.
 import "./style/css/device-config-style.css";
 
+import "./style/css/realTimeLog.css";
+
 // Stylesheet for custom toggle button.
 import "./style/css/customToggle.css";
 

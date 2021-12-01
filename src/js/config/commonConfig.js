@@ -15,8 +15,8 @@
  * 
  */
 // Example: serviceAddress = "http://{your domain name}:8162";
-export const serviceAddress = "";
+export const serviceAddress = "http://127.0.0.1:8162";
 
 export const demoWebTitle = "InnoAgent OOB Demo";
 
-export const checkOnlineStatusFreq = parseInt(process.env.CHECK_SPHERE_STATUS_FREQ) || 86000; // msec
+export const checkOnlineStatusFreq = parseInt(process.env.CHECK_SPHERE_STATUS_FREQ) || 3 * 1000; // msec

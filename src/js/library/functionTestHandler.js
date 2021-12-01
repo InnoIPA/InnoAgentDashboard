@@ -144,6 +144,8 @@ export class FunctionTestHandler {
         // Get connection status result.
         document.axiosSuccess = ({ url, response }) => {
 
+            console.log(url, response);
+
             if (+response === 1) {
                 this.isSuccessfulCount++;
                 this.connectionSuccess.innerHTML = `成功: ${this.isSuccessfulCount}次`;
@@ -158,8 +160,6 @@ export class FunctionTestHandler {
             this.failRate.innerHTML = `掉線率: ${(this.isFailCount / (this.isSuccessfulCount + this.isFailCount) * 100).toFixed(2)}%`;
             console.log(`DateTime: ${moment().format("L LTS")}, isSuccessfulCount: ${this.isSuccessfulCount}`);
             console.log(`DateTime: ${moment().format("L LTS")}, isFailedCount: ${this.isFailCount}`);
-
-            console.log(url, response);
         };
     }
 
@@ -176,6 +176,8 @@ export class FunctionTestHandler {
         // Show device select button group.
         this.devIndexGroup.style.display = "block";
         this.functionTestSection.style.display = "none";
+
+        document.axiosSuccess = undefined;
     }
 
 

@@ -10,7 +10,7 @@
 import { apiHandler } from "../../library/APILibrary";
 
 // LED indicator component.
-import LEDIndicatorComponent from "../pages/ledIndicator.component";
+import LEDIndicatorHandler from "../pages/ledIndicator.component";
 
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
@@ -20,38 +20,46 @@ export default class DeviceOnlineStatusComponent {
         // API library.
         this.apiHandler = apiHandler;
 
-        // Initial related components.
-        this.initialRelatedComponents();
-
         // Check device online status interval timer.
         this.checkDeviceOnlineStatusTimer = null;
 
+        this.ledIndicatorHandler = new LEDIndicatorHandler();
+
+        // Initial requirement DOMs.
+        this.getRequireDOMElements();
     }
 
     /**
+     * Get requirement DOMs.
      * 
-     * Initial related components.
      */
-    initialRelatedComponents() {
-        // Initial the LED indicator components.
-        this.ledIndicatorComponent = new LEDIndicatorComponent();
+    getRequireDOMElements() {
+        // Online status.
+        this.onlineStatusLedIndicator = document.querySelector("#deviceOnlineStatus");
+        this.onlineStatusIndicatorTextLabel = document.querySelector("#deviceOnlineLabel");
+
+        // Host agent status.
+        this.hostLedIndicator = document.querySelector("#hostStatus");
+        this.hostIndicatorTextLabel = document.querySelector("#hostStatusLabel");
     }
+
 
     /**
      * Get the selected device online status. 
      */
     async getDeviceOnlineStatus() {
-        const response = await this.apiHandler.onlineStatusAPI(getSelectedDeviceSerialNumber());
+        const { innoAgent, host } = await this.apiHandler.onlineStatusAPI(getSelectedDeviceSerialNumber());
 
         // If device status is online.
-        if (+response === 1) {
-            this.ledIndicatorComponent.setLedGreen();
-        }
+        (+innoAgent === 1)
+            ? this.ledIndicatorHandler.setLedGreen(this.onlineStatusLedIndicator, this.onlineStatusIndicatorTextLabel)
+            : this.ledIndicatorHandler.setLedRed(this.onlineStatusLedIndicator, this.onlineStatusIndicatorTextLabel);
 
-        // Otherwise.
-        else {
-            this.ledIndicatorComponent.setLedRed();
-        }
+
+        // If host status is online.
+        (+host === 1)
+            ? this.ledIndicatorHandler.setLedGreen(this.hostLedIndicator, this.hostIndicatorTextLabel)
+            : this.ledIndicatorHandler.setLedRed(this.hostLedIndicator, this.hostIndicatorTextLabel);
     }
 
     /**

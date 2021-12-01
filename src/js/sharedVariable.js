@@ -1,10 +1,10 @@
 // Export the selected device serial number (SN).
-let selectedDeviceSerialNumber;
+let selectedDeviceUid;
 
-export const setSelectedDeviceSerialNumber = (serialNumber) => {
-    selectedDeviceSerialNumber = serialNumber;
+export const setSelectedDeviceSerialNumber = (deviceUid) => {
+    selectedDeviceUid = deviceUid;
 };
 
 export const getSelectedDeviceSerialNumber = () => {
-    return selectedDeviceSerialNumber;
+    return selectedDeviceUid;
 };

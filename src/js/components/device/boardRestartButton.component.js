@@ -21,13 +21,13 @@ import { alertTitle, alertMessage } from "../../applicationConstants";
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
-export default class SystemRebootButtonComponent {
+export default class BoardRestartButtonComponent {
     constructor() {
         // API library.
         this.apiHandler = apiHandler;
 
         // Operation name.
-        this.operationName = "system reboot";
+        this.operationName = "do board restart";
 
         this.getRequireDOMElements();
         this.initialEventListener();
@@ -39,7 +39,7 @@ export default class SystemRebootButtonComponent {
      */
     getRequireDOMElements() {
         // Device system reboot DOM.
-        this.deviceRebootButtonDOM = document.querySelector("#reboot-button");
+        this.deviceRebootButtonDOM = document.querySelector("#restart-button");
     }
 
     /**
@@ -69,7 +69,7 @@ export default class SystemRebootButtonComponent {
             pageLoadingAnimate({ type: "loading" });
 
             // Send the API request.
-            const response = await this.apiHandler.deviceSystemRebootAPI(getSelectedDeviceSerialNumber());
+            const response = await this.apiHandler.boardRestartAPI(getSelectedDeviceSerialNumber());
 
             // If operation was success.
             if (+response === 1) {

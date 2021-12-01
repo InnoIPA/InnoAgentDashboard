@@ -11,10 +11,7 @@ import { apiHandler } from "../../library/APILibrary";
 // Page loading animate.
 import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
 
-// Tabs items.
-import DeviceInfoTabItemComponent from "./deviceInfoTab.component";
-import DeviceNetworkingComponent from "./deviceNetworkingTab.component";
-import DeviceConfigTabItemComponent from "./deviceConfigTab.component";
+import { generateDynamicTableFromJSONData } from "../../library/dynamicTable";
 
 
 // Shared variable.
@@ -34,9 +31,6 @@ export default class DeviceTabsComponent {
      */
     getRequireDOMElements() {
         this.deviceTabsItemsDOM = document.querySelectorAll("#device-info-tabs a");
-        this.deviceInfoTabItemComponent = new DeviceInfoTabItemComponent();
-        this.deviceNetworkingComponent = new DeviceNetworkingComponent();
-        this.deviceConfigTabItemComponent = new DeviceConfigTabItemComponent();
     }
 
     initialEventListener() {
@@ -53,7 +47,7 @@ export default class DeviceTabsComponent {
         }
 
         // Default click the first tab.
-        this.doOperation("deviceInfoAPI");
+        this.doOperation("agentStatusAPI");
     }
 
     async doOperation(apiTarget) {
@@ -64,48 +58,46 @@ export default class DeviceTabsComponent {
             this.tabComponentSelector({ apiTarget, responseData });
         }
 
-        // Mock data.
-        // this.tabComponentSelector({ apiTarget });
-
         pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
     }
 
     tabComponentSelector({ apiTarget, responseData }) {
 
         switch (apiTarget) {
-            case ("deviceInfoAPI"): {
-                // Mock data.
-                // responseData = {
-                //     "AppVersion": "6.0.7.20210506", "ConnectedIPAddress": "172.16.93.106", "Port": "1883", "CONNECT": "Ethernet", "NT": "1", "WP": "0", "IDEL": "1", "UART_Pins": ["ttyS4"], "GPIO_Pins": ["PA0", "PA1"]
-                // };
-
-                this.deviceInfoTabItemComponent.insertDataIntoDOMElement(responseData);
+            case ("agentStatusAPI"): {
+                document.querySelector("#agentStatus").innerHTML = "";
+                document.querySelector("#agentStatus").appendChild(generateDynamicTableFromJSONData(responseData));
                 break;
             }
-            case ("deviceNetworkAPI"): {
-                // Mock data.
-                // responseData = {
-                //     "NAME": "eth0", "IP": "192.168.1.100", "MAC": "99:9A:8D:75:9B:2D", "MASK": "255.255.255.0", "GATEWAY": "192.168.1.1"
-                // };
+            case ("getAgentConfigAPI"): {
+                document.querySelector("#agentConfig").innerHTML = "";
+                document.querySelector("#agentConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                break;
+            }
+            case ("getNetworkConfigAPI"): {
+                document.querySelector("#networkConfig").innerHTML = "";
+                document.querySelector("#networkConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                break;
+            }
 
-                this.deviceNetworkingComponent.insertDataIntoDOMElement(responseData);
+            case ("getServerConfigAPI"): {
+                document.querySelector("#serverConfig").innerHTML = "";
+                document.querySelector("#serverConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                break;
+            }
+
+            case ("getGpioConfigAPI"): {
+                document.querySelector("#gpioConfig").innerHTML = "";
+                document.querySelector("#gpioConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                break;
+            }
+            case ("getSerialConfigAPI"): {
+                document.querySelector("#serialConfig").innerHTML = "";
+                document.querySelector("#serialConfig").appendChild(generateDynamicTableFromJSONData(responseData));
                 break;
             }
             case ("getOOBDeviceConfigAPI"): {
-                // Mock data.
-                // responseData = {
-                //     "NETWORK_TYPE": "0",
-                //     "NETWORK_STATIC_IP": "192.168.3.102",
-                //     "NETWORK_STATIC_DEFAULT_GATEWAY": "192.168.3.1",
-                //     "NETWORK_STATIC_NETMASK": "255.255.255.0",
-                //     "NETWORK_STATIC_METRIC": "0",
-                //     "SERVER_USERNAME": "innoage",
-                //     "SERVER_PASSWORD": "B673AEBC6D65E7F42CFABFC7E01C02D0",
-                //     "SERVER_IP": "172.16.93.106",
-                //     "SERVER_PORT": "1883",
-                //     "SYSTIME_ZONE": "GMT+8"
-                // };
-                this.deviceConfigTabItemComponent.insertDataIntoDOMElement(responseData);
+
                 break;
             }
 

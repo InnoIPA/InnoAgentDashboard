@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import "material-icons/iconfont/material-icons.css";
 
 // Main stylesheet.
 import "./style/css/style.css";

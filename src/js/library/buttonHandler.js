@@ -52,12 +52,22 @@ export let ButtonHandler = class ButtonHandler {
     // Display button.
     setDeviceOperationButtonVisibleStatus(item, value) {
 
-        if (value === true) {
-            this.deviceOperationButtonMap.get(item).classList.remove("d-none");
-            return;
+        try {
+            if (value === true) {
+                this.deviceOperationButtonMap.get(item).classList.remove("d-none");
+                this.deviceOperationButtonMap.get(item).classList.add("d-inline-flex");
+            }
+            else {
+                this.deviceOperationButtonMap.get(item).classList.remove("d-inline-flex");
+                this.deviceOperationButtonMap.get(item).classList.add("d-none");
+            }
+
         }
-        this.deviceOperationButtonMap.get(item).classList.remove("d-none");
-        this.deviceOperationButtonMap.get(item).classList.add("d-none");
+        catch (error) {
+            console.log(`Error catch at ${this.setDeviceOperationButtonVisibleStatus.name}: ${error}`);
+        }
+
+
     }
 
 };

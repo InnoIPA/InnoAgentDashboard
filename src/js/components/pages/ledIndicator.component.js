@@ -1,59 +1,58 @@
 /**
  * © 2021 Innodisk Corporation. IPA Jacky
- * Page LED Indicator component.
- * This component is an LED indicator component that controls page LED indicator display.
+ * Page LED Indicator handler.
+ * This handler controls page LED indicator display.
  * 
  * 
  */
 
-export default class LEDIndicatorComponent {
+export default class LEDIndicatorHandler {
 
-    constructor() {
-        this.getRequireDOMElements();
+    /**
+     * Set the specified LED indicator & text label status to offline.
+     * @param {HTMLElement} led LED indicator element.
+     * @param {HTMLElement} text Text label.
+     */
+    setLedRed(led, text) {
+
+        if (!led || !text) return;
+        // Set the specified DOMElement led indicator status.
+        led.classList.remove("led-success", "led-warning");
+        led.classList.add("led-danger");
+
+        // Set the the specified DOMElement text label.
+        text.innerHTML = "Offline";
     }
 
     /**
-     * Get requirement DOMs.
-     * 
+     * Set the specified LED indicator & text label status to online.
+     * @param {HTMLElement} led LED indicator element.
+     * @param {HTMLElement} text Text label.
      */
-    getRequireDOMElements() {
-        this.ledIndicator = document.querySelector("#deviceOnlineStatus");
-        this.ledIndicatorTextLabel = document.querySelector("#deviceOnlineLabel");
+    setLedGreen(led, text) {
+        if (!led || !text) return;
+
+        // Set the specified DOMElement led indicator status.
+        led.classList.remove("led-danger", "led-warning");
+        led.classList.add("led-success");
+
+        // Set the the specified DOMElement text label.
+        text.innerHTML = "Online";
     }
 
     /**
-     * Set the LED indicator to red.
+     * Set the specified LED indicator & text label status to warning.
+     * @param {HTMLElement} led LED indicator element.
+     * @param {HTMLElement} text Text label.
      */
-    setLedRed() {
-        // Set the LED indicator status.
-        this.ledIndicator.classList.remove("led-success", "led-warning");
-        this.ledIndicator.classList.add("led-danger");
+    setLedWarning(led, text) {
 
-        // Set the LED indicator text label.
-        this.ledIndicatorTextLabel.innerHTML = "Offline";
-    }
+        if (!led || !text) return;
+        // Set the specified DOMElement led indicator status.
+        led.classList.remove("led-success", "led-danger");
+        led.classList.add("led-warning");
 
-    /**
-     * Set the LED indicator to green.
-     */
-    setLedGreen() {
-        // Set the LED indicator status.
-        this.ledIndicator.classList.remove("led-danger", "led-warning");
-        this.ledIndicator.classList.add("led-success");
-
-        // Set the LED indicator text label.
-        this.ledIndicatorTextLabel.innerHTML = "Online";
-    }
-
-    /**
-     * Set the LED indicator to yellow.
-     */
-    setLedWarning() {
-        // Set the LED indicator status.
-        this.ledIndicator.classList.remove("led-success", "led-danger");
-        this.ledIndicator.classList.add("led-warning");
-
-        // Set the LED indicator text label.
-        this.ledIndicatorTextLabel.innerHTML = "Warning";
+        // Set the the specified DOMElement text label.
+        text.innerHTML = "Warning";
     }
 }

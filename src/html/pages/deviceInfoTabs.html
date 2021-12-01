@@ -1,18 +1,45 @@
 <!-- Device information tabs -->
-<ul class="pt-3 nav nav-tabs" id="device-info-tabs" role="tablist">
+<ul class="pt-2 nav nav-tabs" id="device-info-tabs" role="tablist">
+
+    <!-- Agent status tab button -->
     <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="device-tab" data-toggle="tab" href="#nav-device" role="tab"
-            aria-controls="device-tab" aria-selected="true" data-api-target="deviceInfoAPI">Device</a>
+        <a class="nav-link active" id="agentStatusTabToggler" data-toggle="tab" href="#nav-agent-status" role="tab"
+            aria-controls="device-tab" aria-selected="true" data-api-target="agentStatusAPI">Agent status</a>
     </li>
+
+    <!-- Agent configure tab button -->
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="networking-tab" data-toggle="tab" href="#nav-networking" role="tab"
-            aria-controls="networking-tab" aria-selected="false" data-api-target="deviceNetworkAPI">Networking</a>
+        <a class="nav-link" id="agentConfigTabToggler" data-toggle="tab" href="#nav-agnet-config" role="tab"
+            aria-controls="agent-config-tab" aria-selected="false" data-api-target="getAgentConfigAPI">Agent
+            configure</a>
     </li>
+
+    <!-- Networking configure tab button -->
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="board-config-tab" data-toggle="tab" href="#nav-board-config" role="tab"
-            aria-controls="board-config-tab" aria-selected="false" data-api-target="getOOBDeviceConfigAPI">Board
-            config</a>
+        <a class="nav-link" id="networkConfigureTabToggler" data-toggle="tab" href="#nav-networking-config" role="tab"
+            aria-controls="networking-config-tab" aria-selected="false"
+            data-api-target="getNetworkConfigAPI">Networking</a>
     </li>
+
+    <!-- Server configure tab button -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="serverConfigTabToggler" data-toggle="tab" href="#nav-server-config" role="tab"
+            aria-controls="server-config-tab" aria-selected="false" data-api-target="getServerConfigAPI">Server</a>
+    </li>
+
+    <!-- GPIO default configure tab button -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="gpioConfigTabToggler" data-toggle="tab" href="#nav-gpio-default-config" role="tab"
+            aria-controls="gpio-config-tab" aria-selected="false" data-api-target="getGpioConfigAPI">GPIO</a>
+    </li>
+
+    <!-- Serial configure tab button -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="serialConfigTabToggler" data-toggle="tab" href="#nav-serial-config" role="tab"
+            aria-controls="serial-config-tab" aria-selected="false" data-api-target="getSerialConfigAPI">Serial</a>
+    </li>
+
+    <!-- Real-time log tab button -->
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="real-time-log" data-toggle="tab" href="#nav-real-time-log" role="tab"
             aria-controls="real-time-log" aria-selected="false" data-api-target="getOOBDeviceConfigAPI">Real time
@@ -22,152 +49,150 @@
 
 
 <div class="tab-content tabContent" id="navTabContent" style="height:600px">
-    <div class="tab-pane fade show active pt-3 pb-5" id="nav-device" role="tabpanel" aria-labelledby="nav-home-tab">
-        <div class="col-12 pad5">
-            <div class="cardbox">
-                <div class="panel-heading row mar0">
-                    <div class="col-12">
-                        Device Information
-                    </div>
-                </div>
-                <div class="panel-body pad0 Detail-Info" style="height:auto;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>App version</td>
-                                <td class="value" id="AppVersion">-</td>
-                            </tr>
-                            <tr>
-                                <td>Server IP</td>
-                                <td class="value" id="ConnectedIPAddress">-</td>
-                            </tr>
-                            <tr>
-                                <td>Server port</td>
-                                <td class="value" id="Port">-</td>
-                            </tr>
-                            <tr>
-                                <td>Enable UART Ports</td>
-                                <td class="value" id="UART_Pins">-</td>
-                            </tr>
-                            <tr>
-                                <td>Enable GPIO Pins</td>
-                                <td class="value" id="GPIO_Pins">-</td>
-                            </tr>
-                        </thead>
-                    </table>
 
+    <!-- InnoAgent status tab content -->
+    <div class="tab-pane fade show active pt-3 pb-5" id="nav-agent-status" role="tabpanel"
+        aria-labelledby="nav-agent-status">
+        <div class="col-12 pad5">
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>InnoAgent status</h5>
+            </div>
+            <hr>
+            <div class="cardbox">
+                <div id="agentStatus" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="tab-pane fade pt-3 pb-5" id="nav-networking" role="tabpanel" aria-labelledby="nav-profile-tab">
-        <div class="col-12 pad5">
-            <div class="cardbox">
-                <div class="panel-heading row mar0">
-                    <div class="col-12">
-                        Networking Information
-                    </div>
-                </div>
-                <div class="panel-body pad0 Detail-Info" style="height:auto;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>Interface name</td>
-                                <td class="value" id="NAME">-</td>
-                            </tr>
-                            <tr>
-                                <td>IP address</td>
-                                <td class="value" id="IP">-</td>
-                            </tr>
-                            <tr>
-                                <td>MAC address</td>
-                                <td class="value" id="MAC">-</td>
-                            </tr>
-                            <tr>
-                                <td>Subnet mask</td>
-                                <td class="value" id="MASK">-</td>
-                            </tr>
-                            <tr>
-                                <td>Gateway</td>
-                                <td class="value" id="GATEWAY">-</td>
-                            </tr>
-                        </thead>
-                    </table>
 
+    <!-- Agent config tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-agnet-config" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="col-12 pad5">
+
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>InnoAgent configure</h5>
+                <button type="button" class="btn btn-secondary btn-sm"><span class="material-icons font18">
+                        edit
+                    </span></button>
+            </div>
+            <hr>
+
+            <!-- Content -->
+            <div class="cardbox">
+                <div id="agentConfig" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
                 </div>
 
             </div>
         </div>
     </div>
-    <div class="tab-pane fade pt-3 pb-5" id="nav-board-config" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+    <!-- Networking config tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-networking-config" role="tabpanel"
+        aria-labelledby="nav-networking-config">
         <div class="col-12 pad5">
+
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>Networking configure</h5>
+                <button type="button" class="btn btn-secondary btn-sm"><span class="material-icons font18">
+                        edit
+                    </span></button>
+            </div>
+            <hr>
+
+            <!-- Content -->
             <div class="cardbox">
-                <div class="panel-heading row mar0">
-                    <div class="col-12">
-                        Current board config
-                    </div>
+                <div id="networkConfig" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
                 </div>
-                <div class="panel-body pad0 Detail-Info" style="height:auto;">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>DHCP mode</td>
-                                <td class="value" id="NETWORK_TYPE">-</td>
-                            </tr>
-                            <tr class="staticMode">
-                                <td>IP address</td>
-                                <td class="value" id="NETWORK_STATIC_IP">-</td>
-                            </tr>
-                            <tr class="staticMode">
-                                <td>Gateway</td>
-                                <td class="value" id="NETWORK_STATIC_DEFAULT_GATEWAY">-</td>
-                            </tr>
-                            <tr class="staticMode">
-                                <td>Subnet mask</td>
-                                <td class="value" id="NETWORK_STATIC_NETMASK">-</td>
-                            </tr>
-                            <tr class="staticMode">
-                                <td>Network static metric</td>
-                                <td class="value" id="NETWORK_STATIC_METRIC">-</td>
-                            </tr>
-                            <tr>
-                                <td>Server IP</td>
-                                <td class="value" id="SERVER_IP">-</td>
-                            </tr>
-                            <tr>
-                                <td>Port</td>
-                                <td class="value" id="SERVER_PORT">-</td>
-                            </tr>
-                            <tr>
-                                <td>Server username</td>
-                                <td class="value" id="SERVER_USERNAME">-</td>
-                            </tr>
-                            <tr>
-                                <td>Server password</td>
-                                <td class="value" id="SERVER_PASSWORD">-</td>
-                            </tr>
-                            <tr>
-                                <td>Board system timezone</td>
-                                <td class="value" id="SYSTIME_ZONE">-</td>
-                            </tr>
-                        </thead>
-                    </table>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Server config tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-server-config" role="tabpanel" aria-labelledby="nav-server-config">
+        <div class="col-12 pad5">
+
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>Server configure</h5>
+                <button type="button" class="btn btn-secondary btn-sm"><span class="material-icons font18">
+                        edit
+                    </span></button>
+            </div>
+            <hr>
+
+            <!-- Content -->
+            <div class="cardbox">
+                <div id="serverConfig" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
                 </div>
 
             </div>
         </div>
     </div>
+
+    <!-- GPIO default tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-gpio-default-config" role="tabpanel"
+        aria-labelledby="nav-gpio-default-config">
+        <div class="col-12 pad5">
+
+
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>GPIO default configure</h5>
+                <button type="button" class="btn btn-secondary btn-sm"><span class="material-icons font18">
+                        edit
+                    </span></button>
+            </div>
+            <hr>
+
+            <!-- Content -->
+            <div class="cardbox">
+                <div id="gpioConfig" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Serial tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-serial-config" role="tabpanel" aria-labelledby="nav-serial-config">
+        <div class="col-12 pad5">
+
+            <!-- Toolbar -->
+            <div class="d-flex justify-content-between">
+                <h5>Serial configure</h5>
+                <button type="button" class="btn btn-secondary btn-sm"><span class="material-icons font18">
+                        edit
+                    </span></button>
+            </div>
+            <hr>
+
+            <!-- Content -->
+            <div class="cardbox">
+                <div id="serialConfig" class="panel-body pad0 Detail-Info" style="height:auto;">
+                    <!-- Dynamic table -->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time log tab content -->
     <div class="tab-pane fade pt-3 pb-5 fg1" id="nav-real-time-log" role="tabpanel" aria-labelledby="nav-contact-tab">
         <div class="col-12 pad5 realTimeLogWrapper">
             <div class="toolbar">
 
                 <div class="leftDiv">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                        <label class="custom-control-label" for="customCheck1">Enable</label>
-                    </div>
-
                     <div class="radioGroup">
                         <div class="custom-control custom-radio custom-control-inline ml15">
                             <input type="radio" id="customRadioInline1" name="customRadioInline"
@@ -181,12 +206,14 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="rightDiv">
-                    <button type="button" class="btn btn-danger">Stop</button>
-                    <button type="button" class="btn btn-primary">Start</button>
-                    <button type="button" class="btn btn-info">Download</button>
+                    <button type="button" class="btn btn-sm btn-danger">Stop</button>
+                    <button type="button" class="btn btn-sm btn-primary">Start</button>
+                    <button type="button" class="btn btn-sm btn-info">Download</button>
                 </div>
             </div>
+
             <div class="logWrapper">
                 <p class="log">
                     12312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312312311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111

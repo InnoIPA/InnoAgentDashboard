@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
 // Pages.
-import powerSwitchAlertPage from "../../html/pages/powerSwitchAlert.html";
+import gpioOutputAlertPage from "../../html/pages/gpioOutputAlert.html";
 import gpioButtonAlertPage from "../../html/pages/gpioButtonAlert.html";
 import uartPassThruAlertPage from "../../html/pages/uartPassThruAlert.html";
 import updateDeviceConfigAlert from "../../html/pages/updateDeviceConfigAlert.html";
@@ -222,28 +222,30 @@ export class AlertUtils {
         return toast;
     }
 
-    /**
-     * powerSwitchAlert
-     * This function will generator power switch alert.
-     */
-    async powerSwitchAlert() {
+    async gpioOutputAlert(title = "Power switch") {
         const alert = await Swal.fire({
             icon: "info",
-            title: "Power switch",
+            title,
             showCancelButton: true,
             confirmButtonColor: "#20CCAC",
-            html: powerSwitchAlertPage,
+            html: gpioOutputAlertPage,
+            onBeforeOpen: async () => {
+                (title === "Power switch")
+                    ? document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT2"
+                    : document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT1";
+            },
             preConfirm: () => {
                 const inputPayload = {
-                    mode: document.querySelector("#trigger-mode").value,
-                    time: document.querySelector("#trigger-time").value,
-                    timeUnit: document.querySelector("#time-unit").value
+                    name: String(document.querySelector("#pin-name").value),
+                    value: String(document.querySelector("#level").value),
+                    interval: Number(document.querySelector("#interval").value)
                 };
                 return inputPayload;
             }
         });
         return alert;
     }
+
 
     async gpioButtonAlert() {
         const gpioButtonComponent = new GpioButtonComponent();

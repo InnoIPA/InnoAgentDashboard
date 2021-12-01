@@ -1,8 +1,6 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Reboot button component
  * This component is a device system reboot button component that controls device system reboot function.
- * 
  * 
  */
 
@@ -21,13 +19,13 @@ import { alertTitle, alertMessage } from "../../applicationConstants";
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
-export default class PowerButtonComponent {
+export default class RebootButtonComponent {
     constructor() {
         // API library.
         this.apiHandler = apiHandler;
 
         // Operation name.
-        this.operationName = "power operation";
+        this.operationName = "Reboot";
 
         this.getRequireDOMElements();
         this.initialEventListener();
@@ -39,7 +37,7 @@ export default class PowerButtonComponent {
      */
     getRequireDOMElements() {
         // Device system reboot DOM.
-        this.deviceRebootButtonDOM = document.querySelector("#power-button");
+        this.deviceRebootButtonDOM = document.querySelector("#reboot-button");
     }
 
     /**
@@ -66,7 +64,7 @@ export default class PowerButtonComponent {
             // alertObj.fire(`Entered password: ${result.value}`);
 
             // Device power switch alert.
-            const gpioOutputAlert = await alertUtils.gpioOutputAlert();
+            const gpioOutputAlert = await alertUtils.gpioOutputAlert(this.operationName);
 
             // Click the OK button.
             if (gpioOutputAlert.isConfirmed === true) {
@@ -75,8 +73,8 @@ export default class PowerButtonComponent {
                 pageLoadingAnimate({ type: "loading" });
 
                 // Send the API request.
-                // Params is: selectedDeviceSerialNumber,"power-switch", { object });
-                const response = await this.apiHandler.sendGPIOOutputAPI(getSelectedDeviceSerialNumber(), "power-switch", gpioOutputAlert.value);
+                // Params is: selectedDeviceSerialNumber,"reboot",{ object });
+                const response = await this.apiHandler.sendGPIOOutputAPI(getSelectedDeviceSerialNumber(), "reboot", gpioOutputAlert.value);
 
                 // If operation was success.
                 if (response === "successfully") {

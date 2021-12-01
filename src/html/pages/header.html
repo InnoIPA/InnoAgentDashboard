@@ -53,18 +53,15 @@
         <i id="serial-number" style="display: none;">SN</i>
         <span id="recovery-time" style="display: none;"></span>
         <p id="status-led-row" style="margin-top: 3px;">
-            <!-- Device online status -->
-            <span>Online status:</span>
-            <span id="deviceOnlineStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
-            <span id="deviceOnlineLabel" style="margin-right: 15px;">Offline</span>
+           <!-- Device online status -->
+           <span>Online status:</span>
+           <span id="deviceOnlineStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+           <span id="deviceOnlineLabel" style="margin-right: 15px;">Offline</span>
 
-            <!-- Online -->
-            <!-- <span id="osHeartbeatLed" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span> -->
-            <!-- <span id="osStatusText" style="margin-right: 15px;">Offline</span> -->
-            <!-- Azure Sphere Status -->
-            <!-- <span id="azureSphereStatusLed" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span> -->
-            <!-- <span id="">Azure Sphere Status</span> -->
-            <!-- <span id="sphereAppVersion"></span> -->
+           <!-- Host online status -->
+           <span>Host status:</span>
+           <span id="hostStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+           <span id="hostStatusLabel" style="margin-right: 15px;">Offline</span>
         </p>
     </div>
 
@@ -106,10 +103,11 @@
 
 <div class="col-12 pad5 testbu" id="remoteBtnGroup">
     <!-- Device operation -->
-    <button class="button d-none" id="reboot-button">System Reboot</button>
+    <button class="button d-none" id="reboot-button">Reboot</button>
     <button class="button d-none" id="power-button">Power</button>
     <button class="button d-none" id="gpio-button">GPIO</button>
     <button class="button d-none" id="tty-button">UART PassThru</button>
+    <button class="button d-none" id="restart-button">Restart</button>
 
     <!-- Config -->
     <div class="btn-group">

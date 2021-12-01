@@ -1,0 +1,31 @@
+<p>Please specify the GPIO pin and time, if left blank, the default value will be used.</p>
+<div class="border"></div>
+<br>
+<div class="row">
+    <div class="col">
+        <div class="form-inline">
+            <label class="form-check-label p-1" for="pin-name">Name:<span class="text-danger">*</span></label>
+            <select class="form-control" id="pin-name" title="pin name" required>
+                <option selected>INNO_GPIO_OUTPUT1</option>
+                <option>INNO_GPIO_OUTPUT2</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col">
+        <div class="form-inline">
+
+            <label class="form-check-label p-1" for="level">Level:<span class="text-danger">*</span></label>
+            <select class="form-control" id="level" title="level">
+                <option selected>high</option>
+                <option>low</option>
+            </select>
+
+            <label class="form-check-label p-1" for="interval">Interval (ms):<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="interval" placeholder="Time interval" value="500"
+                style="width: 100px;">
+            </input>
+        </div>
+    </div>
+</div>

@@ -5,7 +5,6 @@ export class APIHandler {
 
     constructor() {
         this.doc = document;
-        this.protocol = this.doc.location.protocol.startsWith("https") ? "wss://" : "ws://";
         this.serverAddr = "";
         // Create device API global axios instance.
         this.devicesAPI = this.createAxiosInstance("");
@@ -48,10 +47,10 @@ export class APIHandler {
         });
     }
 
-    async onlineStatusAPI(serialNumber) {
+    async onlineStatusAPI(deviceUid) {
 
         // The request URL.
-        const url = `/devices/status/${serialNumber}`;
+        const url = `/api/devices/status/${deviceUid}`;
         try {
             const response = await this.devicesAPI.get(url);
 
@@ -66,7 +65,10 @@ export class APIHandler {
                 document.axiosSuccess({ url, response: 1 });
             }
 
-            return +({ Status } = response.data.Payload.Data);
+            console.log("Online status:", response.data.payload[deviceUid]);
+
+            // Check if the status API is null, returns the default status.
+            return (response.data.payload[deviceUid]) ? response.data.payload[deviceUid] : { innoAgent: 0, host: 0 };
         }
 
         catch (error) {
@@ -75,54 +77,112 @@ export class APIHandler {
                 document.axiosSuccess({ url, response: 0 });
             }
 
-            return 0;
+            return { innoAgent: 0, host: 0 };
         }
     }
 
-    async deviceInfoAPI(serialNumber) {
+    async agentStatusAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/device-info/${serialNumber}`);
-            return response.data.Payload.Data;
+            const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/info`);
+            return response.data.payload.params.response;
         }
         catch (error) {
-            return null;
+            return undefined;
         }
     }
 
     async webServiceVersionAPI() {
         try {
-            const response = await this.devicesAPI.get("/api/show-config");
-            return response.data.Payload.Data.VersionNumber;
+            const response = await this.devicesAPI.get("/api/service/show-config");
+            return response.data.payload.VersionNumber;
         }
         catch (error) {
             return "x.x.x.x";
         }
     }
 
-    async deviceNetworkAPI(serialNumber) {
+    async getAgentConfigAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/network-info/${serialNumber}`);
-            return response.data.Payload.Data;
+            const response = await this.devicesAPI.get(`/api/devices/config/${deviceUid}/agent`);
+            return response.data.payload.params.response.data;
         }
         catch (error) {
-            return null;
+            return undefined;
         }
 
     }
 
-    async deviceTimeAPI(serialNumber) {
+    async getNetworkConfigAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/system-time/${serialNumber}`);
-            return response.data.Payload.Data;
+            const response = await this.devicesAPI.get(`/api/devices/config/${deviceUid}/lan`);
+            return response.data.payload.params.response.data;
         }
         catch (error) {
-            return null;
+            return undefined;
+        }
+
+    }
+
+    async getServerConfigAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/config/${deviceUid}/server`);
+            return response.data.payload.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
+    }
+
+    async getSerialConfigAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/config/${deviceUid}/serial`);
+            return response.data.payload.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
+    }
+
+    async getGpioConfigAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/config/${deviceUid}/gpio`);
+            return response.data.payload.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
+    }
+
+
+    async sendGPIOOutputAPI(deviceUid, method, params = { name: "INNO_GPIO_OUTPUT1", value: "high", interval: 500 }) {
+        try {
+            const result = await this.devicesAPI.post(`/api/devices/${deviceUid}/${method}`, params);
+            return result.data.payload.reported.params.response;
+        }
+        catch (error) {
+            return "failed";
         }
     }
 
-    async deviceEnableGPIOPinsAPI(serialNumber) {
+    async boardRestartAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/gpio-list/${serialNumber}`);
+            const response = await this.devicesAPI.post(`/api/devices/${deviceUid}/board-restart`);
+            return response.data.payload.params.response;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+
+    // Old APIs.
+
+    async deviceEnableGPIOPinsAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/devices/info/gpio-list/${deviceUid}`);
             return response.data.Payload.Data;
         }
         catch (error) {
@@ -130,9 +190,9 @@ export class APIHandler {
         }
     }
 
-    async deviceEnableSerialPortsAPI(serialNumber) {
+    async deviceEnableSerialPortsAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/tty-list/${serialNumber}`);
+            const response = await this.devicesAPI.get(`/devices/info/tty-list/${deviceUid}`);
             return response.data.Payload.Data;
         }
         catch (error) {
@@ -140,31 +200,7 @@ export class APIHandler {
         }
     }
 
-    async deviceSystemRebootAPI(serialNumber) {
-        try {
-            const response = await this.devicesAPI.post("/devices/system-reboot", { serialNumber });
-            return +({ Status } = response.data.Payload.Data);
-        }
-        catch (error) {
-            return 0;
-        }
-    }
-
-    async devicePowerSwitchAPI(serialNumber, params) {
-        // Add the device serialNumber into params.
-        params["serialNumber"] = serialNumber;
-        try {
-            const response = await this.devicesAPI.post("/devices/power-switch", params);
-            return +({ Status } = response.data.Payload.Data.reported);
-        }
-        catch (error) {
-            return 0;
-        }
-    }
-
-    async deviceGPIOAPI(serialNumber, params) {
-        // Add the device serialNumber into params.
-        params["serialNumber"] = serialNumber;
+    async deviceGPIOAPI(deviceUid, params) {
         try {
             const response = await this.devicesAPI.post("/devices/gpio", params);
             return +({ Status } = response.data.Payload.Data.reported);
@@ -174,9 +210,7 @@ export class APIHandler {
         }
     }
 
-    async deviceSerialPortAPI(serialNumber, params) {
-        // Add the device serialNumber into params.
-        params["serialNumber"] = serialNumber;
+    async deviceSerialPortAPI(deviceUid, params) {
         try {
             const response = await this.devicesAPI.post("/devices/tty", params);
             return +({ Status } = response.data.Payload.Data.reported);
@@ -186,9 +220,9 @@ export class APIHandler {
         }
     }
 
-    async getOOBDeviceConfigAPI(serialNumber) {
+    async getOOBDeviceConfigAPI(deviceUid) {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/board-config/${serialNumber}`);
+            const response = await this.devicesAPI.get(`/devices/info/board-config/${deviceUid}`);
             return response.data.Payload.Data;
         }
         catch (error) {
@@ -196,9 +230,9 @@ export class APIHandler {
         }
     }
 
-    async setOOBDeviceConfigAPI(serialNumber, config) {
+    async setOOBDeviceConfigAPI(deviceUid, config) {
         try {
-            const response = await this.devicesAPI.post("/devices/config/board-config", { serialNumber, config });
+            const response = await this.devicesAPI.post("/devices/config/board-config", { deviceUid, config });
             return response.data.Payload.Data.reported;
         }
         catch (error) {

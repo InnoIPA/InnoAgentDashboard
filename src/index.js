@@ -2,6 +2,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "material-icons/iconfont/material-icons.css";
 
+import "jquery";
+import "bootstrap";
+import "moment/moment";
+
 // Main stylesheet.
 import "./style/css/style.css";
 import "./style/css/style2.css";
@@ -18,9 +22,7 @@ import "./style/css/customToggle.css";
 import header from "./html/pages/header.html";
 import deviceInfoTabs from "./html/pages/deviceInfoTabs.html";
 
-import "jquery";
-import "bootstrap";
-import "moment/moment";
+;
 
 import { initial } from "./js/pages/main";
 import { sideBarInit } from "./js/pages/sideBar";

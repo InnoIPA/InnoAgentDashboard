@@ -11,11 +11,14 @@ import { apiHandler } from "../../library/APILibrary";
 // Page loading animate.
 import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
 
-import { generateDynamicTableFromJSONData } from "../../library/dynamicTable";
+import { DynamicTableHandler } from "../../library/dynamicTable";
 
 
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
+
+import EditDeviceConfigButtonComponent from "./editDeviceConfigButton.component";
+
 
 export default class DeviceTabsComponent {
     constructor() {
@@ -23,6 +26,7 @@ export default class DeviceTabsComponent {
         this.apiHandler = apiHandler;
         this.getRequireDOMElements();
         this.initialEventListener();
+        this.dynamicTableHandler = new DynamicTableHandler();
     }
 
     /**
@@ -64,36 +68,44 @@ export default class DeviceTabsComponent {
     tabComponentSelector({ apiTarget, responseData }) {
 
         switch (apiTarget) {
+
             case ("agentStatusAPI"): {
                 document.querySelector("#agentStatus").innerHTML = "";
-                document.querySelector("#agentStatus").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#agentStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+
                 break;
             }
             case ("getAgentConfigAPI"): {
+
                 document.querySelector("#agentConfig").innerHTML = "";
-                document.querySelector("#agentConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#agentConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                new EditDeviceConfigButtonComponent("getAgentConfigAPI", "setAgentConfigAPI");
                 break;
             }
             case ("getNetworkConfigAPI"): {
                 document.querySelector("#networkConfig").innerHTML = "";
-                document.querySelector("#networkConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                new EditDeviceConfigButtonComponent("getNetworkConfigAPI", "setNetworkConfigAPI");
                 break;
             }
 
             case ("getServerConfigAPI"): {
                 document.querySelector("#serverConfig").innerHTML = "";
-                document.querySelector("#serverConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                new EditDeviceConfigButtonComponent("getServerConfigAPI", "setServerConfigAPI");
                 break;
             }
 
             case ("getGpioConfigAPI"): {
                 document.querySelector("#gpioConfig").innerHTML = "";
-                document.querySelector("#gpioConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#gpioConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                new EditDeviceConfigButtonComponent("getGpioConfigAPI", "setGpioConfigAPI");
                 break;
             }
             case ("getSerialConfigAPI"): {
                 document.querySelector("#serialConfig").innerHTML = "";
-                document.querySelector("#serialConfig").appendChild(generateDynamicTableFromJSONData(responseData));
+                document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                new EditDeviceConfigButtonComponent("getSerialConfigAPI", "setSerialConfigAPI");
                 break;
             }
             case ("getOOBDeviceConfigAPI"): {

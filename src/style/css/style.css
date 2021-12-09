@@ -1113,6 +1113,26 @@ canvas {
     text-decoration: none !important;
 }
 
+/**
+*
+* Table style.
+*
+*/
+td[contenteditable="true"] {
+    color: #20ccac;
+    /*  */
+    min-width: 100px;
+    word-break: break-all;
+    cursor: text;
+}
+
+
+
+td[contenteditable="true"]:focus-visible {
+    outline: 0.5px solid #20ccac;
+}
+
+
 
 /*Add device config */
 

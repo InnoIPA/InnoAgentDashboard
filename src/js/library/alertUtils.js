@@ -23,12 +23,9 @@ export class AlertUtils {
         const alert = await Swal.fire({
             icon: "question",
             title: "Are you sure?",
-            text: `If you want to ${operation}, enter your password.`,
-            input: "password",
+            text: `If you want to ${operation}, press the OK button.`,
             showCancelButton: true,
             confirmButtonColor: "#20CCAC",
-            inputPlaceholder: "Enter your password",
-            inputValue: "password",
             inputAttributes: {
                 autocapitalize: "off",
                 autocorrect: "off"

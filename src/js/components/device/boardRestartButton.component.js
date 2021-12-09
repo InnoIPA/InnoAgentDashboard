@@ -27,7 +27,7 @@ export default class BoardRestartButtonComponent {
         this.apiHandler = apiHandler;
 
         // Operation name.
-        this.operationName = "do board restart";
+        this.operationName = "board restart";
 
         this.getRequireDOMElements();
         this.initialEventListener();

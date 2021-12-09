@@ -87,7 +87,14 @@ export class APIHandler {
             return response.data.payload.params.response;
         }
         catch (error) {
-            return undefined;
+            return {
+                "hostHB": 0,
+                "mode": 0,
+                "gpio_model": 1,
+                "net_type": 0,
+                "LAN_MAC": "e0d55e4d9bc6",
+                "WIFI_MAC": ""
+            };
         }
     }
 
@@ -107,7 +114,11 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return undefined;
+            // return undefined;
+            return {
+                "IO_INTERVAL": 1000,
+                "HB_INTERVAL": 30
+            };
         }
 
     }
@@ -118,7 +129,8 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return undefined;
+            // return undefined;
+            return { "LAN_STATIC_USE": 0, "LAN_STATIC_IP": "192.168.3.102", "LAN_STATIC_DEFAULT_GATEWAY": "192.168.3.1", "LAN_STATIC_NETMASK": "255.255.255.0", "LAN_STATIC_DNS1": "192.168.168.45", "LAN_STATIC_DNS2": "192.168.168.11" };
         }
 
     }
@@ -129,7 +141,12 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return undefined;
+            return {
+                "USERNAME": "innoage",
+                "PASSWORD": "B673AEBC6D65E7F42CFABFC7E01C02D0",
+                "IP": "172.16.92.127",
+                "PORT": "1883"
+            };
         }
 
     }
@@ -140,7 +157,20 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return undefined;
+            return {
+                "INNO_UART": {
+                    "BAUDRATE": 115200,
+                    "DATABITS": 8,
+                    "PARITY": "N",
+                    "STOPBITS": 1
+                },
+                "INNO_RS232": {
+                    "BAUDRATE": 115200,
+                    "DATABITS": 8,
+                    "PARITY": "N",
+                    "STOPBITS": 1
+                }
+            };
         }
 
     }
@@ -151,11 +181,13 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return undefined;
+            // return undefined;
+            return {
+                "INNO_GPIO_1": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_2": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_3": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_4": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_5": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_6": { "DIRECTION": "in", "VALUE": "1" }
+            };
+
         }
-
     }
-
 
     async sendGPIOOutputAPI(deviceUid, method, params = { name: "INNO_GPIO_OUTPUT1", value: "high", interval: 500 }) {
         try {
@@ -171,6 +203,57 @@ export class APIHandler {
         try {
             const response = await this.devicesAPI.post(`/api/devices/${deviceUid}/board-restart`);
             return response.data.payload.params.response;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async setAgentConfigAPI(deviceUid, params) {
+
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/config/${deviceUid}/agent`, params);
+            return response.data.payload.reported.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async setNetworkConfigAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/config/${deviceUid}/lan`, params);
+            return response.data.payload.reported.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async setServerConfigAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/config/${deviceUid}/server`, params);
+            return response.data.payload.reported.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async setGpioConfigAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/config/${deviceUid}/gpio`, params);
+            return response.data.payload.reported.params.response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async setSerialConfigAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/config/${deviceUid}/serial`, params);
+            return response.data.payload.reported.params.response.data;
         }
         catch (error) {
             return undefined;

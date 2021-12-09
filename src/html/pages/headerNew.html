@@ -1,0 +1,170 @@
+<!-- Modal -->
+<div class="modal fade" id="loadingModal" tabindex="-1" role="dialog" aria-labelledby="loadingModalLabel"
+    aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: transparent ;border:0;">
+            <div class="modal-header" style="display:block">
+
+            </div>
+            <div class="modal-body">
+                <div class="loading modal-background"
+                    style="align-items: center;justify-content: center;display: flex;">
+                    <div class="loading-content" style="background-color: transparent ;">
+                        <!-- <div class="loading-circle"></div> -->
+                        <div class="breathe-led">
+
+                            <div style="font-size: 68px;color: #20CCAC;" class="loading-name">
+                                <span id="ProgressText">0</span>
+                                <span style="font-size: 16px"> %</span>
+                                <p style="color: white;font-size: 12px;margin: 0 auto;" id="loadingText"
+                                    class="loading-name typing">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="chart-content row mar0">
+    <div class="col-12 pad5">
+        <div class="hexagon-title">
+            <span style="vertical-align: middle;">
+                <span id="PCName"
+                    style="color: #2f3a55;padding-left: 5px;border-left: 5px solid #20CCAC;font-size:1.75rem;font-weight: 500;line-height: 1.5; padding-right: 0.5rem;">
+                    Jacky's NB
+                </span>
+                <div class="fas fa-sliders-h d-none" id="deviceConfigDropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" style="font-size: 18px;">
+                    <div class="dropdown-menu"
+                        style="cursor: pointer;font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;"">
+                        <div class=" dropdown-item" id="modify-device-config-btn">Modify this device
+                        configure</div>
+                    <div class="dropdown-item" id="delete-device-config-btn">Delete this device</div>
+                </div>
+        </div>
+
+        </span>
+
+
+        <i id="serial-number" style="display: none;">SN</i>
+        <span id="recovery-time" style="display: none;"></span>
+        <p id="status-led-row" style="margin-top: 3px;">
+            <!-- Device online status -->
+            <span>Online status:</span>
+            <span id="deviceOnlineStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+            <span id="deviceOnlineLabel" style="margin-right: 15px;">Offline</span>
+
+            <!-- Host online status -->
+            <span>Host status:</span>
+            <span id="hostStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+            <span id="hostStatusLabel" style="margin-right: 15px;">Offline</span>
+        </p>
+    </div>
+
+    <div class="hexagon-title" id="crashPNG">
+        <img class="giphyIcon" src="../../assets/giphy.gif" alt="" id="warningGif">
+    </div>
+</div>
+<div class="col-12 pad5 indexbut">
+    <div id="devIndexGroup" class="d-inline">
+        <!-- Auto generator button
+        <button id="devIndexBtn1" class="btn btn-dark-blue btn-sm hover">1</button>
+        <button id="devIndexBtn2" class="btn btn-dark-blue btn-sm">2</button>
+        <button id="devIndexBtn3" class="btn btn-dark-blue btn-sm">3</button>
+        <button id="devIndexBtn4" class="btn btn-dark-blue btn-sm">4</button>
+        <button id="devIndexBtn5" class="btn btn-dark-blue btn-sm">5</button>
+        <button id="devIndexBtn6" class="btn btn-dark-blue btn-sm">6</button>
+        -->
+    </div>
+
+    <!-- Add devices button -->
+    <span class="add-device-btn no-device d-none" title="Add new devices" id="addDeviceBtn"><i
+            class="fas fa-plus pr-2"></i></span>
+
+    <!-- Error message -->
+    <div class="alert alert-danger text-danger d-none" role="alert" id="connectErrorAlert"></div>
+</div>
+
+
+<div class="col-12 pad5 indexbut" id="function-test-section" style="display: none;">
+    <span style="margin: 5px; font-size: 20px;color: green; font-family: initial;" id="connection-success">成功:
+        0次</span>
+    <span style="margin: 5px; color: red;font-size: 20px; font-family: initial;" id="connection-failed">失敗:
+        0次</span>
+    <span style="margin: 5px; font-size: 20px; color: blue; font-family: initial;" id="fail-rates">掉線率: 0%</span>
+    <span style="margin: 5px; font-size: 20px; color: black; font-family: initial;"
+        id="function-test-start-time"></span>
+    <button id="stop-function-test">停止測試</button>
+</div>
+
+<div class="col-12 pad5 testbu pt-3" id="remoteBtnGroup">
+    <!-- Device operation -->
+
+    <!-- Reboot button -->
+    <button type="button" id="reboot-button"
+        class="btn btn-sm btn-secondary justify-content-center align-content-between shadow-sm d-none">
+        <i class="material-icons mr-1">refresh</i> <span>Reboot</span>
+    </button>
+
+    <!-- Power button -->
+    <button type="button" id="power-button"
+        class="btn btn-sm btn-secondary justify-content-center align-content-between shadow-sm d-none">
+        <i class="material-icons mr-1">power_settings_new</i> <span>Power</span>
+    </button>
+
+    <!-- GPIO button -->
+    <button type="button" id="gpio-button"
+        class="btn btn-sm btn-secondary justify-content-center align-content-between shadow-sm d-none">
+        <i class="material-icons mr-1">toggle_off</i> <span>GPIO</span>
+    </button>
+
+    <!-- Restart -->
+    <button type="button" id="restart-button"
+        class="btn btn-sm btn-secondary justify-content-center align-content-between shadow-sm d-none">
+        <i class="material-icons mr-1">model_training</i> <span>Restart</span>
+    </button>
+
+
+    <!-- TTY -->
+    <button type="button" id="tty-button"
+        class="btn btn-sm btn-secondary justify-content-center align-content-between shadow-sm d-none">
+        <i class="material-icons mr-1">model_training</i> <span>TTY</span>
+    </button>
+
+    <!-- Config dropdown button -->
+    <div class="btn-group">
+        <button id="config-button"
+            class="btn btn-sm btn-secondary justify-content-center align-content-between dropdown-toggle shadow-sm d-none"
+            type="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="material-icons mr-1">settings</i> <span>Config</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" id="agentConfigButton">Agent</button>
+            <button class="dropdown-item" id="networkConfigButton">Networking</button>
+            <button class="dropdown-item" id="boardConfigButton">Server</button>
+            <button class="dropdown-item" id="gpioConfigButton">GPIO</button>
+            <button class="dropdown-item" id="serialConfigButton">Serial</button>
+        </div>
+    </div>
+
+    <!-- Function dropdown button -->
+    <div class="btn-group">
+        <button id="function-test"
+            class="btn btn-sm btn-secondary justify-content-center align-content-between dropdown-toggle shadow-sm d-none"
+            type="button" data-toggle="dropdown" aria-expanded="false">
+            <i class="material-icons mr-1">leaderboard</i> <span>Function test</span>
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" id="connection-test">Connection test</button>
+        </div>
+    </div>
+
+</div>
+<span id="last-updated" style="margin-left: auto;color:#9E9E9F"></span>
+
+</div>
+</div>

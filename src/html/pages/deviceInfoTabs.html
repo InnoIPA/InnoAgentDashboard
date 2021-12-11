@@ -7,6 +7,12 @@
             aria-controls="device-tab" aria-selected="true" data-api-target="agentStatusAPI">Agent status</a>
     </li>
 
+    <!-- Network status tab button -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="networkStatusTabToggler" data-toggle="tab" href="#nav-network-status" role="tab"
+            aria-controls="device-tab" aria-selected="false" data-api-target="networkStatusAPI">Network status</a>
+    </li>
+
     <!-- Agent configure tab button -->
     <li class="nav-item" role="presentation">
         <a class="nav-link" id="agentConfigTabToggler" data-toggle="tab" href="#nav-agnet-config" role="tab"
@@ -65,6 +71,29 @@
 
                 <div class="card-body">
                     <div id="agentStatus" class="config-table" style="height:auto;">
+                        <!-- Dynamic table -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- InnoAgent network status tab content -->
+    <div class="tab-pane fade pt-3 pb-5" id="nav-network-status" role="tabpanel"
+        aria-labelledby="nav-network-status">
+        <div class="col-12 pad5">
+
+            <div class="card">
+                <div class="card-header">
+                    <!-- Toolbar -->
+                    <div class="d-flex justify-content-between">
+                        <h5>Network status</h5>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div id="networkStatus" class="config-table" style="height:auto;">
                         <!-- Dynamic table -->
                     </div>
                 </div>

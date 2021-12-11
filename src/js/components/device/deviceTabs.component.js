@@ -75,6 +75,13 @@ export default class DeviceTabsComponent {
 
                 break;
             }
+
+            case ("networkStatusAPI"): {
+                document.querySelector("#networkStatus").innerHTML = "";
+                document.querySelector("#networkStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+                break;
+            }
+
             case ("getAgentConfigAPI"): {
 
                 document.querySelector("#agentConfig").innerHTML = "";
@@ -82,6 +89,7 @@ export default class DeviceTabsComponent {
                 new EditDeviceConfigButtonComponent("getAgentConfigAPI", "setAgentConfigAPI");
                 break;
             }
+
             case ("getNetworkConfigAPI"): {
                 document.querySelector("#networkConfig").innerHTML = "";
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));

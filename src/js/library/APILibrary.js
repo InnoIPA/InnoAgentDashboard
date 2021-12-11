@@ -98,6 +98,23 @@ export class APIHandler {
         }
     }
 
+    async networkStatusAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/network-status`);
+            return response.data.payload.params.response;
+        }
+        catch (error) {
+            return {
+                "hostHB": 0,
+                "mode": 0,
+                "gpio_model": 1,
+                "net_type": 0,
+                "LAN_MAC": "e0d55e4d9bc6",
+                "WIFI_MAC": ""
+            };
+        }
+    }
+
     async webServiceVersionAPI() {
         try {
             const response = await this.devicesAPI.get("/api/service/show-config");

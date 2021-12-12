@@ -46,8 +46,8 @@ export default class DeviceTabsComponent {
         };
 
         for (const item of this.deviceTabsItemsDOM) {
-            item.addEventListener("click", fn.bind(this));
             item.removeEventListener("click", fn.bind(this), false);
+            item.addEventListener("click", fn.bind(this));
         }
 
         // Default click the first tab.

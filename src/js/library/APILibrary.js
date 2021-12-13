@@ -105,12 +105,12 @@ export class APIHandler {
         }
         catch (error) {
             return {
-                "hostHB": 0,
-                "mode": 0,
-                "gpio_model": 1,
-                "net_type": 0,
-                "LAN_MAC": "e0d55e4d9bc6",
-                "WIFI_MAC": ""
+                "name": "eth0",
+                "ip": "172.16.92.133",
+                "gateway": "172.16.92.254",
+                "netmask": "255.255.255.0",
+                "DNS1": "192.168.168.45",
+                "DNS2": "192.168.168.11"
             };
         }
     }
@@ -277,18 +277,43 @@ export class APIHandler {
         }
     }
 
-
-    // Old APIs.
-
-    async deviceEnableGPIOPinsAPI(deviceUid) {
+    async getAvailableGpioPinsAPI(deviceUid, mode = "OUTPUT") {
         try {
-            const response = await this.devicesAPI.get(`/devices/info/gpio-list/${deviceUid}`);
-            return response.data.Payload.Data;
+            const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/gpio-status`);
+            const availableGPIOPinLists = Object.keys(response.data.payload.params.response);
+
+            return availableGPIOPinLists.filter(element => {
+
+                switch (mode.toUpperCase()) {
+
+                    // Output
+                    case ("OUTPUT"):
+                        return (element.includes("OUTPUT"))
+                            ? true
+                            : false;
+
+                    // All GPIO pins, expert the default output;
+                    case ("OTHER"):
+                        return (element.includes("OUTPUT"))
+                            ? false
+                            : true;
+                    
+                    // All GPIO pins.
+                    case ("ALL"):
+                        return true;
+
+                    // Not above.
+                    default:
+                        return true;
+                }
+            });
         }
         catch (error) {
             return [];
         }
     }
+
+    // Old APIs.
 
     async deviceEnableSerialPortsAPI(deviceUid) {
         try {

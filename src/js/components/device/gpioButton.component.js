@@ -87,7 +87,7 @@ export default class GpioButtonComponent {
                 else {
                     alertUtils.mixinAlert("error", `Failed to do ${this.operationName} , please try again later!`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 }
-                
+
                 // Stop page loading animate.
                 pageLoadingAnimate({ type: "stop" });
             }
@@ -104,33 +104,4 @@ export default class GpioButtonComponent {
         }
     }
 
-    // Get available GPIO API for alert pop-up.
-    async getAvailableGPIOPins() {
-        const response = await this.apiHandler.deviceEnableGPIOPinsAPI(getSelectedDeviceSerialNumber());
-        this.addGpioPinsSelectOption(response);
-    }
-
-    // Add GPIO pin data.
-    addGpioPinsSelectOption(data) {
-        // GPIO pin selector DOM.
-        this.gpioPinSelectorDOM = document.querySelector("#gpio-pin-number");
-
-        // Add the option items.
-        if (data.length > 0) {
-            for (let i = 0; i < data.length; i++) {
-                const option = document.createElement("option");
-                option.text = data[i];
-                option.value = data[i];
-                this.gpioPinSelectorDOM.add(option);
-            }
-        }
-
-        // If the data is null.
-        else {
-            const option = document.createElement("option");
-            option.text = "--- No available GPIO pins ! ---";
-            option.value = -1;
-            this.gpioPinSelectorDOM.add(option);
-        }
-    }
 }

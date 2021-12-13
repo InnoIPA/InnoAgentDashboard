@@ -6,8 +6,9 @@ import gpioButtonAlertPage from "../../html/pages/gpioButtonAlert.html";
 import uartPassThruAlertPage from "../../html/pages/uartPassThruAlert.html";
 import updateDeviceConfigAlert from "../../html/pages/updateDeviceConfigAlert.html";
 
+import GpioPinsHandler from "../library/gpioPinsHandler";
+
 // Components.
-import GpioButtonComponent from "../components/device/gpioButton.component";
 import UartPassThruButtonComponent from "../components/device/uartPassThruButton.component";
 import BoardConfigButtonComponent from "../components/device/boardConfigButton.component";
 
@@ -220,6 +221,7 @@ export class AlertUtils {
     }
 
     async gpioOutputAlert(title = "Power switch") {
+        const gpioPinsHandler = new GpioPinsHandler();
         const alert = await Swal.fire({
             icon: "info",
             title,
@@ -227,6 +229,10 @@ export class AlertUtils {
             confirmButtonColor: "#20CCAC",
             html: gpioOutputAlertPage,
             onBeforeOpen: async () => {
+                // Get available gpio pins.
+                await gpioPinsHandler.getAvailableGPIOPins("OUTPUT");
+
+                // Set default selected option.
                 (title === "Power switch")
                     ? document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT2"
                     : document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT1";
@@ -245,28 +251,27 @@ export class AlertUtils {
 
 
     async gpioButtonAlert() {
-        const gpioButtonComponent = new GpioButtonComponent();
+        const gpioPinsHandler = new GpioPinsHandler();
         const alert = await Swal.fire({
             icon: "info",
             title: "GPIO",
             showCancelButton: true,
             confirmButtonColor: "#20CCAC",
-            html: gpioButtonAlertPage,
-            width: "50%",
+            html: gpioOutputAlertPage,
             allowOutsideClick: () => !Swal.isLoading(),
             onBeforeOpen: async () => {
-                await gpioButtonComponent.getAvailableGPIOPins();
+                await gpioPinsHandler.getAvailableGPIOPins("OTHER");
             },
             preConfirm: () => {
-                const selectValue = document.querySelector("#gpio-pin-number").value;
+                const selectValue = document.querySelector("#pin-name").value;
                 if ((selectValue === null) || (selectValue === "-1")) {
                     alertObj.showValidationMessage("Please select a GPIO pins!");
                 }
 
                 const inputPayload = {
-                    pinNo: document.querySelector("#gpio-pin-number").value,
-                    dir: document.querySelector("#gpio-direction").value,
-                    value: document.querySelector("#gpio-value").value
+                    name: String(document.querySelector("#pin-name").value),
+                    value: String(document.querySelector("#level").value),
+                    interval: Number(document.querySelector("#interval").value)
                 };
                 return inputPayload;
             }

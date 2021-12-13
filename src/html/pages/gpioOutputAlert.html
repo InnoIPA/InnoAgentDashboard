@@ -6,8 +6,7 @@
         <div class="form-inline">
             <label class="form-check-label p-1" for="pin-name">Name:<span class="text-danger">*</span></label>
             <select class="form-control" id="pin-name" title="pin name" required>
-                <option selected>INNO_GPIO_OUTPUT1</option>
-                <option>INNO_GPIO_OUTPUT2</option>
+                <!-- Dynamic generate the GPIO name option -->
             </select>
         </div>
     </div>
@@ -17,14 +16,14 @@
         <div class="form-inline">
 
             <label class="form-check-label p-1" for="level">Level:<span class="text-danger">*</span></label>
-            <select class="form-control" id="level" title="level">
+            <select class="form-control" id="level" title="level" required>
                 <option selected>high</option>
                 <option>low</option>
             </select>
 
             <label class="form-check-label p-1" for="interval">Interval (ms):<span class="text-danger">*</span></label>
             <input type="text" class="form-control" id="interval" placeholder="Time interval" value="500"
-                style="width: 100px;">
+                style="width: 100px;" required>
             </input>
         </div>
     </div>

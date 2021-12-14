@@ -107,7 +107,7 @@ export default class EditDeviceConfigButtonComponent {
 
             // If operation was success.
             if (compareObjects(response, payload)) {
-                alertUtils.mixinAlert("success", `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAGE device.`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                alertUtils.mixinAlert("success", `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }
             // Otherwise.
             else {

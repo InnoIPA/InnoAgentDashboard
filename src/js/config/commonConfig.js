@@ -15,8 +15,12 @@
  * 
  */
 // Example: serviceAddress = "http://{your domain name}:8162";
-export const serviceAddress = "http://127.0.0.1:8162";
+export const SERVER_ADDRESS = "http://127.0.0.1:8162";
+
+export const WS_PATH = "ws/innoagent";
+
+export const WS_PING_INTERVAL = 3 * 1000;
+
+export const CHECK_ONLINE_STATUS_INTERVAL = 10 * 1000;
 
 export const demoWebTitle = "InnoAgent OOB Demo";
-
-export const checkOnlineStatusFreq = parseInt(process.env.CHECK_SPHERE_STATUS_FREQ) || 3 * 1000; // msec

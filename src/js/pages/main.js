@@ -1,9 +1,10 @@
 // Config
-import { deviceConfig, checkOnlineStatusFreq } from "../config/deviceConfig";
-import { serviceAddress } from "../config/commonConfig";
+import { deviceConfig } from "../config/deviceConfig";
+import { SERVER_ADDRESS } from "../config/commonConfig";
 
 // Libraries
 import { apiHandler } from "../library/APILibrary";
+
 
 
 // Import necessary components.
@@ -23,9 +24,9 @@ export class Main {
     constructor() {
 
         // API library initial.
-        this.serviceAddress = serviceAddress;
+        this.serviceAddress = SERVER_ADDRESS;
         this.apiHandler = apiHandler;
-        this.apiHandler.setServerAddress(serviceAddress);
+        this.apiHandler.setServerAddress(SERVER_ADDRESS);
         this.pageSerialNumber = document.querySelector("#serial-number");
 
 

@@ -7,7 +7,7 @@
  */
 
 // Config
-import { checkOnlineStatusFreq } from "../../config/commonConfig";
+import { CHECK_ONLINE_STATUS_INTERVAL } from "../../config/commonConfig";
 
 // Application constants.
 import { loadingDeviceConfigErrorMessage } from "../../applicationConstants";
@@ -199,7 +199,7 @@ export default class DeviceIndexGroupButtonComponent {
         // Get device online status.
         this.deviceOnlineStatusComponent.getDeviceOnlineStatus();
         this.deviceOnlineStatusComponent.stopDeviceOnlineStatusInterval();
-        this.deviceOnlineStatusComponent.startDeviceOnlineStatusInterval(checkOnlineStatusFreq);
+        this.deviceOnlineStatusComponent.startDeviceOnlineStatusInterval(CHECK_ONLINE_STATUS_INTERVAL);
 
         // Set button hover effect.
         this.deviceIndexGroupButtonAddHoverEffect(idx);

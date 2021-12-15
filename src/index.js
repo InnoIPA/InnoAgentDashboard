@@ -22,15 +22,17 @@ import "./style/css/customToggle.css";
 import header from "./html/pages/header.html";
 import deviceInfoTabs from "./html/pages/deviceInfoTabs.html";
 
-;
+
 
 import { initial } from "./js/pages/main";
 import { sideBarInit } from "./js/pages/sideBar";
 
 
 
-import { demoWebTitle } from "./js/config/commonConfig";
+import { demoWebTitle, SERVER_ADDRESS, WS_PATH } from "./js/config/commonConfig";
 
+
+import WebSocketHandler from "./js/library/webSocketHandler";
 
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -46,6 +48,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Set web title.
     document.title = demoWebTitle;
 
-
+    new WebSocketHandler(SERVER_ADDRESS, WS_PATH);
 });
 

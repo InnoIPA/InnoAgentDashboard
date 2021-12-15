@@ -234,8 +234,8 @@ export class AlertUtils {
 
                 // Set default selected option.
                 (title === "Power switch")
-                    ? document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT2"
-                    : document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT1";
+                    ? document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT1"
+                    : document.querySelector("#pin-name").value = "INNO_GPIO_OUTPUT2";
             },
             preConfirm: () => {
                 const inputPayload = {

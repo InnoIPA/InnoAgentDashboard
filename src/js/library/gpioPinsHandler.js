@@ -39,6 +39,7 @@ export default class GpioPinsHandler {
         else {
             const option = document.createElement("option");
             option.text = "--- No available GPIO pins ! ---";
+            option.selected;
             option.value = -1;
             this.gpioPinSelectorDOM.add(option);
         }

@@ -1,6 +1,8 @@
 import { replaceProtocolToWS } from "../library/utils/webSocketUtils";
 import { WS_PING_INTERVAL } from "../config/commonConfig";
 
+import RealTimeLogComponent from "../components/device/realTimeLog.component";
+
 export default class WebSocketHandler {
     constructor(wsUrl = "", wsPath = "") {
         this.wsUrl = replaceProtocolToWS(wsUrl) + wsPath;
@@ -8,6 +10,9 @@ export default class WebSocketHandler {
         this.reconnectionTimer = undefined;
         this.retryConnectCount = 0;
         this.pingInterval = undefined;
+
+
+        this.realTimeLogComponent = new RealTimeLogComponent();
 
         this.connect(this.wsUrl);
     }
@@ -51,12 +56,11 @@ export default class WebSocketHandler {
         };
 
         this.wsClient.onmessage = (message) => {
-            console.log("On ws message", message);
-            const p = document.createElement("p");
-            p.classList.add("log");
-            p.innerText = message.data;
-
-            document.querySelector(".logWrapper").appendChild(p);
+            // Real-time log.
+            if (JSON.parse(message.data)["dataType"] === "clientLog") {
+                this.realTimeLogComponent.insertLogData(message.data);
+            }
+           
         };
 
         this.wsClient.onerror = (error) => {
@@ -72,7 +76,14 @@ export default class WebSocketHandler {
     }
 
     ping() {
+
+        // Ping message.
         this.send(JSON.stringify({ dataType: "clientMessage", payload: { dashboardHeartbeat: Date.now() } }));
+
+        // Mock
+        this.send(JSON.stringify({ dataType: "clientLog", payload: { heartbeat: Date.now() } }));
+        setInterval(this.send(JSON.stringify({ dataType: "clientLog", payload: { rnData: Date.now() } }) + "\r\n"), 8000);
+
     }
 
     send(data) {

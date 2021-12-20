@@ -1037,6 +1037,27 @@ canvas {
     border-color: #007bff;
 }
 
+
+.btn-outline-secondary-override {
+    color: #6c757d;
+    border-color: #6c757d;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+.btn-outline-secondary-override:hover {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary-override:not(:disabled):not(.disabled):active,
+.btn-outline-secondary-override:not(:disabled):not(.disabled).active {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
 .btn-outline-danger-override {
     color: #dc3545;
     border-color: #dc3545;

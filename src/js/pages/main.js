@@ -40,32 +40,6 @@ export class Main {
 
         // Start up task.
         this.startUpTask();
-
-
-        // Device online status component.
-        this.deviceOnlineStatusComponent = new DeviceOnlineStatusComponent();
-
-        // System reboot button component.
-        this.rebootButtonComponent = new RebootButtonComponent();
-
-        // Power button component.
-        this.powerButtonComponent = new PowerButtonComponent();
-
-        // GPIO button component.
-        this.gpioButtonComponent = new GpioButtonComponent();
-
-        // Board restart button component.
-        this.boardRestartComponent = new BoardRestartComponent();
-
-        // UART pass thru button component.
-        this.uartPassThruButtonComponent = new UartPassThruButtonComponent();
-
-        // Board config button component.
-        this.boardConfigButtonComponent = new BoardConfigButtonComponent();
-
-        // Device tabs component.
-        this.deviceTabsComponent = new DeviceTabsComponent();
-
     }
 
     startUpTask() {

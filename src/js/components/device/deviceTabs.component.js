@@ -18,6 +18,7 @@ import { DynamicTableHandler } from "../../library/dynamicTable";
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
 import EditDeviceConfigButtonComponent from "./editDeviceConfigButton.component";
+import RealTimeLogComponent from "./realTimeLog.component";
 
 
 export default class DeviceTabsComponent {
@@ -37,12 +38,12 @@ export default class DeviceTabsComponent {
         this.deviceTabsItemsDOM = document.querySelectorAll("#device-info-tabs a");
     }
 
-    initialEventListener() {
+    async initialEventListener() {
         const fn = (event) => {
             event.preventDefault();
             // Show page loading animate.
             pageLoadingAnimate({ DOMElement: "#navTabContent", type: "loading" });
-            this.doOperation(event.target.getAttribute("data-api-target"));
+            this.tabComponentSelector(event.target.getAttribute("data-tab-target"));
         };
 
         for (const item of this.deviceTabsItemsDOM) {
@@ -51,73 +52,97 @@ export default class DeviceTabsComponent {
         }
 
         // Default click the first tab.
-        this.doOperation("agentStatusAPI");
+        await this.tabComponentSelector("agentStatusTab");
+        $("#device-info-tabs li:first-child a").tab("show");
+
     }
 
-    async doOperation(apiTarget) {
-        const responseData = await this.apiHandler[apiTarget](getSelectedDeviceSerialNumber());
 
-        // If operation was success.
-        if (responseData) {
-            this.tabComponentSelector({ apiTarget, responseData });
-        }
+    async tabComponentSelector(tab) {
 
-        pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
-    }
+        switch (tab) {
 
-    tabComponentSelector({ apiTarget, responseData }) {
+            case ("agentStatusTab"): {
+                const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
 
-        switch (apiTarget) {
-
-            case ("agentStatusAPI"): {
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 document.querySelector("#agentStatus").innerHTML = "";
                 document.querySelector("#agentStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
 
                 break;
             }
 
-            case ("networkStatusAPI"): {
+            case ("networkStatusTab"): {
+
+
+                const responseData = await this.apiHandler.networkStatusAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#networkStatus").innerHTML = "";
                 document.querySelector("#networkStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
 
-            case ("getAgentConfigAPI"): {
+            case ("agentConfigTab"): {
 
+                const responseData = await this.apiHandler.getAgentConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#agentConfig").innerHTML = "";
                 document.querySelector("#agentConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent("getAgentConfigAPI", "setAgentConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setAgentConfigAPI");
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
+
                 break;
             }
 
-            case ("getNetworkConfigAPI"): {
+            case ("networkConfigTab"): {
+
+                const responseData = await this.apiHandler.getNetworkConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#networkConfig").innerHTML = "";
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent("getNetworkConfigAPI", "setNetworkConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setNetworkConfigAPI");
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
 
-            case ("getServerConfigAPI"): {
+            case ("serverConfigTab"): {
+
+                const responseData = await this.apiHandler.getServerConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#serverConfig").innerHTML = "";
                 document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent("getServerConfigAPI", "setServerConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setServerConfigAPI");
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
 
-            case ("getGpioConfigAPI"): {
+            case ("gpioConfigTab"): {
+
+                const responseData = await this.apiHandler.getGpioConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#gpioConfig").innerHTML = "";
                 document.querySelector("#gpioConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent("getGpioConfigAPI", "setGpioConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setGpioConfigAPI");
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
-            case ("getSerialConfigAPI"): {
+            case ("serialConfigTab"): {
+
+                const responseData = await this.apiHandler.getSerialConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#serialConfig").innerHTML = "";
                 document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent("getSerialConfigAPI", "setSerialConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setSerialConfigAPI");
+
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
-            case ("getOOBDeviceConfigAPI"): {
+            case ("realTimeLogTab"): {
 
+                const realTimeLogComponent = new RealTimeLogComponent();
+                realTimeLogComponent.initialEventListener();
+                realTimeLogComponent.onLogStopButtonClick();
+                pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
 

@@ -38,7 +38,8 @@ export default class EditDeviceConfigButtonComponent {
         this.dynamicTableHandler = new DynamicTableHandler();
 
         // The trigger tabs.
-        this.triggerTabs = document.querySelector(`[data-api-target='${fetchAPITarget}']`).getAttribute("href");
+        this.triggerTabs = document.querySelector(`[data-tab-target='${fetchAPITarget}']`).getAttribute("href");
+
 
         // The edit device config button position.
         this.editDeviceConfigButtonTargetPosition = document.querySelector(`${this.triggerTabs} .editButtonWrapper`);

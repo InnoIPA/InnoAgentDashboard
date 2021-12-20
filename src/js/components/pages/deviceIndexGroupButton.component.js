@@ -29,6 +29,15 @@ import DeviceNameComponent from "./deviceName.component";
 import DeviceOnlineStatusComponent from "../device/onlineStatus.component";
 
 
+import DeviceTabsComponent from "../device/deviceTabs.component";
+import RebootButtonComponent from "../device/rebootButton.component";
+import PowerButtonComponent from "../device/powerButton.component";
+import GpioButtonComponent from "../device/gpioButton.component";
+import BoardRestartComponent from "../device/boardRestartButton.component";
+import UartPassThruButtonComponent from "../device/uartPassThruButton.component";
+import BoardConfigButtonComponent from "../device/boardConfigButton.component";
+
+
 
 // import 
 export default class DeviceIndexGroupButtonComponent {
@@ -76,6 +85,7 @@ export default class DeviceIndexGroupButtonComponent {
         // Initial the device name components.
         this.deviceNameComponent = new DeviceNameComponent();
         this.deviceOnlineStatusComponent = new DeviceOnlineStatusComponent();
+
     }
 
     /**
@@ -179,6 +189,28 @@ export default class DeviceIndexGroupButtonComponent {
      */
     deviceButtonClickFunction(idx) {
 
+        // System reboot button component.
+        this.rebootButtonComponent = new RebootButtonComponent();
+
+        // Power button component.
+        this.powerButtonComponent = new PowerButtonComponent();
+
+        // GPIO button component.
+        this.gpioButtonComponent = new GpioButtonComponent();
+
+        // Board restart button component.
+        this.boardRestartComponent = new BoardRestartComponent();
+
+        // UART pass thru button component.
+        this.uartPassThruButtonComponent = new UartPassThruButtonComponent();
+
+        // Board config button component.
+        this.boardConfigButtonComponent = new BoardConfigButtonComponent();
+
+        // Device tabs component.
+        this.deviceTabsComponent = new DeviceTabsComponent();
+
+
         // Stop the existing function test instance.
         if (this.functionTest.isStart === true) {
             this.functionTest.stop();
@@ -239,7 +271,7 @@ export default class DeviceIndexGroupButtonComponent {
             if ((!Array.isArray(deviceConfig) || (deviceConfig.length < 0))) {
                 throw new Error(loadingDeviceConfigErrorMessage);
             }
-            
+
             // Generate the device index group button.
             this.generateDevIndexGroupButton(deviceConfig);
         }

@@ -75,9 +75,9 @@ export default class GpioButtonComponent {
                 pageLoadingAnimate({ type: "loading" });
 
                 // Send the API request.
-                // Params is: selectedDeviceSerialNumber, { object });
-                console.log(gpioButtonAlert.value);
-                const response = await this.apiHandler.devicePowerSwitchAPI(getSelectedDeviceSerialNumber(), gpioButtonAlert.value);
+                // Params is: selectedDeviceSerialNumber,"gpio", { object });
+                const response = await this.apiHandler.sendGPIOOutputAPI(getSelectedDeviceSerialNumber(), "gpio", gpioButtonAlert.value);
+
 
                 // If operation was success.
                 if (+response === 1) {

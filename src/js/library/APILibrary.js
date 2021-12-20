@@ -297,7 +297,7 @@ export class APIHandler {
                         return (element.includes("OUTPUT"))
                             ? false
                             : true;
-                    
+
                     // All GPIO pins.
                     case ("ALL"):
                         return true;
@@ -310,6 +310,38 @@ export class APIHandler {
         }
         catch (error) {
             return [];
+        }
+    }
+
+    async getCurrentGPIOStatusAPI(deviceUid, mode = null) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/gpio-status`);
+            const responseData = response.data.payload.params.response;
+
+
+            const filtered = Object.keys(responseData)
+                .filter(key => !key.includes(mode))
+                .reduce((obj, key) => {
+                    obj[key] = responseData[key];
+                    return obj;
+                }, {});
+          
+
+            return filtered;
+        }
+        catch (error) {
+
+            return {
+                "INNO_GPIO_1": { "DIRECTION": "in", "VALUE": "1" },
+                "INNO_GPIO_2": { "DIRECTION": "in", "VALUE": "1" },
+                "INNO_GPIO_3": { "DIRECTION": "in", "VALUE": "1" },
+                "INNO_GPIO_4": { "DIRECTION": "in", "VALUE": "1" },
+                "INNO_GPIO_5": { "DIRECTION": "in", "VALUE": "1" },
+                "INNO_GPIO_6": { "DIRECTION": "out", "VALUE": "0" },
+                "INNO_GPIO_OUTPUT1": { "DIRECTION": "out", "VALUE": "0" },
+                "INNO_GPIO_OUTPUT2": { "DIRECTION": "out", "VALUE": "0" }
+            };
+
         }
     }
 

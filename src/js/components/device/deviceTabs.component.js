@@ -117,9 +117,9 @@ export default class DeviceTabsComponent {
                 break;
             }
 
-            case ("gpioConfigTab"): {
+            case ("gpioStatusTab"): {
 
-                const responseData = await this.apiHandler.getGpioConfigAPI(getSelectedDeviceSerialNumber());
+                const responseData = await this.apiHandler.getCurrentGPIOStatusAPI(getSelectedDeviceSerialNumber(), "OUTPUT");
                 document.querySelector("#gpioConfig").innerHTML = "";
                 document.querySelector("#gpioConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent(tab, "setGpioConfigAPI");

@@ -114,7 +114,7 @@ export default class RealTimeLogComponent {
                 // p.innerHTML = data.replace(/\r\n/g, "<br/>").replace(/[\r\n]/g, "<br/>");
 
                 p.innerHTML = data.replace(/\r\n/g, "").replace(/[\r\n]/g, "");
-                document.querySelector("#logBox").appendChild(p);
+                this.logBoxDOM.appendChild(p);
 
                 // Reserved.
                 // document.querySelector("#logBox").appendChild(br);
@@ -125,11 +125,13 @@ export default class RealTimeLogComponent {
                     document.querySelectorAll("#logBox > p")[logLength - 1].innerHTML += data;
                 }
                 else {
-                    document.querySelector("#logBox").appendChild(p);
+                    this.logBoxDOM.appendChild(p);
 
                 }
             }
-
+            
+            // Scroll bar keep bottom.
+            this.logBoxDOM.scrollTop = this.logBoxDOM.scrollHeight;
         }
     }
 

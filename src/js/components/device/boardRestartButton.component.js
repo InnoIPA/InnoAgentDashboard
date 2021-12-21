@@ -72,8 +72,8 @@ export default class BoardRestartButtonComponent {
             const response = await this.apiHandler.boardRestartAPI(getSelectedDeviceSerialNumber());
 
             // If operation was success.
-            if (+response === 1) {
-                alertUtils.mixinAlert("success", this.operationName + alertMessage.success, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+            if (response === "successfully") {
+                alertUtils.mixinAlert("success", `${this.operationName} ${alertMessage.success}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }
             // Otherwise.
             else {

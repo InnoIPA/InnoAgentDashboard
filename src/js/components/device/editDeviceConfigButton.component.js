@@ -22,7 +22,7 @@ import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 import { DynamicTableHandler } from "../../library/dynamicTable";
 
 export default class EditDeviceConfigButtonComponent {
-    constructor(fetchAPITarget, postAPITarget) {
+    constructor(fetchAPITarget, postAPITarget, autoRestart = false) {
 
         // API library.
         this.apiHandler = apiHandler;
@@ -33,6 +33,9 @@ export default class EditDeviceConfigButtonComponent {
         // API target.
         this.fetchAPITarget = fetchAPITarget;
         this.postAPITarget = postAPITarget;
+
+        // Automatic restart.
+        this.autoRestart = autoRestart;
 
         // Dynamic table handler.
         this.dynamicTableHandler = new DynamicTableHandler();
@@ -102,13 +105,16 @@ export default class EditDeviceConfigButtonComponent {
             // TODO
             const response = await this.apiHandler[this.postAPITarget](getSelectedDeviceSerialNumber(), JSON.stringify(payload));
 
-
             pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
 
+            if (this.autoRestart === true) {
+                setTimeout(await this.apiHandler.boardRestartAPI(getSelectedDeviceSerialNumber()), 3000);
+            }
 
             // If operation was success.
             if (compareObjects(response, payload)) {
-                alertUtils.mixinAlert("success", `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                const message = (this.autoRestart === true) ? `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success}` : `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`;
+                alertUtils.mixinAlert("success", message, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }
             // Otherwise.
             else {

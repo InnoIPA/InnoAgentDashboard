@@ -88,7 +88,7 @@ export default class DeviceTabsComponent {
                 const responseData = await this.apiHandler.getAgentConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#agentConfig").innerHTML = "";
                 document.querySelector("#agentConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent(tab, "setAgentConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setAgentConfigAPI", false);
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
 
@@ -100,7 +100,7 @@ export default class DeviceTabsComponent {
                 const responseData = await this.apiHandler.getNetworkConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#networkConfig").innerHTML = "";
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent(tab, "setNetworkConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setNetworkConfigAPI", false);
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -111,7 +111,7 @@ export default class DeviceTabsComponent {
                 const responseData = await this.apiHandler.getServerConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#serverConfig").innerHTML = "";
                 document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent(tab, "setServerConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setServerConfigAPI", false);
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -122,7 +122,7 @@ export default class DeviceTabsComponent {
                 const responseData = await this.apiHandler.getCurrentGPIOStatusAPI(getSelectedDeviceSerialNumber(), "OUTPUT");
                 document.querySelector("#gpioConfig").innerHTML = "";
                 document.querySelector("#gpioConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent(tab, "setGpioConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setGpioConfigAPI", true);
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -132,7 +132,7 @@ export default class DeviceTabsComponent {
                 const responseData = await this.apiHandler.getSerialConfigAPI(getSelectedDeviceSerialNumber());
                 document.querySelector("#serialConfig").innerHTML = "";
                 document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent(tab, "setSerialConfigAPI");
+                new EditDeviceConfigButtonComponent(tab, "setSerialConfigAPI", false);
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;

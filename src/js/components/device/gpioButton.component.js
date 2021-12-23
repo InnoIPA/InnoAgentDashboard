@@ -79,9 +79,9 @@ export default class GpioButtonComponent {
                 const response = await this.apiHandler.sendGPIOOutputAPI(getSelectedDeviceSerialNumber(), "gpio", gpioButtonAlert.value);
 
 
-                // If operation was success.
-                if (+response === 1) {
-                    alertUtils.mixinAlert("success", this.operationName + alertMessage.success, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                 // If operation was success.
+                 if (response === "successfully") {
+                    alertUtils.mixinAlert("success", `${this.operationName} ${alertMessage.success}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 }
                 // Otherwise.
                 else {

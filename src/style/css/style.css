@@ -5,10 +5,15 @@ html {
     font-family: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
     background: #fafbff;
     height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto;
 }
+
 
 footer {
     color: #9e9e9f;
+    grid-row-start: 2;
+    grid-row-end: 3;
 }
 
 img {
@@ -1126,8 +1131,18 @@ canvas {
 }
 
 .none-select {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
     -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
     -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
 
 .text-decoration-none {

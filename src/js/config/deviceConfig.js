@@ -7,8 +7,8 @@ export const deviceConfig = [
         "power-button": true,
         "gpio-button": true,
         "tty-button": false,
-        "config-button": true,
-        "function-test": true,
+        "config-button": false,
+        "function-test": false,
         "restart-button": true,
     },
     {
@@ -18,8 +18,8 @@ export const deviceConfig = [
         "power-button": true,
         "gpio-button": true,
         "tty-button": false,
-        "config-button": true,
-        "function-test": true,
+        "config-button": false,
+        "function-test": false,
         "restart-button": true,
     },
 

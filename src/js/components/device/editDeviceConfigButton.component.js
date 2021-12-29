@@ -1,5 +1,3 @@
-
-
 // API library.
 import { apiHandler } from "../../library/APILibrary";
 
@@ -20,9 +18,13 @@ import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
 // Dynamic table handler.
 import { DynamicTableHandler } from "../../library/dynamicTable";
+import { GPIOTableHandler } from "../../library/gpioDynamicTable";
+
+// Parse value to specified type library.
+import { parseValueToType } from "../../library/utils/parseValueToType";
 
 export default class EditDeviceConfigButtonComponent {
-    constructor(fetchAPITarget, postAPITarget, autoRestart = false) {
+    constructor({ fetchAPITarget = "", postAPITarget = "", autoRestart = false }) {
 
         // API library.
         this.apiHandler = apiHandler;
@@ -39,6 +41,7 @@ export default class EditDeviceConfigButtonComponent {
 
         // Dynamic table handler.
         this.dynamicTableHandler = new DynamicTableHandler();
+        this.gpioDynamicTableHandler = new GPIOTableHandler();
 
         // The trigger tabs.
         this.triggerTabs = document.querySelector(`[data-tab-target='${fetchAPITarget}']`).getAttribute("href");
@@ -56,19 +59,128 @@ export default class EditDeviceConfigButtonComponent {
         // Current table temp value.
         this.currentTableTempValues = undefined;
 
+        // Clear existing edit button.
         this.clearExistingEditButton(this.editDeviceConfigButtonTargetPosition);
+
+        // Initial edit buttons.
         this.initialButtons(this.editDeviceConfigButtonTargetPosition);
-
-
     }
 
+    /**
+     * On gpio tab edit button click event.
+     */
+    gpioTabOnEditHandler() {
+
+        this.currentTableTempValues = {};
+        const gpioDirectionSwitches = Array.from(document.querySelectorAll(`${this.triggerTabs} .config-table table td input[type="radio"]:checked`));
+        const gpioValueSelectors = Array.from(document.querySelectorAll(`${this.triggerTabs} .config-table table td select`));
+
+        const gpioDirectionSwitchesAll = Array.from(document.querySelectorAll(`${this.triggerTabs} .config-table table td input[type="radio"]`));
+
+        if (gpioDirectionSwitchesAll.length > 0) {
+            gpioDirectionSwitchesAll.forEach((item) => {
+                item.removeAttribute("disabled");
+            });
+        }
+
+        if (gpioDirectionSwitches.length > 0 && gpioValueSelectors.length > 0) {
+
+            for (let i = 0; i < gpioDirectionSwitches.length; i++) {
+
+                // GPIO toggle switches.
+                const css = ".switch-field label:hover{ cursor: pointer; }";
+                const style = document.createElement("style");
+
+                if (style.styleSheet) {
+                    style.styleSheet.cssText = css;
+                } else {
+                    style.appendChild(document.createTextNode(css));
+                }
+
+                // GPIO direction switch style.
+
+                gpioDirectionSwitches[i].appendChild(style);
+                gpioDirectionSwitches[i].removeAttribute("disabled");
+
+                // GPIO value selector style.
+                gpioValueSelectors[i].removeAttribute("disabled");
+
+
+                // Cache the current value
+                // E.g.:
+                // {
+                //   "INNO_GPIO_1": { },
+                //   "INNO_GPIO_2": { },
+                //   "INNO_GPIO_3": { },
+                //   "INNO_GPIO_4": { },
+                //   "INNO_GPIO_5": { },
+                //   "INNO_GPIO_6": { }
+                // }
+                Object.assign(this.currentTableTempValues, { [gpioDirectionSwitches[i].getAttribute("name")]: {} });
+
+
+                // E.g.:
+                // {
+                //   "INNO_GPIO_1": { "DIRECTION":"in","VALUE":"1" },
+                //   "INNO_GPIO_2": { "DIRECTION":"in","VALUE":"1" },
+                //   "INNO_GPIO_3": { "DIRECTION":"in","VALUE":"1" },
+                //   "INNO_GPIO_4": { "DIRECTION":"in","VALUE":"1" },
+                //   "INNO_GPIO_5": { "DIRECTION":"in","VALUE":"1" },
+                //   "INNO_GPIO_6": { "DIRECTION":"in","VALUE":"1" }
+                // }
+                Object.assign(this.currentTableTempValues[gpioDirectionSwitches[i].getAttribute("name")], { [gpioDirectionSwitches[i].getAttribute("data-json-key")]: parseValueToType(gpioDirectionSwitches[i].value, gpioDirectionSwitches[i].getAttribute("type")) });
+                Object.assign(this.currentTableTempValues[gpioDirectionSwitches[i].getAttribute("name")], { [gpioValueSelectors[i].getAttribute("data-json-key")]: parseValueToType(gpioValueSelectors[i].value, gpioValueSelectors[i].getAttribute("type")) });
+
+            }
+
+        }
+    }
+
+    /**
+     * On gpio tab cancel click event.
+     */
+    gpioTabOnCancelHandler() {
+        const gpioDirectionSwitches = Array.from(document.querySelectorAll(`${this.triggerTabs} .config-table table td input[type="radio"]`));
+        const gpioValueSelectors = Array.from(document.querySelectorAll(`${this.triggerTabs} .config-table table td select`));
+
+
+        if (gpioDirectionSwitches.length > 0 && gpioValueSelectors.length > 0) {
+
+
+            for (let i = 0; i < gpioDirectionSwitches.length; i++) {
+
+                // GPIO toggle switches style.
+                const css = ".switch-field label:hover{ cursor: default; }";
+                const style = document.createElement("style");
+
+                (style.styleSheet) ? style.styleSheet.cssText = css : style.appendChild(document.createTextNode(css));
+                gpioDirectionSwitches[i].appendChild(style);
+
+                gpioDirectionSwitches[i].setAttribute("disabled", "");
+
+                // Check if the temp value is equal to the GPIO direction switch DOM element value, if the result is equal set its check status to "checked".
+                if (this.currentTableTempValues[gpioDirectionSwitches[i].getAttribute("name")][gpioDirectionSwitches[i].getAttribute("data-json-key")] === gpioDirectionSwitches[i].value) {
+                    gpioDirectionSwitches[i].checked = true;
+                }
+            }
+
+            for (let j = 0; j < gpioValueSelectors.length; j++) {
+                gpioValueSelectors[j].setAttribute("disabled", "");
+                gpioValueSelectors[j].value = this.currentTableTempValues[gpioValueSelectors[j].getAttribute("name")][gpioValueSelectors[j].getAttribute("data-json-key")];
+            }
+
+        }
+    }
+
+    /**
+     * On edit button click event (For regular page.)
+     */
     onEditButtonClick() {
-        this.currentTableTempValues = [];
         this.editDeviceConfigButtonTargetPosition.querySelector(".edit-device-config").classList.add("d-none");
         this.editDeviceConfigButtonTargetPosition.querySelector(".apply-device-config").classList.remove("d-none");
         this.editDeviceConfigButtonTargetPosition.querySelector(".cancel-device-config").classList.remove("d-none");
 
-
+        this.currentTableTempValues = [];
         this.configTableValues.forEach((item) => {
             // Make table content editable.
             item.setAttribute("contenteditable", "true");
@@ -76,8 +188,15 @@ export default class EditDeviceConfigButtonComponent {
             // Temp save the current value.
             this.currentTableTempValues.push(item.innerHTML);
         });
+
+        // Check if the tab is the gpio.
+        this.gpioTabOnEditHandler();
+
     }
 
+    /**
+     * On apply button click 
+     */
     async onApplyButtonClick() {
 
         const result = await alertUtils.questionAlert(this.operationName);
@@ -100,9 +219,17 @@ export default class EditDeviceConfigButtonComponent {
             });
 
             const table = document.querySelector(`${this.triggerTabs} .config-table`);
-            const payload = this.dynamicTableHandler.parseTableToJSONObject(table);
 
-            // TODO
+            let payload;
+
+            // Selector the dynamic table handler.
+            if (this.postAPITarget === "setGpioConfigAPI") {
+                payload = this.gpioDynamicTableHandler.parseTableToJSONObject(table);
+            }
+            else {
+                payload = this.dynamicTableHandler.parseTableToJSONObject(table);
+            }
+
             const response = await this.apiHandler[this.postAPITarget](getSelectedDeviceSerialNumber(), JSON.stringify(payload));
 
             pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
@@ -140,7 +267,9 @@ export default class EditDeviceConfigButtonComponent {
             this.configTableValues[i].setAttribute("contenteditable", "false");
             this.configTableValues[i].innerHTML = this.currentTableTempValues[i];
         }
-        this.currentTableTempValues = [];
+        this.gpioTabOnCancelHandler();
+
+        this.currentTableTempValues = undefined;
     }
 
     initialButtons(DOMElement) {
@@ -152,6 +281,11 @@ export default class EditDeviceConfigButtonComponent {
         editButtonWrapper.appendChild(this.generateConfigApplyButton());
     }
 
+    /**
+     * Clear existing edit button on DOM.
+     * @param {*} DOMElement The dom element target.
+     * @returns 
+     */
     clearExistingEditButton(DOMElement) {
 
         if (!DOMElement) return;
@@ -160,7 +294,6 @@ export default class EditDeviceConfigButtonComponent {
 
         if (!btn) return;
 
-        // Reboot button event listener.
         const fn = () => {
             this.onEditButtonClick();
             this.onApplyButtonClick();
@@ -170,6 +303,10 @@ export default class EditDeviceConfigButtonComponent {
         DOMElement.innerHTML = "";
     }
 
+    /**
+     * Generate edit button.
+     * @returns Edit button DOM.
+     */
     generateEditButton() {
         const editButton = document.createElement("button");
         editButton.classList.add("btn", "btn-secondary", "btn-sm", "edit-device-config");
@@ -193,6 +330,10 @@ export default class EditDeviceConfigButtonComponent {
         return editButton;
     }
 
+    /**
+     * Generate config apply button.
+     * @returns Apply button DOM.
+     */
     generateConfigApplyButton() {
         // Edit button apply & cancel.
         const applyButton = document.createElement("button");
@@ -215,7 +356,7 @@ export default class EditDeviceConfigButtonComponent {
 
     /**
      * Generate config cancel button.
-     * @returns 
+     * @returns Cancel button DOM.
      */
     generateConfigCancelButton() {
         // Edit button apply & cancel.

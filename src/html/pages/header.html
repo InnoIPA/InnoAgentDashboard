@@ -53,15 +53,15 @@
         <i id="serial-number" style="display: none;">SN</i>
         <span id="recovery-time" style="display: none;"></span>
         <p id="status-led-row" style="margin-top: 3px;">
-           <!-- Device online status -->
-           <span>Online status:</span>
-           <span id="deviceOnlineStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
-           <span id="deviceOnlineLabel" style="margin-right: 15px;">Offline</span>
+            <!-- Device online status -->
+            <span>Online status:</span>
+            <span id="deviceOnlineStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+            <span id="deviceOnlineLabel" style="margin-right: 15px;">Offline</span>
 
-           <!-- Host online status -->
-           <span>Host status:</span>
-           <span id="hostStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
-           <span id="hostStatusLabel" style="margin-right: 15px;">Offline</span>
+            <!-- Host online status -->
+            <span>Host status:</span>
+            <span id="hostStatus" class="progress-bar-striped progress-bar-animated ledS12 led-danger"></span>
+            <span id="hostStatusLabel" style="margin-right: 15px;">Offline</span>
         </p>
     </div>
 
@@ -101,7 +101,7 @@
     <button id="stop-function-test">停止測試</button>
 </div>
 
-<div class="col-12 pad5 testbu" id="remoteBtnGroup">
+<div class="col-12 pad5 testbu pb-3" id="remoteBtnGroup">
     <!-- Device operation -->
     <button class="button d-none" id="reboot-button">Reboot</button>
     <button class="button d-none" id="power-button">Power</button>
@@ -133,6 +133,13 @@
     </div>
 
 </div>
+
+<div class="col-12 pad5">
+    <!-- Alert message -->
+    <div class="alert alert-secondary text-secondary d-none" role="alert" id="infoAlert"><i class="fas fa-exclamation pr-2"></i>
+        Some configurations will take effect after restarting your InnoAgent device!</div>
+</div>
+
 <span id="last-updated" style="margin-left: auto;color:#9E9E9F"></span>
 
 </div>

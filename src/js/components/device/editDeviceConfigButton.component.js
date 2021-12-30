@@ -23,6 +23,9 @@ import { GPIOTableHandler } from "../../library/gpioDynamicTable";
 // Parse value to specified type library.
 import { parseValueToType } from "../../library/utils/parseValueToType";
 
+// On page alert message.
+import { setOnPageAlert, showOnPageAlert } from "../../library/boardConfigurationHandler";
+
 export default class EditDeviceConfigButtonComponent {
     constructor({ fetchAPITarget = "", postAPITarget = "", autoRestart = false }) {
 
@@ -234,14 +237,36 @@ export default class EditDeviceConfigButtonComponent {
 
             pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
 
+            // Check if allowed automatic reboot.
             if (this.autoRestart === true) {
                 setTimeout(await this.apiHandler.boardRestartAPI(getSelectedDeviceSerialNumber()), 3000);
             }
 
             // If operation was success.
             if (compareObjects(response, payload)) {
-                const message = (this.autoRestart === true) ? `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success}` : `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`;
+                const message = (this.autoRestart === true)
+                    // No reboot requirement.
+                    ? `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success}`
+
+                    // Reboot requirement.
+                    : `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`;
                 alertUtils.mixinAlert("success", message, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+
+                // Setting the restart alert & local storage.
+                const item = {
+                    config: {
+                        restartRequired: !this.autoRestart || true
+                    }
+                };
+                localStorage.setItem(getSelectedDeviceSerialNumber(), JSON.stringify(item));
+
+
+                if (JSON.parse(localStorage.getItem(getSelectedDeviceSerialNumber()))["config"]["restartRequired"] === true) {
+                    // Initial alert message.
+                    setOnPageAlert(["fas", "fa-exclamation"],);
+                    showOnPageAlert();
+                }
+
             }
             // Otherwise.
             else {

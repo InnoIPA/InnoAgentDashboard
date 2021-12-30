@@ -37,6 +37,9 @@ import BoardRestartComponent from "../device/boardRestartButton.component";
 import UartPassThruButtonComponent from "../device/uartPassThruButton.component";
 import BoardConfigButtonComponent from "../device/boardConfigButton.component";
 
+// On page alert message.
+import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
+
 
 
 // import 
@@ -189,6 +192,8 @@ export default class DeviceIndexGroupButtonComponent {
      */
     deviceButtonClickFunction(idx) {
 
+
+
         // System reboot button component.
         this.rebootButtonComponent = new RebootButtonComponent();
 
@@ -243,8 +248,20 @@ export default class DeviceIndexGroupButtonComponent {
         // Get device enable or disable function.
         this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.getSelectedDeviceIndex()));
 
+
+        // Check if existing pending device restart process.
+        const result = localStorage.getItem(getSelectedDeviceSerialNumber());
+        if (result && JSON.parse(result)["config"]["restartRequired"] === true) {
+            showOnPageAlert();
+        }
+        else {
+            hideOnPageAlert();
+        }
+
         // Hide loading animation.
         pageLoadingAnimate({ type: "stop" });
+
+
     }
 
     /**

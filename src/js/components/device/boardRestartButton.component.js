@@ -21,6 +21,9 @@ import { alertTitle, alertMessage } from "../../applicationConstants";
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
+// On page alert message.
+import { hideOnPageAlert } from "../../library/boardConfigurationHandler";
+
 export default class BoardRestartButtonComponent {
     constructor() {
         // API library.
@@ -68,12 +71,21 @@ export default class BoardRestartButtonComponent {
             // Show page loading animate.
             pageLoadingAnimate({ type: "loading" });
 
+
+
             // Send the API request.
             const response = await this.apiHandler.boardRestartAPI(getSelectedDeviceSerialNumber());
 
             // If operation was success.
             if (response === "successfully") {
                 alertUtils.mixinAlert("success", `${this.operationName} ${alertMessage.success}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+
+                // After restart completed, remove the localStorage data.
+                const result = localStorage.getItem(getSelectedDeviceSerialNumber());
+                if (result && JSON.parse(result)["config"]["restartRequired"] === true) {
+                    hideOnPageAlert();
+                    localStorage.removeItem(getSelectedDeviceSerialNumber());
+                }
             }
             // Otherwise.
             else {

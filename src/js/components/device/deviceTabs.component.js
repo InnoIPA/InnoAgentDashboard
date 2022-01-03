@@ -61,6 +61,17 @@ export default class DeviceTabsComponent {
 
     }
 
+    /**
+     * Remove all child DOMs.
+     * @param {string} parentDOM DOM query string.
+     */
+    removeAllChildDOMs(parentDOM) {
+        const parent = document.querySelector(parentDOM);
+        while (parent.firstChild) {
+            parent.firstChild.remove();
+        }
+    }
+
 
     /**
      * Tab component selector.
@@ -71,8 +82,10 @@ export default class DeviceTabsComponent {
         switch (tab) {
 
             case ("agentStatusTab"): {
-                document.querySelector("#agentStatus").innerHTML = "";
+
                 const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#agentStatus");
 
                 document.querySelector("#agentStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
 
@@ -81,8 +94,9 @@ export default class DeviceTabsComponent {
             }
 
             case ("networkStatusTab"): {
-                document.querySelector("#networkStatus").innerHTML = "";
                 const responseData = await this.apiHandler.networkStatusAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#networkStatus");
 
                 document.querySelector("#networkStatus").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
 
@@ -91,8 +105,9 @@ export default class DeviceTabsComponent {
             }
 
             case ("agentConfigTab"): {
-                document.querySelector("#agentConfig").innerHTML = "";
                 const responseData = await this.apiHandler.getAgentConfigAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#agentConfig");
 
                 document.querySelector("#agentConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setAgentConfigAPI", autoRestart: false });
@@ -103,8 +118,9 @@ export default class DeviceTabsComponent {
             }
 
             case ("networkConfigTab"): {
-                document.querySelector("#networkConfig").innerHTML = "";
                 const responseData = await this.apiHandler.getNetworkConfigAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#networkConfig");
 
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setNetworkConfigAPI", autoRestart: false });
@@ -114,8 +130,9 @@ export default class DeviceTabsComponent {
             }
 
             case ("serverConfigTab"): {
-                document.querySelector("#serverConfig").innerHTML = "";
                 const responseData = await this.apiHandler.getServerConfigAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#serverConfig");
 
                 document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setServerConfigAPI", autoRestart: false });
@@ -125,8 +142,9 @@ export default class DeviceTabsComponent {
             }
 
             case ("gpioStatusTab"): {
-                document.querySelector("#gpioConfig").innerHTML = "";
                 const responseData = await this.apiHandler.getCurrentGPIOStatusAPI(getSelectedDeviceSerialNumber(), "OUTPUT");
+
+                this.removeAllChildDOMs("#gpioConfig");
 
                 document.querySelector("#gpioConfig").appendChild(this.gpioDynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setGpioConfigAPI", autoRestart: false });
@@ -135,8 +153,9 @@ export default class DeviceTabsComponent {
                 break;
             }
             case ("serialConfigTab"): {
-                document.querySelector("#serialConfig").innerHTML = "";
                 const responseData = await this.apiHandler.getSerialConfigAPI(getSelectedDeviceSerialNumber());
+
+                this.removeAllChildDOMs("#serialConfig");
 
                 document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setSerialConfigAPI", autoRestart: false });

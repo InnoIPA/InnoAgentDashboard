@@ -313,7 +313,7 @@ export class APIHandler {
         }
     }
 
-    async getCurrentGPIOStatusAPI(deviceUid, mode = null) {
+    async getCurrentGPIOStatusAPI(deviceUid, { filtered: mode = null }) {
         try {
             const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/gpio-status`);
             const responseData = response.data.payload.params.response;

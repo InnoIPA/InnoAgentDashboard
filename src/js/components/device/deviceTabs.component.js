@@ -142,7 +142,7 @@ export default class DeviceTabsComponent {
             }
 
             case ("gpioStatusTab"): {
-                const responseData = await this.apiHandler.getCurrentGPIOStatusAPI(getSelectedDeviceSerialNumber(), "OUTPUT");
+                const responseData = await this.apiHandler.getCurrentGPIOStatusAPI(getSelectedDeviceSerialNumber(), { filtered: "OUTPUT" });
 
                 this.removeAllChildDOMs("#gpioConfig");
 

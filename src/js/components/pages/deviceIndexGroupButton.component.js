@@ -28,18 +28,6 @@ import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
 import DeviceNameComponent from "./deviceName.component";
 import DeviceOnlineStatusComponent from "../device/onlineStatus.component";
 
-
-import DeviceTabsComponent from "../device/deviceTabs.component";
-import RebootButtonComponent from "../device/rebootButton.component";
-import PowerButtonComponent from "../device/powerButton.component";
-import GpioButtonComponent from "../device/gpioButton.component";
-import BoardRestartComponent from "../device/boardRestartButton.component";
-import UartPassThruButtonComponent from "../device/uartPassThruButton.component";
-import BoardConfigButtonComponent from "../device/boardConfigButton.component";
-import UploadFWButtonComponent from "../device/uploadFWButton.component";
-import DeleteFWButtonComponent from "../device/deleteFWButton.component";
-import UpdateFWButtonComponent from "../device/updateFWButton.components";
-
 // On page alert message.
 import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
 
@@ -59,6 +47,9 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Selected device index.
         this.devIndex = cookieHandler.getCookie("sphereIndex") || 0;
+
+        // Set selected device serial number.
+        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.devIndex, "serialNumber"));
     }
 
     initialLibraries() {
@@ -193,39 +184,6 @@ export default class DeviceIndexGroupButtonComponent {
      * @param {number} idx The index of user selected.
      */
     deviceButtonClickFunction(idx) {
-
-
-
-        // System reboot button component.
-        this.rebootButtonComponent = new RebootButtonComponent();
-
-        // Power button component.
-        this.powerButtonComponent = new PowerButtonComponent();
-
-        // GPIO button component.
-        this.gpioButtonComponent = new GpioButtonComponent();
-
-        // Board restart button component.
-        this.boardRestartComponent = new BoardRestartComponent();
-
-        // UART pass thru button component.
-        this.uartPassThruButtonComponent = new UartPassThruButtonComponent();
-
-        // Board config button component.
-        this.boardConfigButtonComponent = new BoardConfigButtonComponent();
-
-        // Device tabs component.
-        this.deviceTabsComponent = new DeviceTabsComponent();
-
-        // Upload FW image button component.
-        this.uploadFWButtonComponent = new UploadFWButtonComponent();
-
-        // Update FW image button component.
-        this.updateFWButtonComponent = new UpdateFWButtonComponent();
-
-        // Delete FW image button component.
-        this.deleteFWButtonComponent = new DeleteFWButtonComponent();
-
 
         // Stop the existing function test instance.
         if (this.functionTest.isStart === true) {

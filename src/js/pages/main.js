@@ -18,7 +18,7 @@ import UartPassThruButtonComponent from "../components/device/uartPassThruButton
 import BoardConfigButtonComponent from "../components/device/boardConfigButton.component";
 import DeviceTabsComponent from "../components/device/deviceTabs.component";
 import UploadFWButtonComponent from "../components/device/uploadFWButton.component";
-import UpdateFWButtonComponent from "../components/device/uploadFWButton.component";
+import UpdateFWButtonComponent from "../components/device/updateFWButton.component";
 import DeleteFWButtonComponent from "../components/device/deleteFWButton.component";
 
 

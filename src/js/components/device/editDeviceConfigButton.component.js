@@ -183,17 +183,23 @@ export default class EditDeviceConfigButtonComponent {
         this.editDeviceConfigButtonTargetPosition.querySelector(".apply-device-config").classList.remove("d-none");
         this.editDeviceConfigButtonTargetPosition.querySelector(".cancel-device-config").classList.remove("d-none");
 
-        this.currentTableTempValues = [];
-        this.configTableValues.forEach((item) => {
-            // Make table content editable.
-            item.setAttribute("contenteditable", "true");
+        // If current tab is GPIO status.
+        if (this.triggerTabs === "gpioStatusTab") {
+            // Check if the tab is the gpio.
+            this.gpioTabOnEditHandler();
+        }
 
-            // Temp save the current value.
-            this.currentTableTempValues.push(item.innerHTML);
-        });
+        // Otherwise.
+        else {
+            this.currentTableTempValues = [];
+            this.configTableValues.forEach((item) => {
+                // Make table content editable.
+                item.setAttribute("contenteditable", "true");
 
-        // Check if the tab is the gpio.
-        this.gpioTabOnEditHandler();
+                // Temp save the current value.
+                this.currentTableTempValues.push(item.innerHTML);
+            });
+        }
 
     }
 
@@ -288,11 +294,18 @@ export default class EditDeviceConfigButtonComponent {
         this.editDeviceConfigButtonTargetPosition.querySelector(".apply-device-config").classList.add("d-none");
         this.editDeviceConfigButtonTargetPosition.querySelector(".cancel-device-config").classList.add("d-none");
 
-        for (let i = 0; i < this.configTableValues.length; i++) {
-            this.configTableValues[i].setAttribute("contenteditable", "false");
-            this.configTableValues[i].innerHTML = this.currentTableTempValues[i];
+        // If current tab is GPIO status.
+        if (this.triggerTabs === "gpioStatusTab") {
+            this.gpioTabOnCancelHandler();
         }
-        this.gpioTabOnCancelHandler();
+
+        // Otherwise.
+        else {
+            for (let i = 0; i < this.configTableValues.length; i++) {
+                this.configTableValues[i].setAttribute("contenteditable", "false");
+                this.configTableValues[i].innerHTML = this.currentTableTempValues[i];
+            }
+        }
 
         this.currentTableTempValues = undefined;
     }

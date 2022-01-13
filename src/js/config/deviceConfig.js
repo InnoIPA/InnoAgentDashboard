@@ -10,6 +10,7 @@ export const deviceConfig = [
         "config-button": false,
         "function-test": false,
         "restart-button": true,
+        "ota-function": true,
     },
     {
         "serialNumber": "e0d55e4d9bc6",
@@ -21,6 +22,7 @@ export const deviceConfig = [
         "config-button": false,
         "function-test": false,
         "restart-button": true,
+        "ota-function": true,
     },
 
 ];

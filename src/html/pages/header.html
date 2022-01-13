@@ -109,6 +109,18 @@
     <button class="button d-none" id="tty-button">UART PassThru</button>
     <button class="button d-none" id="restart-button">Restart</button>
 
+    <!-- OTA -->
+    <div class="btn-group">
+        <button class="button dropdown-toggle d-none" id="ota-function" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">OTA</button>
+        <div class="dropdown-menu">
+            <button sclass="dropdown-item" id="ota-upload-file-button">Upload FW image to the server</button>
+            <button class="dropdown-item" id="ota-update-device-button">Update current device FW</button>
+            <button class="dropdown-item" id="ota-delete-file-button">Delete existing FW image on the server</button>
+        </div>
+    </div>
+
+
     <!-- Config -->
     <div class="btn-group">
         <button class="button dropdown-toggle d-none" id="config-button" data-toggle="dropdown" aria-haspopup="true"

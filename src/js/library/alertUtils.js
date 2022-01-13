@@ -2,7 +2,6 @@ import Swal from "sweetalert2";
 
 // Pages.
 import gpioOutputAlertPage from "../../html/pages/gpioOutputAlert.html";
-import gpioButtonAlertPage from "../../html/pages/gpioButtonAlert.html";
 import uartPassThruAlertPage from "../../html/pages/uartPassThruAlert.html";
 import updateDeviceConfigAlert from "../../html/pages/updateDeviceConfigAlert.html";
 
@@ -45,7 +44,6 @@ export class AlertUtils {
             icon,
             title,
             text,
-            input: "password",
             showCancelButton,
             confirmButtonColor: "#20CCAC",
             inputPlaceholder: "Enter your password",
@@ -339,6 +337,23 @@ export class AlertUtils {
             }
         });
         return alert;
+    }
+
+    async htmlAlert({ html, onBeforeOpen = undefined, onOpen = undefined, preConfirm = undefined, onClose = undefined, width = "50%", confirmButtonText = "OK" }) {
+        return await Swal.fire({
+            showCancelButton: true,
+            confirmButtonColor: "#20CCAC",
+            width,
+            customClass: { popup: "", content: "text-left mt-2 mb-5 container-fluid" },
+            confirmButtonText,
+            showCloseButton: true,
+            html,
+            allowOutsideClick: () => !Swal.isLoading(),
+            onOpen,
+            onBeforeOpen,
+            preConfirm,
+            onClose,
+        });
     }
 }
 

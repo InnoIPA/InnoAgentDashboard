@@ -38,11 +38,11 @@ export class APIHandler {
         this.devicesAPI.defaults.baseURL = addr;
     }
 
-    createAxiosInstance(baseUrl = "", timeout = 120 * 1000) {
+    createAxiosInstance(baseUrl = "", timeout = 120 * 1000, headers = { "Content-Type": "application/json" }) {
         return axios.create({
             baseUrl,
-            timeout: timeout,
-            headers: { "Content-Type": "application/json" },
+            timeout,
+            headers,
             cache: false,
         });
     }
@@ -325,7 +325,7 @@ export class APIHandler {
                     obj[key] = responseData[key];
                     return obj;
                 }, {});
-          
+
 
             return filtered;
         }
@@ -342,6 +342,38 @@ export class APIHandler {
                 "INNO_GPIO_OUTPUT2": { "DIRECTION": "out", "VALUE": "0" }
             };
 
+        }
+    }
+
+    // OTA 
+    async uploadFWImageAPI(formData) {
+        try {
+            const response = await this.devicesAPI.post("api/ota/file", formData, { headers: { "Content-Type": "multipart/form-data" } });
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+
+    async getFWImageMetaData(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`api/ota/file/${deviceUid}/info`);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async deleteFWImage(deviceUid) {
+        try {
+            const response = await this.devicesAPI.delete(`api/ota/file/${deviceUid}`);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
         }
     }
 

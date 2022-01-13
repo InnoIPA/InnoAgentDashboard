@@ -36,10 +36,12 @@ import GpioButtonComponent from "../device/gpioButton.component";
 import BoardRestartComponent from "../device/boardRestartButton.component";
 import UartPassThruButtonComponent from "../device/uartPassThruButton.component";
 import BoardConfigButtonComponent from "../device/boardConfigButton.component";
+import UploadFWButtonComponent from "../device/uploadFWButton.component";
+import DeleteFWButtonComponent from "../device/deleteFWButton.component";
+import UpdateFWButtonComponent from "../device/updateFWButton.components";
 
 // On page alert message.
 import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
-
 
 
 // import 
@@ -214,6 +216,15 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Device tabs component.
         this.deviceTabsComponent = new DeviceTabsComponent();
+
+        // Upload FW image button component.
+        this.uploadFWButtonComponent = new UploadFWButtonComponent();
+
+        // Update FW image button component.
+        this.updateFWButtonComponent = new UpdateFWButtonComponent();
+
+        // Delete FW image button component.
+        this.deleteFWButtonComponent = new DeleteFWButtonComponent();
 
 
         // Stop the existing function test instance.

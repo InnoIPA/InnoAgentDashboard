@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // Load config from .env file.
 const Dotenv = require("dotenv-webpack");
 const targetIP = "http://127.0.0.1:8162";
-const dashboardServiceIP = "http://127.0.0.1:7600";
 
 module.exports = {
     //devtool: 'cheap-module-eval-source-map',
@@ -88,18 +87,8 @@ module.exports = {
         open: true, //自动打开页面
         hot: true, //开启热更新
         proxy: {
-            "/devices": {
-                target: targetIP,
-                secure: false,
-                changeOrigin: true
-            },
-            "/api/show-config": {
-                target: targetIP,
-                secure: false,
-                changeOrigin: true
-            },
             "/api": {
-                target: dashboardServiceIP,
+                target: targetIP,
                 secure: false,
                 changeOrigin: true
             },

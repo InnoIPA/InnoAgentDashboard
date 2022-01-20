@@ -1,0 +1,89 @@
+<!-- Device page -->
+
+<div class="col-12 pb-5 pt-3">
+    <div class="row">
+        <div class="col-auto mr-auto">
+            <h3>Dashboard setting</h3>
+        </div>
+        <div class="col-auto pt-2"><a id="reset-default-link" href="javascript:void(0);">Reset as
+                default</a>
+        </div>
+    </div>
+
+    <hr>
+    <div class="">
+        <form class="dashboard-setting-form needs-validation" id="dashboard-setting" novalidate>
+
+            <!-- InnoAgent Web service address -->
+            <div class="form-group pb-2">
+                <label for="service-address" class="col-form-label">
+                    <h5>InnoAgent web service address</h5>
+                </label>
+                <div class="">
+                    <input type="url" class="form-control" name="serverAddress" placeholder=""
+                        value="" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid url.
+                    </div>
+                </div>
+
+                <div class="form-text text-muted">
+                    InnoAgent web service address.
+                    <br>Note: please fill in the entire address, including the prefix "http://" or "https://" and port
+                    number.
+                    e.g: http://127.0.0.1:8162
+                </div>
+            </div>
+
+            <!-- Web title -->
+            <div class="form-group pb-2">
+                <label for="dashboard-web-title" class="col-form-label">
+                    <h5>Dashboard web title</h5>
+                </label>
+                <div class="">
+                    <input type="text" class="form-control" id="dashboard-web-title" name="dashboardWebTitle"
+                        placeholder="Input a text" value="InnoAgent Web Utility">
+                </div>
+
+                <div class="form-text text-muted">Dashboard web title.
+                </div>
+            </div>
+
+            <!-- Copyright text -->
+            <div class="form-group pb-2">
+                <label for="dashboard-copyright-text" class="col-form-label">
+                    <h5>Copyright text</h5>
+                </label>
+                <div class="">
+                    <input type="text" class="form-control" id="dashboard-copyright-text" name="dashboardCopyrightText"
+                        placeholder="Input a text" value="© 2021 Innodisk Corporation. All Rights Reserved.">
+                </div>
+
+                <div class="form-text text-muted">Dashboard footer copyright text.
+                </div>
+            </div>
+
+            <!-- Refresh interval -->
+            <div class="form-group pb-2">
+                <label for="check-device-status-interval" class="col-form-label">
+                    <h5>Check device status interval</h5>
+                </label>
+                <div class="">
+                    <input type="number" class="form-control" id="check-device-status-interval"
+                        name="checkStatusInterval" value="5000" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid number.
+                    </div>
+                </div>
+
+                <div class="form-text text-muted">Time for dashboard refresh interval. (ms)
+                </div>
+            </div>
+
+            <hr>
+            <button id="dashboardSettingSubmitButton" class="swal2-confirm swal2-styled" style="background: #20ccac;"
+                type="submit">Submit</button>
+
+        </form>
+    </div>
+</div>

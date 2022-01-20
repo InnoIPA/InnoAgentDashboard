@@ -17,13 +17,14 @@ export const formToJSON = (formData) => {
  * @param {HTMLElement} formData The specified <form> tag DOM element.
  * @param {object} data The JSON object will insert into the specified <form> tag DOM elements.
  */
-export const JSONToForm = (formData, data) => {
+export const JSONToForm = (formData, data, ignoreKeys = []) => {
+
+    // Check if the input is valid.
+    if (!formData || !data) return;
 
     const dataCopyObject = deepCopy(data);
 
     // Remove ignore items from ignore key list.
-    const ignoreKeys = [];
-
     ignoreKeys.map((value) => {
         if (data[value] !== "undefined") {
             delete dataCopyObject[value];
@@ -33,20 +34,16 @@ export const JSONToForm = (formData, data) => {
 
     // Insert json into HTML form.
     Array.from(formData).map((element) => {
-        // Regular text.
-        if (element.type === "text") {
-            if (typeof (dataCopyObject[element.name]) !== "undefined") {
-                element.value = dataCopyObject[element.name];
-            }
 
+        if (element.type !== "submit") {
+            element.value = dataCopyObject[element.name];
         }
 
-        // Boolean.
-        if ((element.type === "checkbox") && (dataCopyObject[element.name] === true)) {
-            element.checked = "checked";
-        }
-        else {
-            element.checked = "";
+        // Boolean & radio button.
+        if (((element.type === "checkbox") || (element.type === "radio"))) {
+            (dataCopyObject[element.name] === true)
+                ? element.setAttribute("checked", "checked")
+                : element.setAttribute("checked", "");
         }
 
         // Options.
@@ -57,5 +54,8 @@ export const JSONToForm = (formData, data) => {
                 }
             }
         }
+
     });
+
+    return formData;
 };

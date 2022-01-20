@@ -10,7 +10,7 @@
 import { apiHandler } from "../../library/APILibrary";
 
 // Copyright text.
-import { copyrightText } from "../../applicationConstants";
+import { getDashboardDefaultConfiguration } from "../../applicationConstants";
 export default class PageFooterComponent {
     constructor() {
         // API library.
@@ -40,11 +40,7 @@ export default class PageFooterComponent {
      * @param {string} text The copyright text to be set as page footer.
      */
     setCopyrightText(text) {
-
-        // If the copyright text params are empty, using the default text.
-        if (text.length <= 0 || text === "undefined" || text === null) {
-            text = copyrightText;
-        }
+        if (!text) this.copyrightDOM.innerHTML = "© 2021 Innodisk Corporation. All Rights Reserved.";
 
         this.copyrightDOM.innerHTML = text;
     }

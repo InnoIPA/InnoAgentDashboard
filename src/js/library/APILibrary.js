@@ -17,13 +17,6 @@ export class APIHandler {
      */
     setServerAddress(addr = "") {
 
-        if (addr === "") {
-            this.serverAddr = addr;
-            this.setAxiosBaseUrl(this.serverAddr);
-            return this.serverAddr;
-        }
-
-        // Open the dashboard page from remote.
         this.serverAddr = addr;
         this.setAxiosBaseUrl(this.serverAddr);
         return this.serverAddr;
@@ -376,6 +369,99 @@ export class APIHandler {
             return undefined;
         }
     }
+
+
+    // Dashboard config API.
+    async getDashboardConfigAPI() {
+        try {
+            const response = await this.devicesAPI.get("api/dashboard/config");
+            if (Array.isArray(response.data)) return response.data[0];
+
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async createDashboardConfigAPI(params) {
+        try {
+            const response = await this.devicesAPI.post("api/dashboard/config", params);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async updateDashboardConfigAPI(configId, params) {
+        try {
+            const response = await this.devicesAPI.patch(`api/dashboard/config/${configId}`, params);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    async upsertDashboardConfigAPI(params) {
+        const findingResult = await this.getDashboardConfigAPI();
+        return (findingResult)
+            ? await this.updateDashboardConfigAPI(findingResult.configId, params)
+            : await this.createDashboardConfigAPI(params);
+    }
+
+    // Device config API.
+
+    // Get device config API.
+    async getDeviceConfigAPI(deviceUid = undefined) {
+        // Get all devices config.
+        if (!deviceUid) {
+            const response = await this.devicesAPI.get("api/dashboard/devices/config");
+            return response.data;
+        }
+
+        // Get the single device config.
+        const response = await this.devicesAPI.get(`api/dashboard/devices/config/${deviceUid}`);
+        return response.data;
+    }
+
+    // Create device config API.
+    async createDeviceConfigAPI(params) {
+        const response = await this.devicesAPI.post("api/dashboard/devices/config/", params);
+        return response.data;
+    }
+
+    // Update device config API.
+    async updateDeviceConfigAPI(deviceUid, params) {
+        const response = await this.devicesAPI.patch(`api/dashboard/devices/config/${deviceUid}`, params);
+        return response.data;
+    }
+
+    // Delete device config API.
+    async deleteDeviceConfigAPI(deviceUid) {
+        const response = await this.devicesAPI.delete(`api/dashboard/devices/config/${deviceUid}`);
+        return response.data;
+    }
+
+    // Device status API.
+    async getDeviceStatusAPI(deviceUid) {
+        // Get all devices status.
+        if (!deviceUid) {
+            const response = await this.devicesAPI.get("api/dashboard/devices/status");
+            return response.data;
+        }
+
+        // Get the single device status.
+        const response = await this.devicesAPI.get(`api/dashboard/devices/status/${deviceUid}`);
+        return response.data;
+    }
+
+    async upsertDeviceStatusAPI() {
+        const response = await this.devicesAPI.patch(`api/dashboard/devices/status/${deviceUid}`, params);
+        return response.data;
+    }
+
 
     // Old APIs.
 

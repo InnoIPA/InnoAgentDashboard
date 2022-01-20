@@ -1,3 +1,17 @@
+// Dashboard default configuration.
+export const getDashboardDefaultConfiguration = () => {
+    // Get current windows URL.
+    const getCurrentWindowsURL = `${document.location.protocol}//${document.location.hostname.startsWith("localhost") ? "127.0.0.1" : document.location.hostname}:8162`;
+    return {
+        serverAddress: getCurrentWindowsURL,
+        dashboardWebTitle: "InnoAgent Web Utility",
+        dashboardCopyrightText: "© 2021 Innodisk Corporation. All Rights Reserved.",
+        checkStatusInterval: 5000
+    };
+};
+
+
+
 // Loading device config error error message.
 export const loadingDeviceConfigErrorMessage = "Unable to load the the 'config/deviceConfig.js' file, please check the config file and reload this page to try again!";
 
@@ -15,8 +29,7 @@ export const alertMessage = {
     dismiss: "Operation has been cancelled!"
 };
 
-// Copyright.
-export const copyrightText = "© 2021 Innodisk Corporation. All Rights Reserved.";
+
 
 
 // OTA image is not present message.
@@ -69,5 +82,41 @@ export const UPDATE_DEVICE_FW_ALERT = {
 export const UPDATE_DEVICE_FW_STATUS = {
     SUCCESS: { ICON: "success", MESSAGE: "Update request has been sent!" },
     FAILED: { ICON: "error", MESSAGE: "Failed to update the specified device FW, please try again later!" },
-    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+// Dashboard configuration reset status.
+export const GET_DASHBOARD_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Fetch dashboard configuration successfully!" },
+    FAILED: { ICON: "error", MESSAGE: "Unable to get the dashboard configuration, the dashboard may not work properly!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+// Reset Dashboard configuration alert.
+export const SETUP_DASHBOARD_CONFIGURATION_ALERT = {
+    ICON: "info",
+    TITLE: "Are you sure?",
+    MESSAGE: "If you want to modified the dashboard configuration, press the OK button.",
+};
+
+// Dashboard configuration reset status.
+export const SETUP_DASHBOARD_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Update dashboard configuration successfully!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to apply dashboard configuration, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+
+// Reset Dashboard configuration alert.
+export const RESET_DASHBOARD_CONFIGURATION_ALERT = {
+    ICON: "info",
+    TITLE: "Are you sure?",
+    MESSAGE: "If you want to reset dashboard configuration as default, press the OK button.",
+};
+
+// Dashboard configuration reset status.
+export const RESET_DASHBOARD_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Reset dashboard configuration as default successfully!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to apply dashboard configuration, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
 };

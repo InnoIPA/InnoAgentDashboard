@@ -1,7 +1,6 @@
 import { replaceProtocolToWS } from "../library/utils/webSocketUtils";
 import { WS_PING_INTERVAL } from "../config/commonConfig";
 
-import RealTimeLogComponent from "../components/device/realTimeLog.component";
 
 export default class WebSocketHandler {
     constructor(wsUrl = "", wsPath = "") {
@@ -11,10 +10,11 @@ export default class WebSocketHandler {
         this.retryConnectCount = 0;
         this.pingInterval = undefined;
 
-
-        this.realTimeLogComponent = new RealTimeLogComponent();
-
         this.connect(this.wsUrl);
+    }
+
+    setRemoteDataInstance(instance) {
+        this.realTimeLogComponent = instance;
     }
 
     async connect(url) {
@@ -60,7 +60,7 @@ export default class WebSocketHandler {
             if (JSON.parse(message.data)["dataType"] === "clientLog") {
                 this.realTimeLogComponent.insertLogData(message.data);
             }
-           
+
         };
 
         this.wsClient.onerror = (error) => {

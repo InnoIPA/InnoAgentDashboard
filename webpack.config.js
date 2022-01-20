@@ -81,7 +81,7 @@ module.exports = {
         "../xlsx.js": "var _XLSX"
     },
     devServer: {
-        host: "localhost", //服务器的ip地址
+        host: "0.0.0.0", //服务器的ip地址
         compress: true,
         port: 9996, //端口
         open: true, //自动打开页面

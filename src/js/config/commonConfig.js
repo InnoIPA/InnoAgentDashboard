@@ -1,14 +1,3 @@
-/**
- * Configure instructions.
- * 
- * Step 1. Specify the web service version.
- * 
- * 
- * Step 2. Specify the web service address.
- * 
- * 
- * */
-
 /*
  * serviceAddress (string)
  * If the server is hosting on public cloud, the variable serverAddress must be given its value.
@@ -21,6 +10,6 @@ export const WS_PATH = "ws/innoagent";
 
 export const WS_PING_INTERVAL = 3 * 1000;
 
-export const CHECK_ONLINE_STATUS_INTERVAL = 10 * 1000;
+export const CHECK_ONLINE_STATUS_INTERVAL = 5 * 1000;
 
 export const demoWebTitle = "InnoAgent OOB Demo";

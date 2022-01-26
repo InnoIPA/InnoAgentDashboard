@@ -48,6 +48,7 @@ export default class EditDeviceConfigButtonComponent {
 
         // The trigger tabs.
         this.triggerTabs = document.querySelector(`[data-tab-target='${fetchAPITarget}']`).getAttribute("href");
+        this.triggerTabsName = document.querySelector(`[data-tab-target='${fetchAPITarget}']`).getAttribute("data-tab-target");
 
 
         // The edit device config button position.
@@ -184,7 +185,7 @@ export default class EditDeviceConfigButtonComponent {
         this.editDeviceConfigButtonTargetPosition.querySelector(".cancel-device-config").classList.remove("d-none");
 
         // If current tab is GPIO status.
-        if (this.triggerTabs === "gpioStatusTab") {
+        if (this.triggerTabsName === "gpioStatusTab") {
             // Check if the tab is the gpio.
             this.gpioTabOnEditHandler();
         }
@@ -295,7 +296,7 @@ export default class EditDeviceConfigButtonComponent {
         this.editDeviceConfigButtonTargetPosition.querySelector(".cancel-device-config").classList.add("d-none");
 
         // If current tab is GPIO status.
-        if (this.triggerTabs === "gpioStatusTab") {
+        if (this.triggerTabsName === "gpioStatusTab") {
             this.gpioTabOnCancelHandler();
         }
 

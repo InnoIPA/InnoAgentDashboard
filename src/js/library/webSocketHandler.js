@@ -1,6 +1,9 @@
 import { replaceProtocolToWS } from "../library/utils/webSocketUtils";
 import { WS_PING_INTERVAL } from "../applicationConstants";
 
+// Pop-up alert utils.
+import { alertUtils } from "../library/alertUtils";
+
 
 export default class WebSocketHandler {
     constructor(wsUrl = "", wsPath = "") {
@@ -56,9 +59,15 @@ export default class WebSocketHandler {
         };
 
         this.wsClient.onmessage = (message) => {
+
             // Real-time log.
             if (JSON.parse(message.data)["dataType"] === "clientLog") {
                 this.realTimeLogComponent.insertLogData(message.data);
+            }
+
+            // OTA device response.
+            if (JSON.parse(message.data)["dataType"] === "ota") {
+                alertUtils.mixinAlert("info", `Device response : ${JSON.parse(message.data)["payload"]["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }
 
         };

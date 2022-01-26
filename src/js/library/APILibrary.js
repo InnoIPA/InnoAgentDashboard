@@ -370,6 +370,19 @@ export class APIHandler {
         }
     }
 
+    // Start OTA process.
+    async startOTAProcessAPI(deviceUid, params) {
+
+        if (params.useGlobal === "undefined") params.useGlobal = true;
+        try {
+            const response = await this.devicesAPI.post(`api/devices/${deviceUid}/start-ota-process`, params);
+            return { status: response.status, message: response.data.payload.params.response };
+        }
+        catch (error) {
+            return { status: error.response.status, message: error.response.data.message };
+        }
+    }
+
 
     // Dashboard config API.
     async getDashboardConfigAPI() {

@@ -7,6 +7,8 @@ import { alertUtils } from "../../library/alertUtils";
 // Constants.
 import { UPDATE_DEVICE_FW_ALERT, FW_IMAGE_NOT_FOUND_ALERT, UPDATE_DEVICE_FW_STATUS } from "../../applicationConstants";
 
+import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
+
 export default class UpdateFWButtonComponent {
     constructor() {
         this.getRequireDOMElements();
@@ -48,10 +50,10 @@ export default class UpdateFWButtonComponent {
      */
     async doOperation() {
         try {
-            const deviceUid = "global";
+            const deviceUid = getSelectedDeviceSerialNumber();
 
             // Check if the specified image is existing on the server.
-            const isImageExists = await this.updateFWImagePreInspection(deviceUid);
+            const isImageExists = await this.updateFWImagePreInspection();
 
             if (!isImageExists) {
                 return alertUtils.mixinAlert(FW_IMAGE_NOT_FOUND_ALERT.ICON, FW_IMAGE_NOT_FOUND_ALERT.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
@@ -63,16 +65,26 @@ export default class UpdateFWButtonComponent {
             // OK button clicked.
             if (alert.isConfirmed) {
 
-                // TODO: API need to change.
-                const response = await apiHandler.getFWImageMetaData(deviceUid);
-                return (response)
-                    ? alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.SUCCESS.ICON, UPDATE_DEVICE_FW_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true })
-                    : alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.FAILED.ICON, UPDATE_DEVICE_FW_STATUS.FAILED.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                const { status, message } = await apiHandler.startOTAProcessAPI(deviceUid, { useGlobal: true });
+
+                // Failed to update the specified device.
+                if ((+status) >= 400) {
+                    return alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.FAILED.ICON, `Server response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                }
+
+                // Success sent update request.
+                alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.SUCCESS.ICON, UPDATE_DEVICE_FW_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                setTimeout(() => {
+                    alertUtils.mixinAlert("info", `Device response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                }, 4 * 1000);
+
 
             }
 
             // Cancel button clicked.
-            return alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.CANCEL.ICON, UPDATE_DEVICE_FW_STATUS.CANCEL.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+            if (alert.dismiss) {
+                return alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.CANCEL.ICON, UPDATE_DEVICE_FW_STATUS.CANCEL.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+            }
 
         }
         catch (error) {

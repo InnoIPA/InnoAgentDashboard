@@ -1,5 +1,8 @@
 import { deepCopy } from "./deepCopy";
 
+// Parse value to specified type library.
+import { parseValueToType } from "../../library/utils/parseValueToType";
+
 /**
  * Convert all fields in the specified <form> tag to a JSON object.
  * @param {HTMLElement} formData The specified <form> tag DOM element.
@@ -7,9 +10,17 @@ import { deepCopy } from "./deepCopy";
  */
 export const formToJSON = (formData) => {
 
+
     const data = new FormData(formData);
-    const value = Object.fromEntries(data.entries());
-    return value;
+
+    const formDataObject = Object.fromEntries(data.entries());
+
+    Object.keys(formDataObject).forEach(value => {
+        formDataObject[value] = parseValueToType(formDataObject[value], "boolean");
+        
+    });
+
+    return formDataObject;
 };
 
 /**
@@ -34,17 +45,29 @@ export const JSONToForm = (formData, data, ignoreKeys = []) => {
 
     // Insert json into HTML form.
     Array.from(formData).map((element) => {
-
         if (element.type !== "submit") {
             element.value = dataCopyObject[element.name];
         }
 
-        // Boolean & radio button.
-        if (((element.type === "checkbox") || (element.type === "radio"))) {
-            (dataCopyObject[element.name] === true)
-                ? element.setAttribute("checked", "checked")
-                : element.setAttribute("checked", "");
+
+        
+        // Checkbox
+        if (element.type === "checkbox") {
+            element.value = dataCopyObject[element.name];
+            if (dataCopyObject[element.name]) {
+                
+                element.checked = "checked";
+            }
+            else {
+                element.checked = "";
+            }
         }
+
+        // Checkbox default value.
+        if (element.type === "hidden") {
+            element.value = "false";
+        }
+
 
         // Options.
         if (element.type === "select-one") {

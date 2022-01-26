@@ -23,25 +23,24 @@ import header from "./html/pages/header.html";
 import deviceInfoTabs from "./html/pages/deviceInfoTabs.html";
 import dashboardSetting from "./html/pages/dashboardSetting.html";
 
+// Shard variable.
+import { getDashboardConfiguration } from "./js/sharedVariable";
+
+// API library.
 import { apiHandler } from "./js/library/APILibrary";
 
-import { sidebarInit } from "./js/components/pages/sidebar.component";
-import { dashboardSettingInitial } from "./js/components/pages/dashboardSetting.component";
-
-
-
-import { WS_PATH } from "./js/config/commonConfig";
-
-import { deviceConfig } from "./js/config/deviceConfig";
+// Websocket.
+import { WS_PATH } from "./js/applicationConstants";
 import WebSocketHandler from "./js/library/webSocketHandler";
 
+// Page components.
+import { sidebarInit } from "./js/components/pages/sidebar.component";
+import { dashboardSettingInitial } from "./js/components/pages/dashboardSetting.component";
 import DeviceIndexGroupButtonComponent from "./js/components/pages/deviceIndexGroupButton.component";
 import RebootButtonComponent from "./js/components/device/rebootButton.component";
 import PowerButtonComponent from "./js/components/device/powerButton.component";
 import BoardRestartComponent from "./js/components/device/boardRestartButton.component";
 import GpioButtonComponent from "./js/components/device/gpioButton.component";
-import UartPassThruButtonComponent from "./js/components/device/uartPassThruButton.component";
-import BoardConfigButtonComponent from "./js/components/device/boardConfigButton.component";
 import DeviceTabsComponent from "./js/components/device/deviceTabs.component";
 import RealTimeLogComponent from "./js/components/device/realTimeLog.component";
 import UploadFWButtonComponent from "./js/components/device/uploadFWButton.component";
@@ -49,15 +48,20 @@ import UpdateFWButtonComponent from "./js/components/device/updateFWButton.compo
 import DeleteFWButtonComponent from "./js/components/device/deleteFWButton.component";
 import PageFooterComponent from "./js/components/pages/pageFooter.component";
 
+// Dynamic added device components.
+import AddDeviceConfigButtonComponent from "./js/components/deviceConfigComponents/addDeviceConfigButton.component";
+import UpdateDeviceConfigButtonComponent from "./js/components/deviceConfigComponents/updateDeviceConfigButton.component";
+import DeleteDeviceConfigButtonComponent from "./js/components/deviceConfigComponents/deleteDeviceConfigButton.component";
 
-import { getDashboardConfiguration } from "./js/sharedVariable";
+// Export device index group button component instance.
+export let deviceIndexGroupButtonComponentInstance = undefined;
 
-
+// On page loaded.
 document.addEventListener("DOMContentLoaded", async () => {
     await reloadAll();
 });
 
-
+// Initial
 const initial = async () => {
 
     // API target address.
@@ -73,15 +77,17 @@ const initial = async () => {
 
 };
 
+// Initial device page.
 const initialDevicePage = async () => {
 
     document.getElementById("header").innerHTML = header;
     document.querySelector("#device-info-tabs-section").innerHTML = deviceInfoTabs;
 
     // Device index button.
-    const r = new DeviceIndexGroupButtonComponent();
-    // Generate the device index button from the config file.
-    r.fetchDeviceDataFromConfigFile(deviceConfig);
+    deviceIndexGroupButtonComponentInstance = new DeviceIndexGroupButtonComponent();
+    await deviceIndexGroupButtonComponentInstance.fetchDeviceDataFromServer();
+
+    // await fetchDeviceDataFromServer();
 
     // System reboot button component.
     new RebootButtonComponent();
@@ -95,12 +101,6 @@ const initialDevicePage = async () => {
     // Board restart button component.
     new BoardRestartComponent();
 
-    // UART pass thru button component.
-    new UartPassThruButtonComponent();
-
-    // Board config button component.
-    new BoardConfigButtonComponent();
-
     // Device tabs component.
     new DeviceTabsComponent();
 
@@ -113,6 +113,13 @@ const initialDevicePage = async () => {
     // Delete FW image button component.
     new DeleteFWButtonComponent();
 
+
+
+    new AddDeviceConfigButtonComponent();
+    new UpdateDeviceConfigButtonComponent();
+    new DeleteDeviceConfigButtonComponent();
+
+
     // Real-time log component.
     const remoteDataComponent = new RealTimeLogComponent();
 
@@ -121,13 +128,14 @@ const initialDevicePage = async () => {
     websocketHandler.setRemoteDataInstance(remoteDataComponent);
 };
 
+// Initail dashboard config page.
 const initialDashboardConfigPage = async () => {
     // Setting tab content.
     document.querySelector("#dashboardSettingContainer").innerHTML = dashboardSetting;
     await dashboardSettingInitial();
 };
 
-
+// Reload all.
 export const reloadAll = async () => {
     document.querySelector("#header").innerHTML = "";
     document.querySelector("#device-info-tabs-section").innerHTML = "";
@@ -139,4 +147,6 @@ export const reloadAll = async () => {
     await initialDashboardConfigPage();
 
 };
+
+
 

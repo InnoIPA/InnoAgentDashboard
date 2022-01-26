@@ -405,61 +405,103 @@ export class APIHandler {
     }
 
     async upsertDashboardConfigAPI(params) {
-        const findingResult = await this.getDashboardConfigAPI();
-        return (findingResult)
-            ? await this.updateDashboardConfigAPI(findingResult.configId, params)
-            : await this.createDashboardConfigAPI(params);
+        try {
+            const findingResult = await this.getDashboardConfigAPI();
+            return (findingResult)
+                ? await this.updateDashboardConfigAPI(findingResult.configId, params)
+                : await this.createDashboardConfigAPI(params);
+        }
+        catch (error) {
+            return undefined;
+        }
+
     }
 
     // Device config API.
 
     // Get device config API.
     async getDeviceConfigAPI(deviceUid = undefined) {
-        // Get all devices config.
-        if (!deviceUid) {
-            const response = await this.devicesAPI.get("api/dashboard/devices/config");
+        try {
+            // Get all devices config.
+            if (!deviceUid) {
+                const response = await this.devicesAPI.get("api/dashboard/devices/config");
+                return response.data;
+            }
+
+            // Get the single device config.
+            const response = await this.devicesAPI.get(`api/dashboard/devices/config/${deviceUid}`);
             return response.data;
         }
+        catch (error) {
+            return undefined;
+        }
 
-        // Get the single device config.
-        const response = await this.devicesAPI.get(`api/dashboard/devices/config/${deviceUid}`);
-        return response.data;
     }
 
     // Create device config API.
     async createDeviceConfigAPI(params) {
-        const response = await this.devicesAPI.post("api/dashboard/devices/config/", params);
-        return response.data;
+        try {
+            const response = await this.devicesAPI.post("api/dashboard/devices/config/", params);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
     }
 
     // Update device config API.
     async updateDeviceConfigAPI(deviceUid, params) {
-        const response = await this.devicesAPI.patch(`api/dashboard/devices/config/${deviceUid}`, params);
-        return response.data;
+        try {
+            const response = await this.devicesAPI.patch(`api/dashboard/devices/config/${deviceUid}`, params);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
     }
 
     // Delete device config API.
     async deleteDeviceConfigAPI(deviceUid) {
-        const response = await this.devicesAPI.delete(`api/dashboard/devices/config/${deviceUid}`);
-        return response.data;
+        try {
+            const response = await this.devicesAPI.delete(`api/dashboard/devices/config/${deviceUid}`);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
     }
 
     // Device status API.
     async getDeviceStatusAPI(deviceUid) {
-        // Get all devices status.
-        if (!deviceUid) {
-            const response = await this.devicesAPI.get("api/dashboard/devices/status");
+        try {
+            // Get all devices status.
+            if (!deviceUid) {
+                const response = await this.devicesAPI.get("api/dashboard/devices/status");
+                return response.data;
+            }
+
+            // Get the single device status.
+            const response = await this.devicesAPI.get(`api/dashboard/devices/status/${deviceUid}`);
             return response.data;
         }
+        catch (error) {
+            return undefined;
+        }
 
-        // Get the single device status.
-        const response = await this.devicesAPI.get(`api/dashboard/devices/status/${deviceUid}`);
-        return response.data;
     }
 
     async upsertDeviceStatusAPI() {
-        const response = await this.devicesAPI.patch(`api/dashboard/devices/status/${deviceUid}`, params);
-        return response.data;
+        try {
+            const response = await this.devicesAPI.patch(`api/dashboard/devices/status/${deviceUid}`, params);
+            return response.data;
+        }
+        catch (error) {
+            return undefined;
+        }
+
     }
 
 

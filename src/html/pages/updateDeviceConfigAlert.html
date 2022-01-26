@@ -1,159 +1,156 @@
-<h3>Modify the board configure </h3>
+<h3>Update device configure </h3>
 <hr>
 <div class="col-12">
     <div class="pt-2 pb-2 text-right"><span class="text-danger">*<span> <span class="text-dark">is
                     required<span></div>
-    <form id="modify-board-config" class="add-device-config-form">
-        <h5>Networking config</h5>
+    <form id="update-device-config" class="add-device-config-form">
+        <h5>Device information</h5>
+        <div class="pb-2"></div>
+        <div class="form-group">
+            <label for="serial-number-field">MAC address (deviceUid) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="serial-number-field" name="deviceUid"
+                aria-describedby="deviceUid" required readonly />
+            <small id="serial-number-field-help-block" class="form-text text-muted">The device uid (MAC address)
+            </small>
+        </div>
+
+        <div class="form-group pb-1">
+            <label for="alias-name-field">Name (name) <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="alias-name-field" name="name" aria-describedby="name"
+                required />
+            <small id="alias-name-field-help-block" class="form-text text-muted">Device alias.
+            </small>
+        </div>
+
+        <h5 class="pt-3">Function setting</h5>
         <hr class="pb-2">
 
-        <!-- DHCP mode (NETWORK_TYPE)-->
+        <!-- Power option-->
         <div class="form-group row pb-1">
-            <label for="DHCP-mode-option" class="col-auto mr-auto col-form-label">DHCP mode
+            <label for="os-heartbeat-option" class="col-auto mr-auto col-form-label">Power operation
+                (powerOperation)
                 <span class="text-danger">*</span>
-                <small id="DHCP-mode-option-help-block" class="form-text text-muted">Enable or disable
-                    the DHCP mode
+                <small id="os-heartbeat-option-help-block" class="form-text text-muted">Enable or disable
+                    the power function.
                 </small>
             </label>
 
             <div class="col-auto">
                 <label class="switch">
-                    <input type="hidden" value="1" name="NETWORK_TYPE">
-                    <input id="DHCPModeToggler" type="checkbox" class="success" name="NETWORK_TYPE" value="0" checked>
+                    <input type="hidden" name="powerOperation">
+                    <input type="checkbox" class="success" name="powerOperation">
                     <span class="slider round"></span>
                 </label>
             </div>
         </div>
 
-
-        <div class="staticMode">
-            <!-- IP address (NETWORK_STATIC_IP) -->
-            <div class="form-group">
-                <label for="static-IPAddress-field">IP address <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="static-IPAddress-field" name="NETWORK_STATIC_IP" value="0.0.0.0"
-                    aria-describedby="static IP Address" />
-                <small id="static-IPAddress-field-help-block" class="form-text text-muted">Device IP address
+        <!-- Reboot option-->
+        <div class="form-group row pb-1">
+            <label for="can-destroy-option" class="col-auto mr-auto col-form-label">Reboot operation
+                (rebootOperation)
+                <span class="text-danger">*</span>
+                <small id="can-destroy-option-help-block" class="form-text text-muted">Enable or disable the
+                    reboot function.
                 </small>
-            </div>
+            </label>
 
-            <!-- Gateway (NETWORK_STATIC_DEFAULT_GATEWAY) -->
-            <div class="form-group pb-1">
-                <label for="gateway-field">Gateway <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="gateway-field" name="NETWORK_STATIC_DEFAULT_GATEWAY" value="0.0.0.0"
-                    aria-describedby="Gateway" />
-                <small id="gateway-field-help-block" class="form-text text-muted">Gateway
-                </small>
-            </div>
-
-            <!-- Subnet mask (NETWORK_STATIC_NETMASK) -->
-            <div class="form-group pb-1">
-                <label for="subnet-mask-field">Subnet mask <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="subnet-mask-field" name="NETWORK_STATIC_NETMASK" value="0.0.0.0"
-                    aria-describedby="Subnet mask" />
-                <small id="subnet-mask-field-help-block" class="form-text text-muted">Subnet mask
-                </small>
-            </div>
-
-            <!-- Network static metric (NETWORK_STATIC_METRIC) -->
-            <div class="form-group pb-1">
-                <label for="network-metric-field">Network static metric <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="network-metric-field" name="NETWORK_STATIC_METRIC" value="0"
-                    aria-describedby="Network static metric" />
-                <small id="network-metric-field-help-block" class="form-text text-muted">Network static metric
-                </small>
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="rebootOperation">
+                    <input type="checkbox" class="success" name="rebootOperation">
+                    <span class="slider round"></span>
+                </label>
             </div>
         </div>
 
-        <h5 class="pt-3">Server setting</h5>
-        <hr class="pb-2">
+        <!-- GPIO option-->
+        <div class="form-group row pb-1">
+            <label for="can-destroy-option" class="col-auto mr-auto col-form-label">GPIO operation
+                (gpioOperation)
+                <span class="text-danger">*</span>
+                <small id="can-destroy-option-help-block" class="form-text text-muted">Enable or disable the
+                    gpio function.
+                </small>
+            </label>
 
-        <!-- Server IP (SERVER_IP) -->
-        <div class="form-group pb-1">
-            <label for="server-IP-field">Server IP <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="server-IP-field" name="SERVER_IP" aria-describedby="Server IP" value=""
-                required />
-            <small id="server-IP-field-help-block" class="form-text text-muted">The web service IP address
-            </small>
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="gpioOperation">
+                    <input type="checkbox" class="success" name="gpioOperation">
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
 
-        <!-- Port (SERVER_PORT) -->
-        <div class="form-group pb-1">
-            <label for="server-port-field">Port <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="server-port-field" name="SERVER_PORT" aria-describedby="Port" value="1883"
-                required />
-            <small id="server-port-field-help-block" class="form-text text-muted">The service port (MQTT)
-            </small>
+        <!-- Modify config option-->
+        <div class="form-group row pb-1">
+            <label for="can-recovery-option" class="col-auto mr-auto col-form-label">Modify config
+                (setConfigOperation)
+                <span class="text-danger">*</span>
+                <small id="can-recovery-option-help-block" class="form-text text-muted">Enable or disable
+                    modify device config function.
+                </small>
+            </label>
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="setConfigOperation">
+                    <input type="checkbox" class="success" name="setConfigOperation" >
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
 
-        <!-- Server username (SERVER_USERNAME) -->
-        <div class="form-group pb-1">
-            <label for="server-username-field">Server username <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="server-username-field" name="SERVER_USERNAME" value=""
-                aria-describedby="Server username" required />
-            <small id="server-username-field-help-block" class="form-text text-muted">Server username
-            </small>
+        <!-- OTA option-->
+        <div class="form-group row pb-1">
+            <label for="can-reboot-option" class="col-auto mr-auto col-form-label">OTA (otaOperation)
+                <span class="text-danger">*</span>
+                <small id="can-reboot-option-help-block" class="form-text text-muted">Enable or disable
+                    the OTA function.
+                </small>
+            </label>
+
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="otaOperation">
+                    <input type="checkbox" class="success" name="otaOperation" >
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
 
-        <!-- Server password (SERVER_PASSWORD) -->
-        <div class="form-group pb-1">
-            <label for="server-password-field">Server password <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" id="server-password-field" name="SERVER_PASSWORD" value=""
-                aria-describedby="Server password" required />
-            <small id="server-password-field-help-block" class="form-text text-muted">Server password
-            </small>
+        <!-- Board restart option-->
+        <div class="form-group row pb-1">
+            <label for="can-reboot-option" class="col-auto mr-auto col-form-label">Board restart
+                (boardRestartOperation)
+                <span class="text-danger">*</span>
+                <small id="can-reboot-option-help-block" class="form-text text-muted">Enable or disable
+                    the board restart function.
+                </small>
+            </label>
+
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="boardRestartOperation">
+                    <input type="checkbox" class="success" name="boardRestartOperation">
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
 
-        <h5>Others config</h5>
-        <hr class="pb-2">
-         <!-- System timezone (SYSTIME_ZONE) -->
-        <div class="form-group pb-1">
-            <label for="system-timezone-field">System timezone <span class="text-danger">*</span></label>
-            <select class="form-control" id="system-timezone-field" name="SYSTIME_ZONE" required>
-                <option>GMT-12</option>
-                <option>GMT-11</option>
-                <option>GMT-10</option>
-                <option>GMT-9:30</option>
-                <option>GMT-9</option>
-                <option>GMT-8</option>
-                <option>GMT-7</option>
-                <option>GMT-6</option>
-                <option>GMT-5</option>
-                <option>GMT-4</option>
-                <option>GMT-3</option>
-                <option>GMT-2</option>
-                <option>GMT-1</option>
-                <option>GMT</option>
-                <option>GMT+0</option>
-                <option>GMT+1</option>
-                <option>GMT+2</option>
-                <option>GMT+3</option>
-                <option>GMT+3:30</option>
-                <option>GMT+4</option>
-                <option>GMT+4:30</option>
-                <option>GMT+5</option>
-                <option>GMT+5:30</option>
-                <option>GMT+5:45</option>
-                <option>GMT+6</option>
-                <option>GMT+6:30</option>
-                <option>GMT+7</option>
-                <option selected>GMT+8</option>
-                <option>GMT+8:45</option>
-                <option>GMT+9</option>
-                <option>GMT+9:30</option>
-                <option>GMT+10</option>
-                <option>GMT+10:30</option>
-                <option>GMT+11</option>
-                <option>GMT+12</option>
-                <option>GMT+12:45</option>
-                <option>GMT+13</option>
-                <option>GMT+14</option>
-            </select>
-            <small id="system-timezone-field-help-block" class="form-text text-muted">System timezone
-            </small>
+        <!-- function test option -->
+        <div id="function-test-block" class="form-group row pb-1">
+            <label for="function-test-option" class="col-auto mr-auto col-form-label">Function test (functionTest)
+                <small id="function-test-option-help-block" class="form-text text-muted">Enable or disable
+                    the function test option. (For Innodisk DQE testing)
+                </small></label>
+
+            <div class="col-auto">
+                <label class="switch">
+                    <input type="hidden" name="functionTest">
+                    <input type="checkbox" class="success" name="functionTest">
+                    <span class="slider round"></span>
+                </label>
+            </div>
         </div>
-
-
-        <div class="pt-1 pb-1"></div>
-        <label id="global-submit-btn" for="submit-btn" tabindex="0" class="btn btn-primary d-none">Submit</label>
     </form>
 </div>

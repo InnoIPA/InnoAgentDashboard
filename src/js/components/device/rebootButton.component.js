@@ -37,7 +37,7 @@ export default class RebootButtonComponent {
      */
     getRequireDOMElements() {
         // Device system reboot DOM.
-        this.deviceRebootButtonDOM = document.querySelector("#reboot-button");
+        this.deviceRebootButtonDOM = document.querySelector("#rebootOperation");
     }
 
     /**

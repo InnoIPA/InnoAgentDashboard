@@ -1,28 +1,20 @@
-/**
- * © 2021 Innodisk Corporation. IPA Jacky
- * Device index group button component.
- * This component is an device index group button that controls device index group button display.
- * 
- * 
- */
+import { apiHandler } from "../../library/APILibrary";
 
-// Config
-import { CHECK_ONLINE_STATUS_INTERVAL } from "../../config/commonConfig";
+// // Config
+// import { CHECK_ONLINE_STATUS_INTERVAL } from "../../config/commonConfig";
 
-// Application constants.
-import { loadingDeviceConfigErrorMessage } from "../../applicationConstants";
+
 
 // Shared variable
-import { setSelectedDeviceSerialNumber, getSelectedDeviceSerialNumber } from "../../sharedVariable";
+import { setSelectedDeviceSerialNumber, setDeviceGroupSelectedIndex, getDeviceGroupSelectedIndex, getSelectedDeviceSerialNumber, setDashboardServiceStatus, getDashboardConfiguration } from "../../sharedVariable";
 
 // Libraries.
 import { FunctionTestHandler } from "../../library/functionTestHandler";
 import { getElementFromDeviceConfig } from "../../library/getElementsFromDeviceConfig";
-import { cookieHandler } from "../../library/cookieHandler";
 import { ButtonHandler } from "../../library/buttonHandler";
 
 // Page loading animate.
-import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
+// import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
 
 // Components
 import DeviceNameComponent from "./deviceName.component";
@@ -31,8 +23,7 @@ import DeviceOnlineStatusComponent from "../device/onlineStatus.component";
 // On page alert message.
 import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
 
-
-// import 
+let checkDeviceConfigTimer = undefined;
 export default class DeviceIndexGroupButtonComponent {
 
     constructor() {
@@ -45,11 +36,13 @@ export default class DeviceIndexGroupButtonComponent {
         // Initial related components.
         this.initialRelatedComponents();
 
-        // Selected device index.
-        this.devIndex = cookieHandler.getCookie("sphereIndex") || 0;
+        this.deviceConfig = undefined;
 
-        // Set selected device serial number.
-        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.devIndex, "serialNumber"));
+        // Selected device index.
+        this.devIndex = (+getDeviceGroupSelectedIndex()) || 0;
+
+        // Check device status interval.
+        this.checkStatusInterval = +(getDashboardConfiguration("checkStatusInterval")) || 5000;
     }
 
     initialLibraries() {
@@ -69,8 +62,21 @@ export default class DeviceIndexGroupButtonComponent {
         this.deviceIndexGroupButtonDOM = document.querySelector("#devIndexGroup");
         this.devIndexGroupLists = document.querySelectorAll("#devIndexGroup")[0].getElementsByTagName("button");
 
-        //  No device button DOM.
+        // Device header.
+        this.deviceHeaderDOM = document.querySelector("#header");
+
+        // Device tabs.
+        this.deviceTabsDOM = document.querySelector("#device-info-tabs-section");
+
+        // Add device button.
         this.addDeviceButtonDOM = document.querySelector("#addDeviceBtn");
+
+        // No device container.
+        this.noDeviceContainerDOM = document.querySelector("#noDeviceContainer");
+
+        // Connection error container.
+        this.connectionErrorContainerDOM = document.querySelector("#connectionErrorContainer");
+
     }
 
     /**
@@ -89,7 +95,7 @@ export default class DeviceIndexGroupButtonComponent {
      * @returns {number} Device index.
      */
     getSelectedDeviceIndex() {
-        return this.devIndex;
+        return (+getDeviceGroupSelectedIndex());
     }
 
     /**
@@ -97,37 +103,8 @@ export default class DeviceIndexGroupButtonComponent {
      * @param {number} value Device index.
      */
     setSelectedDeviceIndex(value) {
-        if ((this.getSelectedDeviceIndex() < 0) || (value < 0)) {
-            this.devIndex = 0;
-            cookieHandler.setCookie("sphereIndex", 0);
-        }
-        else {
-            this.devIndex = (+value);
-            cookieHandler.setCookie("sphereIndex", (+value));
-        }
+        setDeviceGroupSelectedIndex((+value));
     }
-
-    /**
-     * 
-     * Show connection error message.
-     */
-    showConnectionErrorMessage() {
-        // Hidden the info tab.
-        document.querySelector("#device-info-tabs-section").classList.remove("d-block");
-        document.querySelector("#device-info-tabs-section").classList.add("d-none");
-
-        // Hidden the device operation section.
-        document.querySelector("#deviceConfigDropdown").classList.add("d-none");
-        document.querySelector("#addDeviceBtn").classList.add("d-none");
-        document.querySelector("#connectErrorAlert").innerHTML = `<i class="fas fa-exclamation pr-2"></i>
-<span class="text-danger">${loadingDeviceConfigErrorMessage}</span>`;
-        document.querySelector("#connectErrorAlert").classList.remove("d-none");
-        document.querySelector("#status-led-row").classList.add("d-none");
-
-        // Hidden the device device name component.
-        this.deviceNameComponent.hiddenDeviceNameDOMElement();
-    }
-
 
 
     generateDeviceIndexButtonElement(index) {
@@ -140,12 +117,7 @@ export default class DeviceIndexGroupButtonComponent {
 
     // Dynamic generates the device button.
     generateDevIndexGroupButton(data) {
-
-        if (!Array.isArray(data) || data.length <= 0) {
-            // Set add device button style.
-            this.addDeviceButtonDOM.classList.add("no-device");
-            return;
-        }
+        this.deviceIndexGroupButtonDOM.innerHTML = "";
 
         for (let i = 1; i <= data.length; i++) {
             // Generate the device index button and add into deviceIndexGroupButtonDOM.
@@ -156,7 +128,7 @@ export default class DeviceIndexGroupButtonComponent {
 
 
         // If device index button is greater than 0.
-        this.addDeviceButtonDOM.classList.remove("no-device");
+        this.addDeviceButtonDOM.classList.remove("d-none");
 
         // Set default click.
         this.deviceButtonClickFunction(this.getSelectedDeviceIndex());
@@ -191,31 +163,33 @@ export default class DeviceIndexGroupButtonComponent {
             this.functionTest.download();
         }
 
-        // Show loading animation.
-        pageLoadingAnimate({ type: "loading" });
+        // // Show loading animation.
+        // pageLoadingAnimate({ type: "loading" });
 
         // Set selected device index.
         this.setSelectedDeviceIndex(idx);
 
         // Set selected device serial number.
-        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(idx, "serialNumber"));
+        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid"));
 
-        console.log(`Tab: ${+idx + 1}, DeviceId is: ${getElementFromDeviceConfig(idx, "serialNumber")}`);
+        console.log(`Tab: ${+idx + 1}, DeviceId is: ${getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid")}`);
 
         // Get device online status.
         this.deviceOnlineStatusComponent.getDeviceOnlineStatus();
         this.deviceOnlineStatusComponent.stopDeviceOnlineStatusInterval();
-        this.deviceOnlineStatusComponent.startDeviceOnlineStatusInterval(CHECK_ONLINE_STATUS_INTERVAL);
+
+        // Check device status interval.
+        this.deviceOnlineStatusComponent.startDeviceOnlineStatusInterval((+this.checkStatusInterval));
 
         // Set button hover effect.
         this.deviceIndexGroupButtonAddHoverEffect(idx);
 
         // Set device name.
-        const deviceName = `${getElementFromDeviceConfig(idx, "name")} (${getSelectedDeviceSerialNumber()})`;
+        const deviceName = `${getElementFromDeviceConfig(this.deviceConfig, idx, "name")} (${getSelectedDeviceSerialNumber()})`;
         this.deviceNameComponent.setDeviceName(deviceName);
 
         // Get device enable or disable function.
-        this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.getSelectedDeviceIndex()));
+        this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex()));
 
 
         // Check if existing pending device restart process.
@@ -227,10 +201,8 @@ export default class DeviceIndexGroupButtonComponent {
             hideOnPageAlert();
         }
 
-        // Hide loading animation.
-        pageLoadingAnimate({ type: "stop" });
-
-
+        // // Hide loading animation.
+        // pageLoadingAnimate({ type: "stop" });
     }
 
     /**
@@ -248,22 +220,93 @@ export default class DeviceIndexGroupButtonComponent {
             this.devIndexGroupLists[i].addEventListener("click", clickFunction, false);
         }
     }
+
     /**
-     * 
-     * @param {object} deviceConfig The device config object.
+     * Show connection error status.
      */
-    fetchDeviceDataFromConfigFile(deviceConfig) {
+    showConnectionErrorStatus() {
+        // Show connection error container.
+        this.connectionErrorContainerDOM.classList.remove("d-none");
+
+        this.noDeviceContainerDOM.classList.add("d-none");
+        this.deviceHeaderDOM.classList.add("d-none");
+        this.deviceTabsDOM.classList.add("d-none");
+    }
+
+    /**
+     * Show no device status.
+     */
+    showNoDeviceStatus() {
+        // Show no device container.
+        this.noDeviceContainerDOM.classList.remove("d-none");
+
+        // Hide all other DOM elements.
+        this.connectionErrorContainerDOM.classList.add("d-none");
+        this.deviceHeaderDOM.classList.add("d-none");
+        this.deviceTabsDOM.classList.add("d-none");
+    }
+
+    /**
+     * Show regular device page status.
+     */
+    showRegularDeviceStatus() {
+        // Show all other DOM elements.
+        this.connectionErrorContainerDOM.classList.remove("d-none");
+        this.deviceHeaderDOM.classList.remove("d-none");
+        this.deviceTabsDOM.classList.remove("d-none");
+
+        // Show connection error container.
+        this.connectionErrorContainerDOM.classList.add("d-none");
+
+        // Show no device container.
+        this.noDeviceContainerDOM.classList.add("d-none");
+    }
+
+    setIntervalCheckDeviceConfigTimer(timer) {
+        clearInterval(checkDeviceConfigTimer);
+        checkDeviceConfigTimer = undefined;
+        checkDeviceConfigTimer = setInterval(this.fetchDeviceDataFromServer.bind(this), Math.floor(timer * 2.5));
+    }
+
+    /**
+     * Fetch device config data from server.
+     * @returns 
+     */
+    async fetchDeviceDataFromServer() {
+
+        // Check if interval check device config timer is existing.
+        if (!checkDeviceConfigTimer) {
+            this.setIntervalCheckDeviceConfigTimer(this.checkStatusInterval);
+        }
+
         try {
-            if ((!Array.isArray(deviceConfig) || (deviceConfig.length < 0))) {
-                throw new Error(loadingDeviceConfigErrorMessage);
+            const response = await apiHandler.getDeviceConfigAPI();
+
+            // Connection error.
+            if (!response) {
+                setDashboardServiceStatus(-1);
+                this.showConnectionErrorStatus();
+                return;
+
+            }
+
+            // No device.
+            if (Array.isArray(response) && response.length <= 0) {
+                setDashboardServiceStatus(0);
+                this.showNoDeviceStatus();
+                return;
             }
 
             // Generate the device index group button.
-            this.generateDevIndexGroupButton(deviceConfig);
+            this.deviceConfig = response;
+            this.generateDevIndexGroupButton(response);
+            setDashboardServiceStatus(1);
+            this.showRegularDeviceStatus();
         }
         catch (error) {
-            console.log(`Error catch at ${this.fetchDeviceDataFromConfigFile.name}`, error);
-            this.showConnectionErrorMessage();
+            console.error(error);
+            setDashboardServiceStatus(-1);
+            this.showConnectionErrorStatus();
         }
     }
 

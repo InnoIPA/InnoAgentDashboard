@@ -40,6 +40,7 @@ export default class DeviceTabsComponent {
      */
     getRequireDOMElements() {
         this.deviceTabsItemsDOM = document.querySelectorAll("#device-info-tabs a");
+        this.firstDeviceTabItemDOM = document.querySelector("#device-info-tabs li:first-child a");
     }
 
     async initialEventListener() {
@@ -57,6 +58,7 @@ export default class DeviceTabsComponent {
 
         // Default click the first tab.
         await this.tabComponentSelector("agentStatusTab");
+        this.firstDeviceTabItemDOM.classList.add("active");
         $("#device-info-tabs li:first-child a").tab("show");
 
     }

@@ -37,28 +37,67 @@
     <div class="main">
         <div id="container" class="container">
 
+            <!-- No device container -->
+            <div id="noDeviceContainer" class="row align-items-center w-100 d-none" style="height: 800px;">
+                <div class="col-12 border pt-4 pb-4">
+                    <div class="text-center">
+                        <span class="material-icons text-info" style="font-size: 50px;">
+                            info
+                        </span>
+                    </div>
+                    <h5 class="text-center">No existing device!</h5>
+                    <br>
+                    <h5 class="text-center">Press the add button to add a new device.</h5>
+                    <div class="mb-3"></div>
+                    <a id="indexAddDeviceButton" type="button" class="col-12 btn btn-outline-secondary-override">Add</a>
+
+                </div>
+            </div>
+
+            <!-- Connection error container -->
+            <div id="connectionErrorContainer" class="row align-items-center w-100 d-none" style="height: 800px;">
+                <div class="col-12 border pt-4 pb-4">
+                    <div class="text-center">
+                        <span class="material-icons text-danger" style="font-size: 50px;">
+                            warning
+                        </span>
+                    </div>
+
+                    <h5 class="text-center text-danger">Can not connect to server!</h5>
+                    <br>
+                    <p class="text-center">Please check the "InnoAgent web service address" in the
+                        "dashboard
+                        setting" is correct.</p>
+                    <p class="text-center">Reload this page to try again!</p>
+                    <div class="mb-3"></div>
+
+                </div>
+            </div>
+
+            <!-- Device operation container -->
             <div id="deviceOperationContainer" class="CChart">
-                <div id="header"></div>
-                <div id="device-info-tabs-section" class="row mar0 pad_t10 d-block"></div>
+                <div id="header" class=""></div>
+                <div id="device-info-tabs-section" class="mar0 pad_t10"></div>
+            </div>
+
+            <!-- Dashboard setting container -->
+            <div id="dashboardSettingContainer">
                 <div id="dashboardSetting" class="row mar0 pad_t10"></div>
             </div>
-
-            <div id="dashboardSettingContainer">
-                <!-- Dashboard container -->
-            </div>
-
-            <footer class="row mar0 pad_t10">
-                <div class="col-12">
-                    <div id="version-section" class="text-center">
-                        <span id="copyright-section">© 2021 Innodisk Corporation. All Rights Reserved.</span>
-                        <br>
-                        <span>InnoAgent Web Service Ver: <span id="service-version">x.x.x.x</span></span>
-                        <span>Dashboard Ver: <span id="dashboard-version">x.x.x.x</span></span>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="row mar0 pad_t10">
+        <div class="col-12">
+            <div id="version-section" class="text-center">
+                <span id="copyright-section">© 2021 Innodisk Corporation. All Rights Reserved.</span>
+                <br>
+                <span>InnoAgent Web Service Ver: <span id="service-version">x.x.x.x</span></span>
+                <span>Dashboard Ver: <span id="dashboard-version">x.x.x.x</span></span>
+            </div>
+        </div>
+    </footer>
 
 </body>
 

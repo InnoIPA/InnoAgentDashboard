@@ -2,14 +2,10 @@ import Swal from "sweetalert2";
 
 // Pages.
 import gpioOutputAlertPage from "../../html/pages/gpioOutputAlert.html";
-import uartPassThruAlertPage from "../../html/pages/uartPassThruAlert.html";
-import updateDeviceConfigAlert from "../../html/pages/updateDeviceConfigAlert.html";
 
 import GpioPinsHandler from "../library/gpioPinsHandler";
 
-// Components.
-import UartPassThruButtonComponent from "../components/device/uartPassThruButton.component";
-import BoardConfigButtonComponent from "../components/device/boardConfigButton.component";
+// import BoardConfigButtonComponent from "../components/device/boardConfigButton.component";
 
 
 export class AlertUtils {
@@ -277,69 +273,40 @@ export class AlertUtils {
         return alert;
     }
 
-    async uartPassThruButtonAlert() {
-        const uartPassThruButtonComponent = new UartPassThruButtonComponent();
-        const alert = await Swal.fire({
-            icon: "info",
-            title: "UART PassThru",
-            showCancelButton: true,
-            confirmButtonColor: "#20CCAC",
-            html: uartPassThruAlertPage,
-            width: "50%",
-            allowOutsideClick: () => !Swal.isLoading(),
-            onBeforeOpen: async () => {
-                await uartPassThruButtonComponent.getAvailableSerialPort();
-            },
-            preConfirm: () => {
-                const selectValue = document.querySelector("#tty-port-number").value;
-                if ((selectValue === null) || (selectValue === "-1")) {
-                    alertObj.showValidationMessage("Please select a serial port!");
-                }
 
-                const inputPayload = {
-                    port: document.querySelector("#tty-port-number").value,
-                    command: document.querySelector("#send-command").value,
-                };
-                return inputPayload;
-            }
-        });
-        return alert;
-    }
+    // async setBoardConfigAlert() {
+    //     const boardConfigButtonComponent = new BoardConfigButtonComponent();
+    //     const alert = await Swal.fire({
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#20CCAC",
+    //         customClass: { popup: "backup-alert-lg-width", content: "text-left mt-2 mb-5 container-fluid" },
+    //         confirmButtonText: "Submit",
+    //         showCloseButton: true,
+    //         html: updateDeviceConfigAlert,
+    //         width: "70%",
+    //         allowOutsideClick: () => !Swal.isLoading(),
+    //         onOpen: async () => {
+    //             await boardConfigButtonComponent.alertOnOpen();
+    //         },
+    //         preConfirm: () => {
+    //             const result = boardConfigButtonComponent.alertOnClickSubmitButtonEvent();
+    //             // TODO: validate.
 
 
-    async setBoardConfigAlert() {
-        const boardConfigButtonComponent = new BoardConfigButtonComponent();
-        const alert = await Swal.fire({
-            showCancelButton: true,
-            confirmButtonColor: "#20CCAC",
-            customClass: { popup: "backup-alert-lg-width", content: "text-left mt-2 mb-5 container-fluid" },
-            confirmButtonText: "Submit",
-            showCloseButton: true,
-            html: updateDeviceConfigAlert,
-            width: "70%",
-            allowOutsideClick: () => !Swal.isLoading(),
-            onOpen: async () => {
-                await boardConfigButtonComponent.alertOnOpen();
-            },
-            preConfirm: () => {
-                const result = boardConfigButtonComponent.alertOnClickSubmitButtonEvent();
-                // TODO: validate.
+    //             if (!result["NETWORK_TYPE"] || !result["SERVER_USERNAME"] || !result["SERVER_PASSWORD"] || !result["SERVER_IP"] || !result["SERVER_PORT"]) {
+    //                 alertObj.showValidationMessage("Some required felid is empty!");
+    //                 return null;
+    //             }
+    //             return result;
+    //         },
+    //         onClose: () => {
+    //             boardConfigButtonComponent.DHCPModeButtonOnClickEventListener();
+    //         }
+    //     });
+    //     return alert;
+    // }
 
-
-                if (!result["NETWORK_TYPE"] || !result["SERVER_USERNAME"] || !result["SERVER_PASSWORD"] || !result["SERVER_IP"] || !result["SERVER_PORT"]) {
-                    alertObj.showValidationMessage("Some required felid is empty!");
-                    return null;
-                }
-                return result;
-            },
-            onClose: () => {
-                boardConfigButtonComponent.DHCPModeButtonOnClickEventListener();
-            }
-        });
-        return alert;
-    }
-
-    async htmlAlert({ html, onBeforeOpen = undefined, onOpen = undefined, preConfirm = undefined, onClose = undefined, width = "50%", confirmButtonText = "OK" }) {
+    async htmlAlert({ html, onBeforeOpen = undefined, onOpen = undefined, preConfirm = undefined, onClose = undefined, onAfterClose = undefined, width = "50%", confirmButtonText = "OK" }) {
         return await Swal.fire({
             showCancelButton: true,
             confirmButtonColor: "#20CCAC",
@@ -353,6 +320,7 @@ export class AlertUtils {
             onBeforeOpen,
             preConfirm,
             onClose,
+            onAfterClose
         });
     }
 }

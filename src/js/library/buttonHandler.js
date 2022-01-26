@@ -34,7 +34,7 @@ export let ButtonHandler = class ButtonHandler {
         const deviceItemsCopy = deepCopy(deviceItems);
 
         // Remove unnecessary items.
-        const ignoreList = ["id", "serialNumber", "name", "createdAt", "updateAt"];
+        const ignoreList = ["id", "deviceUid", "name", "createdAt", "updateAt", "setConfigOperation"];
         ignoreList.map((value) => {
             if (deviceItemsCopy[value] !== "undefined") {
                 delete deviceItemsCopy[value];
@@ -51,7 +51,6 @@ export let ButtonHandler = class ButtonHandler {
 
     // Display button.
     setDeviceOperationButtonVisibleStatus(item, value) {
-
         try {
             if (value === true) {
                 this.deviceOperationButtonMap.get(item).classList.remove("d-none");

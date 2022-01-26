@@ -1,5 +1,5 @@
 import { replaceProtocolToWS } from "../library/utils/webSocketUtils";
-import { WS_PING_INTERVAL } from "../config/commonConfig";
+import { WS_PING_INTERVAL } from "../applicationConstants";
 
 
 export default class WebSocketHandler {

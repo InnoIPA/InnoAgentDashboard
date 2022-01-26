@@ -15,13 +15,12 @@ import LEDIndicatorHandler from "../pages/ledIndicator.component";
 // Shared variable.
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
+// Check device online status interval timer.
+let checkDeviceStatusTimer = undefined;
 export default class DeviceOnlineStatusComponent {
     constructor() {
         // API library.
         this.apiHandler = apiHandler;
-
-        // Check device online status interval timer.
-        this.checkDeviceOnlineStatusTimer = null;
 
         this.ledIndicatorHandler = new LEDIndicatorHandler();
 
@@ -68,14 +67,15 @@ export default class DeviceOnlineStatusComponent {
      * @param {number} time The time of the interval timer.
      */
     startDeviceOnlineStatusInterval(time = 6 * 1000) {
-        // Clear the existing timer.
-        this.stopDeviceOnlineStatusInterval();
 
-        // Create new timer.
-        const checkSphereStatusFunction = () => {
-            this.getDeviceOnlineStatus();
-        };
-        this.checkDeviceOnlineStatusTimer = setInterval(checkSphereStatusFunction, time);
+        // Check if interval check device status timer is existing.
+        if (!checkDeviceStatusTimer) {
+            // Create new timer.
+            const checkSphereStatusFunction = () => {
+                this.getDeviceOnlineStatus();
+            };
+            checkDeviceStatusTimer = setInterval(checkSphereStatusFunction, time);
+        }
     }
 
     /**
@@ -83,9 +83,9 @@ export default class DeviceOnlineStatusComponent {
      */
     stopDeviceOnlineStatusInterval() {
         // Clear the timer.
-        clearInterval(this.checkDeviceOnlineStatusTimer);
+        clearInterval(checkDeviceStatusTimer);
 
         // Reset the timer to default value.
-        this.checkDeviceOnlineStatusTimer = null;
+        checkDeviceStatusTimer = undefined;
     }
 }

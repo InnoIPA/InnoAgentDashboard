@@ -39,7 +39,7 @@ export default class PowerButtonComponent {
      */
     getRequireDOMElements() {
         // Device system reboot DOM.
-        this.deviceRebootButtonDOM = document.querySelector("#power-button");
+        this.deviceRebootButtonDOM = document.querySelector("#powerOperation");
     }
 
     /**

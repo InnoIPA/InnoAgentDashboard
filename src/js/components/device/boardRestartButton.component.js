@@ -42,7 +42,7 @@ export default class BoardRestartButtonComponent {
      */
     getRequireDOMElements() {
         // Device system reboot DOM.
-        this.deviceRebootButtonDOM = document.querySelector("#restart-button");
+        this.deviceRebootButtonDOM = document.querySelector("#boardRestartOperation");
     }
 
     /**

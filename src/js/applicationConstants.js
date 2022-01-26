@@ -1,3 +1,7 @@
+export const WS_PATH = "ws/innoagent";
+
+export const WS_PING_INTERVAL = 3 * 1000;
+
 // Dashboard default configuration.
 export const getDashboardDefaultConfiguration = () => {
     // Get current windows URL.
@@ -12,9 +16,6 @@ export const getDashboardDefaultConfiguration = () => {
 
 
 
-// Loading device config error error message.
-export const loadingDeviceConfigErrorMessage = "Unable to load the the 'config/deviceConfig.js' file, please check the config file and reload this page to try again!";
-
 // Alert title
 export const alertTitle = {
     success: "Success",
@@ -28,9 +29,6 @@ export const alertMessage = {
     error: "Please try again later...",
     dismiss: "Operation has been cancelled!"
 };
-
-
-
 
 // OTA image is not present message.
 export const FW_IMAGE_NOT_PRESENT = "Please select a valid image file.";
@@ -118,5 +116,36 @@ export const RESET_DASHBOARD_CONFIGURATION_ALERT = {
 export const RESET_DASHBOARD_CONFIGURATION_STATUS = {
     SUCCESS: { ICON: "success", MESSAGE: "Reset dashboard configuration as default successfully!" },
     FAILED: { ICON: "error", MESSAGE: "Failed to apply dashboard configuration, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+// Add device config status.
+export const ADD_DEVICE_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Device(s) added!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to add device, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+
+// Update device config status.
+export const UPDATE_DEVICE_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Update device configuration successfully!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to update specified device, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+
+// Delete device config alert.
+export const DELETE_DEVICE_CONFIGURATION_ALERT = {
+    ICON: "warning",
+    TITLE: "Are you sure?",
+    MESSAGE: "Will delete this device, do you want to continue?"
+};
+
+
+// Delete device config status.
+export const DELETE_DEVICE_CONFIGURATION_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Delete device configuration successfully!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to delete specified device, please try again later!" },
     CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
 };

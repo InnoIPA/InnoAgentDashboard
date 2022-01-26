@@ -1,0 +1,229 @@
+<h3>Add new device</h3>
+<hr>
+<div class="col-12">
+    <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="pills-manual-keyin-tab" data-toggle="pill" href="#manual-keyin" role="tab"
+                aria-controls="pills-home" aria-selected="true">Manual Key-in</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" id="pills-upload-configure-file-tab" data-toggle="pill" href="#upload-configure-file"
+                role="tab" aria-controls="pills-profile" aria-selected="false">From a JSON configure file</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="manual-keyin" role="tabpanel"
+            aria-labelledby="pills-manual-keyin-tab">
+            <div class="pt-1 pb-1 text-right"><span class="text-danger">*<span> <span class="text-dark">Required<span></div>
+            <form id="add-device-config" class="add-device-config-form">
+
+                <h5>Device information</h5>
+                <hr class="pb-2">
+                <div class="form-group">
+                    <label for="serial-number-field">MAC address (deviceUid) <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="serial-number-field" name="deviceUid"
+                        aria-describedby="deviceUid" required />
+                    <small id="serial-number-field-help-block" class="form-text text-muted">The device uid (MAC address)
+                    </small>
+                </div>
+                <div class="form-group pb-1">
+                    <label for="alias-name-field">Name (name)</label>
+                    <input type="text" class="form-control" id="alias-name-field" name="name" aria-describedby="name"/>
+                    <small id="alias-name-field-help-block" class="form-text text-muted">Device alias.
+                    </small>
+                </div>
+
+                <h5 class="pt-3">Function setting</h5>
+                <hr class="pb-2">
+
+                <!-- Power option-->
+                <div class="form-group row pb-1">
+                    <label for="os-heartbeat-option" class="col-auto mr-auto col-form-label">Power operation
+                        (powerOperation)
+                        <span class="text-danger">*</span>
+                        <small id="os-heartbeat-option-help-block" class="form-text text-muted">Enable or disable
+                            the power function.
+                        </small>
+                    </label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="powerOperation">
+                            <input type="checkbox" class="success" name="powerOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Reboot option-->
+                <div class="form-group row pb-1">
+                    <label for="can-destroy-option" class="col-auto mr-auto col-form-label">Reboot operation
+                        (rebootOperation)
+                        <span class="text-danger">*</span>
+                        <small id="can-destroy-option-help-block" class="form-text text-muted">Enable or disable the
+                            reboot function.
+                        </small>
+                    </label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="rebootOperation">
+                            <input type="checkbox" class="success" name="rebootOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- GPIO option-->
+                <div class="form-group row pb-1">
+                    <label for="can-destroy-option" class="col-auto mr-auto col-form-label">GPIO operation
+                        (gpioOperation)
+                        <span class="text-danger">*</span>
+                        <small id="can-destroy-option-help-block" class="form-text text-muted">Enable or disable the
+                            gpio function.
+                        </small>
+                    </label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="gpioOperation">
+                            <input type="checkbox" class="success" name="gpioOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Modify config option-->
+                <div class="form-group row pb-1">
+                    <label for="can-recovery-option" class="col-auto mr-auto col-form-label">Modify config
+                        (setConfigOperation)
+                        <span class="text-danger">*</span>
+                        <small id="can-recovery-option-help-block" class="form-text text-muted">Enable or disable
+                            modify device config function.
+                        </small>
+                    </label>
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="setConfigOperation">
+                            <input type="checkbox" class="success" name="setConfigOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- OTA option-->
+                <div class="form-group row pb-1">
+                    <label for="can-reboot-option" class="col-auto mr-auto col-form-label">OTA (otaOperation)
+                        <span class="text-danger">*</span>
+                        <small id="can-reboot-option-help-block" class="form-text text-muted">Enable or disable
+                            the OTA function.
+                        </small>
+                    </label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="otaOperation">
+                            <input type="checkbox" class="success" name="otaOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Board restart option-->
+                <div class="form-group row pb-1">
+                    <label for="can-reboot-option" class="col-auto mr-auto col-form-label">Board restart
+                        (boardRestartOperation)
+                        <span class="text-danger">*</span>
+                        <small id="can-reboot-option-help-block" class="form-text text-muted">Enable or disable
+                            the board restart function.
+                        </small>
+                    </label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="boardRestartOperation">
+                            <input type="checkbox" class="success" name="boardRestartOperation" value="true" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+
+
+                <!-- function test option -->
+                <div id="function-test-block" class="form-group row pb-1 d-none">
+                    <label for="function-test-option" class="col-auto mr-auto col-form-label">Function test
+                        (functionTest) <small id="function-test-option-help-block" class="form-text text-muted">Enable
+                            or disable
+                            the function test option. (For Innodisk DQE testing)
+                        </small></label>
+
+                    <div class="col-auto">
+                        <label class="switch">
+                            <input type="hidden" value="false" name="functionTest">
+                            <input type="checkbox" class="success" name="functionTest" value="true">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="pt-1 pb-1"></div>
+            </form>
+        </div>
+        <div class="tab-pane fade" id="upload-configure-file" role="tabpanel"
+            aria-labelledby="pills-upload-configure-file-tab">
+            <div class="pt-2 pb-2">
+                You can <a id="template-link" href="javascript:void(0);">click here</a> to download a config file
+                template.
+            </div>
+            <div class="drag-upload-container">
+                <!-- File dragging -->
+                <div id="file-dragging-status-block" class="d-none text-center">
+                    <div class="icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <header>Release to upload file</header>
+                </div>
+
+                <!-- Select file -->
+                <div id="select-file-block" class="text-center">
+                    <div class="icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <header>Drag & drop to upload configuration file</header>
+                    <div class="pt-2 pb-2"></div>
+
+                    <span>OR</span>
+                    <div class="pt-2 pb-2"></div>
+                    <button id="select-file-btn" class="swal2-confirm swal2-styled">
+                        Browse File
+                    </button>
+                </div>
+
+                <!-- File uploaded -->
+                <div id="file-uploaded-block" class="d-none text-center">
+                    <div class="icon success">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <header>File uploaded!</header>
+                    <div class="pt-2 pb-2"></div>
+                    <header>To add devices, click the Add button</header>
+                    <div class="pt-2 pb-2"></div>
+                    <span>To re-upload configure file, click the re-upload button.</span>
+                    <div class="pt-2 pb-2"></div>
+                    <button id="clear-file-btn" class="swal2-cancel swal2-styled">
+                        re-upload
+                    </button>
+                </div>
+
+                <input id="file-selector" type="file" hidden accept=".json" value="" />
+            </div>
+            <div class="pt-2 pb-2"></div>
+
+            <hr>
+            <div class="pt-3"></div>
+
+            <table id="config-data-table" class="table" style="display: block;overflow: overlay; ">
+                <thead></thead>
+            </table>
+        </div>
+    </div>
+</div>

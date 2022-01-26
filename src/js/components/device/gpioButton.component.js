@@ -39,7 +39,7 @@ export default class GpioButtonComponent {
      */
     getRequireDOMElements() {
         // Device gpio button DOM.
-        this.deviceGpioButtonDOM = document.querySelector("#gpio-button");
+        this.deviceGpioButtonDOM = document.querySelector("#gpioOperation");
     }
 
     /**

@@ -3,6 +3,8 @@ import { WS_PING_INTERVAL } from "../applicationConstants";
 
 // Pop-up alert utils.
 import { alertUtils } from "../library/alertUtils";
+import { tryParseJSONString } from "./utils/objectUtils";
+import { getSelectedDeviceSerialNumber } from "../sharedVariable";
 
 
 export default class WebSocketHandler {
@@ -60,16 +62,21 @@ export default class WebSocketHandler {
 
         this.wsClient.onmessage = (message) => {
 
+            const { dataType, payload } = tryParseJSONString(message.data);
+
             // Real-time log.
             if (JSON.parse(message.data)["dataType"] === "clientLog") {
                 this.realTimeLogComponent.insertLogData(message.data);
             }
 
-            // OTA device response.
-            if (JSON.parse(message.data)["dataType"] === "ota") {
-                alertUtils.mixinAlert("info", `Device response : ${JSON.parse(message.data)["payload"]["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+            if (payload["MAC"] === getSelectedDeviceSerialNumber()) {
+                
+                // OTA telemetry message.
+                if ((dataType === "ota")) {
+                    alertUtils.mixinAlert("info", `Device ${getSelectedDeviceSerialNumber()} response : ${payload["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                }
             }
-
+           
         };
 
         this.wsClient.onerror = (error) => {

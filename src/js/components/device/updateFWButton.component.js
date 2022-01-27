@@ -75,7 +75,7 @@ export default class UpdateFWButtonComponent {
                 // Success sent update request.
                 alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.SUCCESS.ICON, UPDATE_DEVICE_FW_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 setTimeout(() => {
-                    alertUtils.mixinAlert("info", `Device response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                    alertUtils.mixinAlert("info", `Device ${deviceUid} response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 }, 4 * 1000);
 
 

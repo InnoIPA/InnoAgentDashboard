@@ -63,3 +63,13 @@ export const setDashboardServiceStatus = (status) => {
 export const getDashboardServiceStatus = () => {
     return localStorage.getItem("InnoAgent_dashboard_service_status");
 };
+
+
+export const getNewLineOptionValue = () => {
+    return localStorage.getItem("InnoAgent_dashboard_new_line_option_value");
+};
+
+export const setNewLineOptionValue = (value) => {
+    localStorage.setItem("InnoAgent_dashboard_new_line_option_value", value);
+};
+

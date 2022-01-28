@@ -86,7 +86,9 @@ export class APIHandler {
                 "gpio_model": 1,
                 "net_type": 0,
                 "LAN_MAC": "e0d55e4d9bc6",
-                "WIFI_MAC": ""
+                "WIFI_MAC": "",
+                "remote_type":"0",
+
             };
         }
     }
@@ -127,7 +129,7 @@ export class APIHandler {
             // return undefined;
             return {
                 "IO_INTERVAL": 1000,
-                "HB_INTERVAL": 30
+                "HB_INTERVAL": 30,
             };
         }
 
@@ -335,6 +337,17 @@ export class APIHandler {
                 "INNO_GPIO_OUTPUT2": { "DIRECTION": "out", "VALUE": "0" }
             };
 
+        }
+    }
+
+    // Remote log.
+    async remoteLogAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/${deviceUid}/remote-log`, params);
+            return response.data.payload.reported.params.response;
+        }
+        catch (error) {
+            return undefined;
         }
     }
 

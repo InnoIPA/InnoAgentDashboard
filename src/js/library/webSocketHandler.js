@@ -64,19 +64,20 @@ export default class WebSocketHandler {
 
             const { dataType, payload } = tryParseJSONString(message.data);
 
-            // Real-time log.
-            if (JSON.parse(message.data)["dataType"] === "clientLog") {
-                this.realTimeLogComponent.insertLogData(message.data);
-            }
+  
 
             if (payload["MAC"] === getSelectedDeviceSerialNumber()) {
-                
                 // OTA telemetry message.
-                if ((dataType === "ota")) {
-                    alertUtils.mixinAlert("info", `Device ${getSelectedDeviceSerialNumber()} response : ${payload["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                if (dataType === "ota") {
+                    return alertUtils.mixinAlert("info", `Device ${getSelectedDeviceSerialNumber()} response : ${payload["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                }
+
+                // Remote log.
+                if (dataType === "remote_log") {
+                    return this.realTimeLogComponent.insertLogData(payload["log"]);
                 }
             }
-           
+
         };
 
         this.wsClient.onerror = (error) => {
@@ -95,11 +96,6 @@ export default class WebSocketHandler {
 
         // Ping message.
         this.send(JSON.stringify({ dataType: "clientMessage", payload: { dashboardHeartbeat: Date.now() } }));
-
-        // Mock
-        this.send(JSON.stringify({ dataType: "clientLog", payload: { heartbeat: Date.now() } }));
-        setInterval(this.send(JSON.stringify({ dataType: "clientLog", payload: { rnData: Date.now() } }) + "\r\n"), 8000);
-
     }
 
     send(data) {

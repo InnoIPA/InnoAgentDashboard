@@ -1,10 +1,5 @@
 import { apiHandler } from "../../library/APILibrary";
 
-// // Config
-// import { CHECK_ONLINE_STATUS_INTERVAL } from "../../config/commonConfig";
-
-
-
 // Shared variable
 import { setSelectedDeviceSerialNumber, setDeviceGroupSelectedIndex, getDeviceGroupSelectedIndex, getSelectedDeviceSerialNumber, setDashboardServiceStatus, getDashboardConfiguration } from "../../sharedVariable";
 
@@ -14,11 +9,12 @@ import { getElementFromDeviceConfig } from "../../library/getElementsFromDeviceC
 import { ButtonHandler } from "../../library/buttonHandler";
 
 // Page loading animate.
-// import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
+import { pageLoadingAnimate } from "../../library/pageLoadingAnimateEffect";
 
 // Components
 import DeviceNameComponent from "./deviceName.component";
 import DeviceOnlineStatusComponent from "../device/onlineStatus.component";
+import { deviceTabComponentInstance } from "../../../index";
 
 // On page alert message.
 import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
@@ -26,7 +22,10 @@ import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurati
 let checkDeviceConfigTimer = undefined;
 export default class DeviceIndexGroupButtonComponent {
 
-    constructor() {
+    constructor({ mode }) {
+        // Initial mode.
+        this.initialMode = mode;
+
         // Initial libraries.
         this.initialLibraries();
 
@@ -130,8 +129,30 @@ export default class DeviceIndexGroupButtonComponent {
         // If device index button is greater than 0.
         this.addDeviceButtonDOM.classList.remove("d-none");
 
-        // Set default click.
-        this.deviceButtonClickFunction(this.getSelectedDeviceIndex());
+        // Check if the first time initial.
+        if (this.initialMode === "initial") {
+            // Set default click.
+            this.deviceButtonClickFunction(this.getSelectedDeviceIndex());
+        }
+        this.initialMode = undefined;
+
+        // Set device name.
+        const deviceName = `${getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex(), "name")} (${getSelectedDeviceSerialNumber()})`;
+        this.deviceNameComponent.setDeviceName(deviceName);
+
+        // Get device enable or disable function.
+        this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex()));
+
+
+        // Check if existing pending device restart process.
+        const result = localStorage.getItem(getSelectedDeviceSerialNumber());
+        if (result && JSON.parse(result)["config"]["restartRequired"] === true) {
+            showOnPageAlert();
+        }
+        else {
+            hideOnPageAlert();
+        }
+
 
         // Set click event.
         this.setDevIndexGroupEvent();
@@ -155,7 +176,14 @@ export default class DeviceIndexGroupButtonComponent {
      * 
      * @param {number} idx The index of user selected.
      */
-    deviceButtonClickFunction(idx) {
+    async deviceButtonClickFunction(idx) {
+
+        // Set selected device serial number.
+        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid"));
+        console.log(`Tab: ${+idx + 1}, DeviceId is: ${getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid")}`);
+
+        // Set tab component default status.
+        deviceTabComponentInstance.setDefaultStatus();
 
         // Stop the existing function test instance.
         if (this.functionTest.isStart === true) {
@@ -163,16 +191,12 @@ export default class DeviceIndexGroupButtonComponent {
             this.functionTest.download();
         }
 
-        // // Show loading animation.
-        // pageLoadingAnimate({ type: "loading" });
+        // Show loading animation.
+        pageLoadingAnimate({ type: "loading" });
 
         // Set selected device index.
         this.setSelectedDeviceIndex(idx);
 
-        // Set selected device serial number.
-        setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid"));
-
-        console.log(`Tab: ${+idx + 1}, DeviceId is: ${getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid")}`);
 
         // Get device online status.
         this.deviceOnlineStatusComponent.getDeviceOnlineStatus();
@@ -201,8 +225,8 @@ export default class DeviceIndexGroupButtonComponent {
             hideOnPageAlert();
         }
 
-        // // Hide loading animation.
-        // pageLoadingAnimate({ type: "stop" });
+        // Hide loading animation.
+        pageLoadingAnimate({ type: "stop" });
     }
 
     /**

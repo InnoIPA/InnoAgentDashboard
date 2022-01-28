@@ -13,6 +13,7 @@ import "./style/css/style2.css";
 // Stylesheet for device config page.
 import "./style/css/device-config-style.css";
 
+// Remote log stylesheet.
 import "./style/css/realTimeLog.css";
 
 // Stylesheet for custom toggle button.
@@ -42,7 +43,7 @@ import PowerButtonComponent from "./js/components/device/powerButton.component";
 import BoardRestartComponent from "./js/components/device/boardRestartButton.component";
 import GpioButtonComponent from "./js/components/device/gpioButton.component";
 import DeviceTabsComponent from "./js/components/device/deviceTabs.component";
-import RealTimeLogComponent from "./js/components/device/realTimeLog.component";
+import RemoteLogComponent from "./js/components/device/remoteLog.component";
 import UploadFWButtonComponent from "./js/components/device/uploadFWButton.component";
 import UpdateFWButtonComponent from "./js/components/device/updateFWButton.component";
 import DeleteFWButtonComponent from "./js/components/device/deleteFWButton.component";
@@ -55,6 +56,12 @@ import DeleteDeviceConfigButtonComponent from "./js/components/deviceConfigCompo
 
 // Export device index group button component instance.
 export let deviceIndexGroupButtonComponentInstance = undefined;
+
+// Export remote log component instance.
+export let remoteLogComponentInstance = undefined;
+
+// Export device tabs component instance.
+export let deviceTabComponentInstance = undefined;
 
 // On page loaded.
 document.addEventListener("DOMContentLoaded", async () => {
@@ -83,11 +90,17 @@ const initialDevicePage = async () => {
     document.getElementById("header").innerHTML = header;
     document.querySelector("#device-info-tabs-section").innerHTML = deviceInfoTabs;
 
+    // Real-time log component.
+    remoteLogComponentInstance = new RemoteLogComponent();
+    remoteLogComponentInstance.initialEventListener();
+
+    // Device tabs component.
+    deviceTabComponentInstance = new DeviceTabsComponent();
+
     // Device index button.
-    deviceIndexGroupButtonComponentInstance = new DeviceIndexGroupButtonComponent();
+    deviceIndexGroupButtonComponentInstance = new DeviceIndexGroupButtonComponent({ mode: "initial" });
     await deviceIndexGroupButtonComponentInstance.fetchDeviceDataFromServer();
 
-    // await fetchDeviceDataFromServer();
 
     // System reboot button component.
     new RebootButtonComponent();
@@ -101,9 +114,6 @@ const initialDevicePage = async () => {
     // Board restart button component.
     new BoardRestartComponent();
 
-    // Device tabs component.
-    new DeviceTabsComponent();
-
     // Upload FW image button component.
     new UploadFWButtonComponent();
 
@@ -114,18 +124,14 @@ const initialDevicePage = async () => {
     new DeleteFWButtonComponent();
 
 
-
+    // Device config component.
     new AddDeviceConfigButtonComponent();
     new UpdateDeviceConfigButtonComponent();
     new DeleteDeviceConfigButtonComponent();
 
-
-    // Real-time log component.
-    const remoteDataComponent = new RealTimeLogComponent();
-
     // Web socket.
     const websocketHandler = new WebSocketHandler(getDashboardConfiguration("serverAddress"), WS_PATH);
-    websocketHandler.setRemoteDataInstance(remoteDataComponent);
+    websocketHandler.setRemoteDataInstance(remoteLogComponentInstance);
 };
 
 // Initail dashboard config page.
@@ -140,6 +146,7 @@ export const reloadAll = async () => {
     document.querySelector("#header").innerHTML = "";
     document.querySelector("#device-info-tabs-section").innerHTML = "";
     document.querySelector("#dashboardSettingContainer").innerHTML = "";
+    
     // Initial the sidebar.
     sidebarInit();
     await initial();

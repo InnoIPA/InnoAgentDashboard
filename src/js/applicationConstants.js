@@ -30,6 +30,13 @@ export const alertMessage = {
     dismiss: "Operation has been cancelled!"
 };
 
+
+export const REMOTE_LOG_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "Start remote log received!" },
+    FAILED: { ICON: "error", MESSAGE: "Failed to send remote log command, please try again later!" },
+    CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user!" },
+};
+
 // OTA image is not present message.
 export const FW_IMAGE_NOT_PRESENT = "Please select a valid image file.";
 

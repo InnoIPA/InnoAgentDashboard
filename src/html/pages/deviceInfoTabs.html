@@ -45,10 +45,10 @@
             aria-controls="serial-config-tab" aria-selected="false" data-tab-target="serialConfigTab">Serial</a>
     </li>
 
-    <!-- Real-time log tab button -->
+    <!-- Remote log tab button -->
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="real-time-log" data-toggle="tab" href="#nav-real-time-log" role="tab"
-            aria-controls="real-time-log" aria-selected="false" data-tab-target="realTimeLogTab">Real time
+        <a class="nav-link" id="remoteLog" data-toggle="tab" href="#nav-remote-log" role="tab"
+            aria-controls="remote-log" aria-selected="false" data-tab-target="remoteLogTab">Remote
             log</a>
     </li>
 </ul>
@@ -230,21 +230,19 @@
         </div>
     </div>
 
-    <!-- Real-time log tab content -->
-    <div class="tab-pane fade pt-3 pb-5 fg1" id="nav-real-time-log" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <!-- Remote log tab content -->
+    <div class="tab-pane fade pt-3 pb-5 fg1" id="nav-remote-log" role="tabpanel" aria-labelledby="nav-remote-log">
         <div class="col-12 pad5 realTimeLogWrapper">
             <div id="logToolbar" class="toolbar d-none">
 
                 <div class="leftDiv">
                     <div class="radioGroup d-none">
                         <div class="custom-control custom-radio custom-control-inline ml15">
-                            <input type="radio" id="customRadioInline1" name="customRadioInline"
-                                class="custom-control-input">
+                            <input type="radio" id="uartOption" name="port" class="custom-control-input" value="uart">
                             <label class="custom-control-label" for="customRadioInline1">UART</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="customRadioInline2" name="customRadioInline"
-                                class="custom-control-input">
+                            <input type="radio" id="rs232Option" name="port" class="custom-control-input" value="rs232">
                             <label class="custom-control-label" for="customRadioInline2">RS232</label>
                         </div>
                     </div>
@@ -263,26 +261,29 @@
                 <div id="logFilter" class="log filter">
                     <div class="container h-100 w-75">
                         <div class="row align-items-center justify-content-center h-100">
-                            <div class="col-6 border pt-4 pb-4">
+
+                            <form id="remoteLogForm" class="col-6 border pt-4 pb-4">
                                 <div class="radioGroup"><span class="mr-2">Log option:</span>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="logUARTOption" name="customRadioInline"
-                                            class="custom-control-input" checked>
+                                        <input type="radio" id="logUARTOption" name="port" class="custom-control-input"
+                                            value="uart" checked>
                                         <label class="custom-control-label" for="logUARTOption">UART</label>
                                     </div>
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input type="radio" id="logRS232Option" name="customRadioInline"
-                                            class="custom-control-input">
+                                        <input type="radio" id="logRS232Option" name="port" class="custom-control-input"
+                                            value="rs232">
                                         <label class="custom-control-label" for="logRS232Option">RS232</label>
                                     </div>
                                 </div>
 
 
-                                <div class="mt-3 form-inline d-none">
-                                    <label for="exampleInputEmail1" class="mr-2">Size:</label>
-                                    <input type="text" class="form-control" id="" aria-describedby="emailHelp">
-                                    <small id="emailHelp" class="form-text">The size of each received
-                                        message.</small>
+                                <div class="mt-3 form-inline">
+                                    <label for="newLineOption" class="mr-2">New line:</label>
+                                    <select class="form-control" id="newLineOption" title="new line">
+                                        <option value="CR+LF">CR+LF</option>
+                                        <option value="CR">CR</option>
+                                        <option value="LF">LF</option>
+                                    </select>
                                 </div>
 
                                 <div class="mt-3 form-inline d-none">
@@ -295,9 +296,9 @@
 
 
                                 <div class="mb-3"></div>
-                                <a id="logStart" type="button" class="col-12 btn btn-outline-secondary-override">Start</a>
-
-                            </div>
+                                <button id="logStart" type="submit"
+                                    class="col-12 btn btn-outline-secondary-override">Start</button>
+                            </form>
 
                         </div>
                     </div>

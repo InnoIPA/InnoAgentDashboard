@@ -19,7 +19,7 @@ import { GPIOTableHandler } from "../../library/gpioDynamicTable";
 import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
 import EditDeviceConfigButtonComponent from "./editDeviceConfigButton.component";
-import RealTimeLogComponent from "./realTimeLog.component";
+import { remoteLogComponentInstance } from "../../../index";
 
 
 export default class DeviceTabsComponent {
@@ -56,11 +56,20 @@ export default class DeviceTabsComponent {
             item.addEventListener("click", fn.bind(this));
         }
 
+    }
+
+    /**
+     * Set default status.
+     */
+    async setDefaultStatus() {
+        // Reset remote log instance.
+        remoteLogComponentInstance.setOnLogStopUIStatus();
+        Array.from(this.deviceTabsItemsDOM).forEach((element) => element.classList.remove("active"));
+
         // Default click the first tab.
+        $("#device-info-tabs li:first-child a").tab("show");
         await this.tabComponentSelector("agentStatusTab");
         this.firstDeviceTabItemDOM.classList.add("active");
-        $("#device-info-tabs li:first-child a").tab("show");
-
     }
 
     /**
@@ -165,11 +174,16 @@ export default class DeviceTabsComponent {
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
-            case ("realTimeLogTab"): {
+            case ("remoteLogTab"): {
 
-                const realTimeLogComponent = new RealTimeLogComponent();
-                realTimeLogComponent.initialEventListener();
-                realTimeLogComponent.onLogStopButtonClick();
+                const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
+                if ((!responseData) || (+responseData["remote_type"]) === 0) {
+                    remoteLogComponentInstance.setOnLogStopUIStatus();
+                }
+                else {
+                    remoteLogComponentInstance.setOnLogStartUIStatus();
+                }
+
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }

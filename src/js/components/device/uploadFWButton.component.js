@@ -6,6 +6,9 @@ import { apiHandler } from "../../library/APILibrary";
 // Pop-up alert utils.
 import { alertObj, alertUtils } from "../../library/alertUtils";
 
+// Dynamic table utils.
+import { DynamicTableHandler } from "../../library/dynamicTable";
+
 // Pop-up page.
 import uploadFWAlert from "../../../html/pages/uploadFWAlert.html";
 
@@ -47,8 +50,17 @@ export default class UploadFWButtonComponent {
      * @returns {function}
      */
     alertOnOpen() {
-        return () => {
+        return async () => {
+            // Dynamic table.
+            this.dynamicTableHandler = new DynamicTableHandler();
             bsCustomFileInput.init();
+
+            // Get FW image metadata.
+            const response = await apiHandler.getFWImageMetaData("global");
+            if (response) {
+                alertObj.getPopup().querySelector("#imageInfoContainer").classList.remove("d-none");
+                alertObj.getPopup().querySelector("#imageInfo").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(response));
+            }
         };
     }
 
@@ -105,6 +117,7 @@ export default class UploadFWButtonComponent {
         }
     }
 
+
     /**
      * Upload FW image pre-inspection, check if the FW image is existing.
      * @param {string} compatibleDeviceUid The device uid to query compatible FW, default is "global"
@@ -116,6 +129,7 @@ export default class UploadFWButtonComponent {
             const overwriteConfirmedAlert = await alertUtils.customQuestionAlert(FW_IMAGE_UPLOAD_PRE_INSPECTION_ALERT.ICON, FW_IMAGE_UPLOAD_PRE_INSPECTION_ALERT.TITLE, FW_IMAGE_UPLOAD_PRE_INSPECTION_ALERT.MESSAGE, true);
             return (overwriteConfirmedAlert.isConfirmed) ? true : false;
         }
+        // Default overwrite.
         return true;
     }
 

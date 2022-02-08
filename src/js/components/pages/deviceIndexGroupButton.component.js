@@ -16,9 +16,6 @@ import DeviceNameComponent from "./deviceName.component";
 import DeviceOnlineStatusComponent from "../device/onlineStatus.component";
 import { deviceTabComponentInstance } from "../../../index";
 
-// On page alert message.
-import { showOnPageAlert, hideOnPageAlert } from "../../library/boardConfigurationHandler";
-
 let checkDeviceConfigTimer = undefined;
 export default class DeviceIndexGroupButtonComponent {
 
@@ -102,7 +99,7 @@ export default class DeviceIndexGroupButtonComponent {
      * @param {number} value Device index.
      */
     setSelectedDeviceIndex(value) {
-        setDeviceGroupSelectedIndex((+value));
+        setDeviceGroupSelectedIndex(value);
     }
 
 
@@ -122,10 +119,10 @@ export default class DeviceIndexGroupButtonComponent {
             // Generate the device index button and add into deviceIndexGroupButtonDOM.
             this.deviceIndexGroupButtonDOM.appendChild(this.generateDeviceIndexButtonElement(i));
         }
-        // First button add class name="hover".
-        this.devIndexGroupLists[0].classList.add("hover");
 
-
+        // Set current selected tab style.
+        this.devIndexGroupLists[this.getSelectedDeviceIndex()].classList.add("hover");
+        
         // If device index button is greater than 0.
         this.addDeviceButtonDOM.classList.remove("d-none");
 
@@ -142,17 +139,6 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Get device enable or disable function.
         this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex()));
-
-
-        // Check if existing pending device restart process.
-        const result = localStorage.getItem(getSelectedDeviceSerialNumber());
-        if (result && JSON.parse(result)["config"]["restartRequired"] === true) {
-            showOnPageAlert();
-        }
-        else {
-            hideOnPageAlert();
-        }
-
 
         // Set click event.
         this.setDevIndexGroupEvent();
@@ -178,12 +164,18 @@ export default class DeviceIndexGroupButtonComponent {
      */
     async deviceButtonClickFunction(idx) {
 
+        // Set button hover effect.
+        this.deviceIndexGroupButtonAddHoverEffect(idx);
+
+        // Set selected device index.
+        this.setSelectedDeviceIndex(idx);
+
         // Set selected device serial number.
         setSelectedDeviceSerialNumber(getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid"));
         console.log(`Tab: ${+idx + 1}, DeviceId is: ${getElementFromDeviceConfig(this.deviceConfig, idx, "deviceUid")}`);
 
-        // Set tab component default status.
-        deviceTabComponentInstance.setDefaultStatus();
+        // Show loading animation.
+        pageLoadingAnimate({ type: "loading" });
 
         // Stop the existing function test instance.
         if (this.functionTest.isStart === true) {
@@ -191,22 +183,12 @@ export default class DeviceIndexGroupButtonComponent {
             this.functionTest.download();
         }
 
-        // Show loading animation.
-        pageLoadingAnimate({ type: "loading" });
-
-        // Set selected device index.
-        this.setSelectedDeviceIndex(idx);
-
-
         // Get device online status.
         this.deviceOnlineStatusComponent.getDeviceOnlineStatus();
         this.deviceOnlineStatusComponent.stopDeviceOnlineStatusInterval();
 
         // Check device status interval.
         this.deviceOnlineStatusComponent.startDeviceOnlineStatusInterval((+this.checkStatusInterval));
-
-        // Set button hover effect.
-        this.deviceIndexGroupButtonAddHoverEffect(idx);
 
         // Set device name.
         const deviceName = `${getElementFromDeviceConfig(this.deviceConfig, idx, "name")} (${getSelectedDeviceSerialNumber()})`;
@@ -216,14 +198,8 @@ export default class DeviceIndexGroupButtonComponent {
         this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex()));
 
 
-        // Check if existing pending device restart process.
-        const result = localStorage.getItem(getSelectedDeviceSerialNumber());
-        if (result && JSON.parse(result)["config"]["restartRequired"] === true) {
-            showOnPageAlert();
-        }
-        else {
-            hideOnPageAlert();
-        }
+        // Set tab component default status.
+        deviceTabComponentInstance.setDefaultStatus();
 
         // Hide loading animation.
         pageLoadingAnimate({ type: "stop" });

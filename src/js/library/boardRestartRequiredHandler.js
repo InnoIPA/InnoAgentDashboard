@@ -23,3 +23,16 @@ export const showOnPageAlert = () => {
 export const hideOnPageAlert = () => {
     document.querySelector("#infoAlert").classList.add("d-none");
 };
+
+/**
+ * Check if the agent status need_restart flag.
+ * @param {object} data agent status data.
+ * @returns 
+ */
+export const rebootRequiredHandler = (data) => {
+    if (!data) return;
+
+    if ((+data["need_restart"]) === 1) return showOnPageAlert();
+    
+    return hideOnPageAlert();
+};

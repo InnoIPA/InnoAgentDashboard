@@ -1,10 +1,10 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Device tabs component.
  * This component is an device tabs component that controls Device tabs component function.
  * 
  * 
  */
+
 // API library.
 import { apiHandler } from "../../library/APILibrary";
 
@@ -20,6 +20,9 @@ import { getSelectedDeviceSerialNumber } from "../../sharedVariable";
 
 import EditDeviceConfigButtonComponent from "./editDeviceConfigButton.component";
 import { remoteLogComponentInstance } from "../../../index";
+
+// Reboot required handler.
+import { rebootRequiredHandler } from "../../library/boardRestartRequiredHandler";
 
 
 export default class DeviceTabsComponent {
@@ -95,6 +98,7 @@ export default class DeviceTabsComponent {
             case ("agentStatusTab"): {
 
                 const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
+                rebootRequiredHandler(responseData);
 
                 this.removeAllChildDOMs("#agentStatus");
 

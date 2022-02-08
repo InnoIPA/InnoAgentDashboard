@@ -23,8 +23,8 @@ import { GPIOTableHandler } from "../../library/gpioDynamicTable";
 // Parse value to specified type library.
 import { parseValueToType } from "../../library/utils/parseValueToType";
 
-// On page alert message.
-import { setOnPageAlert, showOnPageAlert } from "../../library/boardConfigurationHandler";
+// Reboot required handler.
+import { rebootRequiredHandler } from "../../library/boardRestartRequiredHandler";
 
 export default class EditDeviceConfigButtonComponent {
     constructor({ fetchAPITarget = "", postAPITarget = "", autoRestart = false }) {
@@ -259,20 +259,9 @@ export default class EditDeviceConfigButtonComponent {
                     : `${this.operationName[0].toUpperCase() + this.operationName.slice(1)} ${alertMessage.success} <br> To take the configuration effect, you must restart your InnoAgent device.`;
                 alertUtils.mixinAlert("success", message, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
 
-                // Setting the restart alert & local storage.
-                const item = {
-                    config: {
-                        restartRequired: !this.autoRestart || true
-                    }
-                };
-                localStorage.setItem(getSelectedDeviceSerialNumber(), JSON.stringify(item));
-
-
-                if (JSON.parse(localStorage.getItem(getSelectedDeviceSerialNumber()))["config"]["restartRequired"] === true) {
-                    // Initial alert message.
-                    setOnPageAlert(["fas", "fa-exclamation"],);
-                    showOnPageAlert();
-                }
+                // Update device reboot required alert.
+                const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
+                rebootRequiredHandler(responseData);
 
             }
             // Otherwise.

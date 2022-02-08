@@ -6,6 +6,8 @@ import { alertUtils } from "../library/alertUtils";
 import { tryParseJSONString } from "./utils/objectUtils";
 import { getSelectedDeviceSerialNumber } from "../sharedVariable";
 
+// Reboot required handler.
+import { rebootRequiredHandler } from "../library/boardRestartRequiredHandler";
 
 export default class WebSocketHandler {
     constructor(wsUrl = "", wsPath = "") {
@@ -64,12 +66,11 @@ export default class WebSocketHandler {
 
             const { dataType, payload } = tryParseJSONString(message.data);
 
-  
-
             if (payload["MAC"] === getSelectedDeviceSerialNumber()) {
                 // OTA telemetry message.
-                if (dataType === "ota") {
-                    return alertUtils.mixinAlert("info", `Device ${getSelectedDeviceSerialNumber()} response : ${payload["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+                if (dataType === "ota_result") {
+                    if (payload["result"] === "successfully") rebootRequiredHandler({ need_restart: 1 });
+                    return alertUtils.mixinAlert("info", `Device OTA ${getSelectedDeviceSerialNumber()} response : ${payload["result"]}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 }
 
                 // Remote log.
@@ -80,14 +81,9 @@ export default class WebSocketHandler {
 
         };
 
-        this.wsClient.onerror = (error) => {
+        this.wsClient.onerror = () => {
             console.error("Error catch at server web socket, will be retry in 10 seconds.");
 
-            if (error) {
-                this.webSocketEventHandler.onTBError(error);
-            }
-
-            // Try to reconnect to thingsboard.
             this.reconnectionTimer = setTimeout(this.reconnect.bind(this), 10000);
         };
     }

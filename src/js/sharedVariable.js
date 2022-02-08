@@ -50,7 +50,9 @@ export const setDeviceGroupSelectedIndex = (idx) => {
 
 // Get device group selected index.
 export const getDeviceGroupSelectedIndex = () => {
-    return localStorage.getItem("InnoAgent_dashboard_device_selected_index");
+    const result = localStorage.getItem("InnoAgent_dashboard_device_selected_index");
+    if (result === "undefined") return 0;
+    return result;
 };
 
 // Set dashboard service status.
@@ -72,4 +74,3 @@ export const getNewLineOptionValue = () => {
 export const setNewLineOptionValue = (value) => {
     localStorage.setItem("InnoAgent_dashboard_new_line_option_value", value);
 };
-

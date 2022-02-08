@@ -57,6 +57,14 @@ export default class UploadFWButtonComponent {
 
             // Get FW image metadata.
             const response = await apiHandler.getFWImageMetaData("global");
+            const ignoreList = ["deviceUid", "downloadUrl", "createAt"];
+            ignoreList.map((value) => {
+                if (response[value] !== "undefined") {
+                    delete response[value];
+                }
+
+            });
+
             if (response) {
                 alertObj.getPopup().querySelector("#imageInfoContainer").classList.remove("d-none");
                 alertObj.getPopup().querySelector("#imageInfo").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(response));

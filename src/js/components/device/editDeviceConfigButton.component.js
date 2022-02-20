@@ -27,8 +27,19 @@ import { parseValueToType } from "../../library/utils/parseValueToType";
 import { rebootRequiredHandler } from "../../library/boardRestartRequiredHandler";
 
 export default class EditDeviceConfigButtonComponent {
-    constructor({ fetchAPITarget = "", postAPITarget = "", autoRestart = false }) {
 
+    removeAllExistingButton({ fetchAPITarget = "" }) {
+        // The trigger tabs.
+        this.triggerTabs = document.querySelector(`[data-tab-target='${fetchAPITarget}']`).getAttribute("href");
+
+        // The edit device config button position.
+        this.editDeviceConfigButtonTargetPosition = document.querySelector(`${this.triggerTabs} .editButtonWrapper`);
+
+        // Clear existing edit button.
+        this.clearExistingEditButton(this.editDeviceConfigButtonTargetPosition);
+    }
+
+    initial({ fetchAPITarget = "", postAPITarget = "", autoRestart = false }) {
         // API library.
         this.apiHandler = apiHandler;
 

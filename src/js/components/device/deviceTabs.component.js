@@ -35,6 +35,12 @@ export default class DeviceTabsComponent {
         // Dynamic table.
         this.dynamicTableHandler = new DynamicTableHandler();
         this.gpioDynamicTableHandler = new GPIOTableHandler();
+
+        // Editable components.
+        this.editDeviceConfigButtonInstance = new EditDeviceConfigButtonComponent();
+
+        // Editable button status.
+        this.editableButtonStatus = false;
     }
 
     /**
@@ -87,6 +93,15 @@ export default class DeviceTabsComponent {
     }
 
 
+    setEditButtonStatus(flag) {
+        this.editableButtonStatus = flag;
+    }
+
+    getEditButtonStatus() {
+        return this.editableButtonStatus;
+    }
+
+
     /**
      * Tab component selector.
      * @param {string} tab The tab name.
@@ -125,7 +140,8 @@ export default class DeviceTabsComponent {
                 this.removeAllChildDOMs("#agentConfig");
 
                 document.querySelector("#agentConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setAgentConfigAPI", autoRestart: false });
+                this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
+                if (this.getEditButtonStatus() === true) this.editDeviceConfigButtonInstance.initial({ fetchAPITarget: tab, postAPITarget: "setAgentConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
 
@@ -138,7 +154,8 @@ export default class DeviceTabsComponent {
                 this.removeAllChildDOMs("#networkConfig");
 
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setNetworkConfigAPI", autoRestart: false });
+                this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
+                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setNetworkConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -150,7 +167,8 @@ export default class DeviceTabsComponent {
                 this.removeAllChildDOMs("#serverConfig");
 
                 document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setServerConfigAPI", autoRestart: false });
+                this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
+                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setServerConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -162,7 +180,8 @@ export default class DeviceTabsComponent {
                 this.removeAllChildDOMs("#gpioConfig");
 
                 document.querySelector("#gpioConfig").appendChild(this.gpioDynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setGpioConfigAPI", autoRestart: false });
+                this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
+                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setGpioConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -173,7 +192,8 @@ export default class DeviceTabsComponent {
                 this.removeAllChildDOMs("#serialConfig");
 
                 document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
-                new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setSerialConfigAPI", autoRestart: false });
+                this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
+                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setSerialConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;

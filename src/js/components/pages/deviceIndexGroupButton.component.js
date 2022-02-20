@@ -122,7 +122,7 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Set current selected tab style.
         this.devIndexGroupLists[this.getSelectedDeviceIndex()].classList.add("hover");
-        
+
         // If device index button is greater than 0.
         this.addDeviceButtonDOM.classList.remove("d-none");
 
@@ -139,6 +139,9 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Get device enable or disable function.
         this.buttonHandler.getDeviceFunctionStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex()));
+
+        // Set tab component editable button status.
+        deviceTabComponentInstance.setEditButtonStatus(getElementFromDeviceConfig(this.deviceConfig, this.getSelectedDeviceIndex(), "setConfigOperation"));
 
         // Set click event.
         this.setDevIndexGroupEvent();
@@ -200,6 +203,9 @@ export default class DeviceIndexGroupButtonComponent {
 
         // Set tab component default status.
         deviceTabComponentInstance.setDefaultStatus();
+
+        // Set tab component editable button status.
+        deviceTabComponentInstance.setEditButtonStatus(getElementFromDeviceConfig(this.deviceConfig, idx, "setConfigOperation"));
 
         // Hide loading animation.
         pageLoadingAnimate({ type: "stop" });

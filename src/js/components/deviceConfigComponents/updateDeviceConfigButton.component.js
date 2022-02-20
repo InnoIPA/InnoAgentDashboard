@@ -11,7 +11,7 @@ import updateDeviceConfigAlert from "../../../html/pages/updateDeviceConfigAlert
 
 import { formToJSON, JSONToForm } from "../../library/utils/formUtils";
 import { UPDATE_DEVICE_CONFIGURATION_STATUS } from "../../applicationConstants";
-import { deviceIndexGroupButtonComponentInstance } from "../../../index";
+import { deviceIndexGroupButtonComponentInstance, deviceTabComponentInstance } from "../../../index";
 export default class UpdateDeviceConfigButtonComponent {
     constructor() {
         this.getRequireDOMElements();
@@ -47,10 +47,10 @@ export default class UpdateDeviceConfigButtonComponent {
         this.popupFormCheckboxes = this.popupUpdateDeviceConfigFormDOM.querySelectorAll("input[type='checkbox']");
     }
 
-     /**
-     * 
-     * Alert pop-up event listener handler.
-     */
+    /**
+    * 
+    * Alert pop-up event listener handler.
+    */
     popupEventListenerHandler({ mode = "initial" }) {
         // When user clicked the checkbox, modify the checkbox value.
         const onCheckboxClickedFn = (event) => {
@@ -65,7 +65,7 @@ export default class UpdateDeviceConfigButtonComponent {
             Array.from(this.popupFormCheckboxes).forEach((element) => element.removeEventListener("change", onCheckboxClickedFn));
             Array.from(this.popupFormCheckboxes).forEach((element) => element.addEventListener("change", onCheckboxClickedFn, false));
         }
-        
+
         // Remove event listener.
         if (mode === "remove") {
             /// All checkboxes in the form.
@@ -128,6 +128,9 @@ export default class UpdateDeviceConfigButtonComponent {
 
             // Refresh the device index group button.
             await deviceIndexGroupButtonComponentInstance.fetchDeviceDataFromServer();
+
+            // Reset device tab component to first tab.
+            await deviceTabComponentInstance.setDefaultStatus();
 
             if (alert.dismiss) {
                 return alertUtils.mixinAlert(UPDATE_DEVICE_CONFIGURATION_STATUS.CANCEL.ICON, UPDATE_DEVICE_CONFIGURATION_STATUS.CANCEL.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });

@@ -67,18 +67,19 @@ export default class UpdateFWButtonComponent {
 
                 const { status, message } = await apiHandler.startOTAProcessAPI(deviceUid, { useGlobal: true });
 
+
                 // Failed to update the specified device.
                 if ((+status) >= 400) {
                     return alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.FAILED.ICON, `Server response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
                 }
 
-                // Success sent update request.
-                alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.SUCCESS.ICON, UPDATE_DEVICE_FW_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
-                setTimeout(() => {
+                if (message !== "successfully") {
                     alertUtils.mixinAlert("info", `Device ${deviceUid} response : ${message}`, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
-                }, 4 * 1000);
+                }
+                
 
-
+                // Success sent update request.
+                // alertUtils.mixinAlert(UPDATE_DEVICE_FW_STATUS.SUCCESS.ICON, UPDATE_DEVICE_FW_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }
 
             // Cancel button clicked.

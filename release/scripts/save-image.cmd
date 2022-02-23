@@ -2,9 +2,7 @@
 cd .
 rem innoAgent dashboard docker image export tools.
 rem Description: This tools will save innoAgent dashboard docker images.
-rem Author: IPA -Jacky
-rem Contact: jacky_sung@innodisk.com
-rem Copyright: (c) 2021 - innodisk Corporation.
+rem Copyright: © 2022 - innodisk Corporation.
 
 
 title innoAgent dashboard docker image export tools for Windows OS

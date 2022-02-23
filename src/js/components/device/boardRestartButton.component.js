@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Reboot button component
  * This component is a device system reboot button component that controls device system reboot function.
  * 

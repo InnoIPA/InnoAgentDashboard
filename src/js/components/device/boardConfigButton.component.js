@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Device board config component.
  * This component is a device board config button component that controls device board config function.
  * 

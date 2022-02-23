@@ -1,9 +1,7 @@
 #!/bin/bash
 # innoAgent dashboard docker image export tools.
 # Description: This tools will save innoAgent dashboard docker images.
-# Author: IPA -Jacky
-# Contact: jacky_sung@innodisk.com
-# Copyright: (c) 2021 - innodisk Corporation.
+# Copyright: © 2022 - innodisk Corporation.
 
 set -e
 # Image export folder.

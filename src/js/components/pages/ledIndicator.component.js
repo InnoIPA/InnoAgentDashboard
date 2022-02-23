@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Page LED Indicator handler.
  * This handler controls page LED indicator display.
  * 

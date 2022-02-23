@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Page footer component.
  * This component is a page footer component that controls page copyright text and web service version text display appearance and related function.
  * 
@@ -40,7 +39,7 @@ export default class PageFooterComponent {
      * @param {string} text The copyright text to be set as page footer.
      */
     setCopyrightText(text) {
-        if (!text) this.copyrightDOM.innerHTML = "© 2022 Innodisk Corporation. All Rights Reserved.";
+        if (!text) this.copyrightDOM.innerHTML = getDashboardDefaultConfiguration().dashboardCopyrightText;
 
         this.copyrightDOM.innerHTML = text;
     }

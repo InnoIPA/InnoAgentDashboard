@@ -1,9 +1,7 @@
 #!/bin/bash
 # innoAgent dashboard docker image build tools.
 # Description: This tools will build innoAgent dashboard docker images.
-# Author: IPA -Jacky
-# Contact: jacky_sung@innodisk.com
-# Copyright: (c) 2021 - innodisk Corporation.
+# Copyright: © 2022 - innodisk Corporation.
 
 echo "Building innoAgent dashboard images..."
 cp "../nginx.conf" "../innoAgent-dashboard"

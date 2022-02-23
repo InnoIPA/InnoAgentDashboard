@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * 
  * 
  * DOM utils

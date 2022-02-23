@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Device name component.
  * This component is an device name component that controls device name display.
  * 

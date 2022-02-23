@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Gpio button component.
  * This component is a device system gpio button component that controls device system gpio function.
  * 

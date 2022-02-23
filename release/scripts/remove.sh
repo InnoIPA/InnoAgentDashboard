@@ -1,9 +1,7 @@
 #!/bin/bash
 # innoAgent dashboard docker stop and remove tools.
 # Description: This tools wii stopping and remove existing innoAgent dashboard.
-# Author: IPA -Jacky
-# Contact: jacky_sung@innodisk.com
-# Copyright: (c) 2021 - innodisk Corporation.
+# Copyright: © 2022 - innodisk Corporation.
 
 set -e
 # Clean old innoAgent dashboard images.

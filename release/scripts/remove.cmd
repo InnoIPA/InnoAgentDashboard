@@ -2,9 +2,7 @@
 cd .
 rem innoAgent dashboard docker stop and remove tools.
 rem Description: This tools wii stopping and remove existing innoAgent dashboard.
-rem Author: IPA -Jacky
-rem Contact: jacky_sung@innodisk.com
-rem Copyright: (c) 2021 - innodisk Corporation.
+rem Copyright: © 2022 - innodisk Corporation.
 
 title innoAgent dashboard remove tools for Windows OS
 

@@ -1,5 +1,4 @@
 /**
- * © 2021 Innodisk Corporation. IPA Jacky
  * Device online status component.
  * This component is a device system online status component that handlers device online status function.
  * 

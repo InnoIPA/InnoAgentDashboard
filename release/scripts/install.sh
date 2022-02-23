@@ -1,9 +1,7 @@
 #!/bin/bash
 # innoAgent dashboard docker images build tools.
 # Description: This program provides building innoAgent dashboard runtimes images.
-# Author: IPA -Jacky
-# Contact: jacky_sung@innodisk.com
-# Copyright: (c) 2021 - innodisk Corporation.
+# Copyright: © 2022 - innodisk Corporation.
 
 # Show all innoAgent docker images.
 echo -e "Show innoAgent container..."

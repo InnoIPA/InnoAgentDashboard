@@ -2,9 +2,7 @@
 cd .
 rem innoAgent dashboard docker images build tools.
 rem Description: This program provides building innoAgent dashboard runtimes images.
-rem Author: IPA -Jacky
-rem Contact: jacky_sung@innodisk.com
-rem Copyright: (c) 2021 - innodisk Corporation.
+rem Copyright: © 2022 - innodisk Corporation.
 
 rem how all docker images.
 echo Show all docker container...

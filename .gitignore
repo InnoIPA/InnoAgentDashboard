@@ -3,3 +3,4 @@ dist/*
 release/scripts/export-images/*.tar
 *.zip
 release/innoAgent-dashboard/*
+.vscode/*

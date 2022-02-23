@@ -155,7 +155,8 @@ export default class DeviceTabsComponent {
 
                 document.querySelector("#networkConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
-                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setNetworkConfigAPI", autoRestart: false });
+                if (this.getEditButtonStatus() === true) this.editDeviceConfigButtonInstance.initial({ fetchAPITarget: tab, postAPITarget: "setNetworkConfigAPI", autoRestart: false });
+                
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -168,8 +169,8 @@ export default class DeviceTabsComponent {
 
                 document.querySelector("#serverConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
-                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setServerConfigAPI", autoRestart: false });
-
+                if (this.getEditButtonStatus() === true) this.editDeviceConfigButtonInstance.initial({ fetchAPITarget: tab, postAPITarget: "setServerConfigAPI", autoRestart: false });
+                
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
@@ -181,7 +182,8 @@ export default class DeviceTabsComponent {
 
                 document.querySelector("#gpioConfig").appendChild(this.gpioDynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
-                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setGpioConfigAPI", autoRestart: false });
+                if (this.getEditButtonStatus() === true) this.editDeviceConfigButtonInstance.initial({ fetchAPITarget: tab, postAPITarget: "setGpioConfigAPI", autoRestart: false });
+                
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
@@ -193,7 +195,7 @@ export default class DeviceTabsComponent {
 
                 document.querySelector("#serialConfig").appendChild(this.dynamicTableHandler.generateDynamicTableFromJSONData(responseData));
                 this.editDeviceConfigButtonInstance.removeAllExistingButton({ fetchAPITarget: tab });
-                if (this.getEditButtonStatus() === true) new EditDeviceConfigButtonComponent({ fetchAPITarget: tab, postAPITarget: "setSerialConfigAPI", autoRestart: false });
+                if (this.getEditButtonStatus() === true) this.editDeviceConfigButtonInstance.initial({ fetchAPITarget: tab, postAPITarget: "setSerialConfigAPI", autoRestart: false });
 
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;

@@ -55,14 +55,16 @@ export default class DeleteDeviceConfigButtonComponent {
                 let idx = getDeviceGroupSelectedIndex();
                 setDeviceGroupSelectedIndex(idx - 1);
 
+                // Refresh the device index group button.
+                await deviceIndexGroupButtonComponentInstance.fetchDeviceDataFromServer();
+                deviceIndexGroupButtonComponentInstance.deviceButtonClickFunction(idx - 1);
+
                 alertUtils.mixinAlert(DELETE_DEVICE_CONFIGURATION_STATUS.SUCCESS.ICON, DELETE_DEVICE_CONFIGURATION_STATUS.SUCCESS.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
 
             }
 
-            // Refresh the device index group button.
-            await deviceIndexGroupButtonComponentInstance.fetchDeviceDataFromServer();
 
-             // Cancel button clicked.
+            // Cancel button clicked.
             if (alert.dismiss) {
                 return alertUtils.mixinAlert(DELETE_DEVICE_CONFIGURATION_STATUS.CANCEL.ICON, DELETE_DEVICE_CONFIGURATION_STATUS.CANCEL.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             }

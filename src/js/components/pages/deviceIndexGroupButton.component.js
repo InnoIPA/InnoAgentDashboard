@@ -120,8 +120,15 @@ export default class DeviceIndexGroupButtonComponent {
             this.deviceIndexGroupButtonDOM.appendChild(this.generateDeviceIndexButtonElement(i));
         }
 
+        // Prevent page crash.
+        if (!this.devIndexGroupLists[this.getSelectedDeviceIndex()]){
+            this.setSelectedDeviceIndex(0);
+        }
+
         // Set current selected tab style.
         this.devIndexGroupLists[this.getSelectedDeviceIndex()].classList.add("hover");
+
+        
 
         // If device index button is greater than 0.
         this.addDeviceButtonDOM.classList.remove("d-none");

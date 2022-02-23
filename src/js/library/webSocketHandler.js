@@ -45,7 +45,7 @@ export default class WebSocketHandler {
         this.reconnectionTimer = null;
         this.pingInterval = null;
 
-        console.log("Reconnecting to Thingsboard web socket, retry times:", ++this.retryConnectCount);
+        console.log("Reconnecting to web socket, retry times:", ++this.retryConnectCount);
 
     }
 

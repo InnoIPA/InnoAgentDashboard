@@ -113,7 +113,7 @@ export class APIHandler {
     async webServiceVersionAPI() {
         try {
             const response = await this.devicesAPI.get("/api/service/show-config");
-            return response.data.payload.VersionNumber;
+            return response.data.payload.serviceVersion;
         }
         catch (error) {
             return "x.x.x.x";

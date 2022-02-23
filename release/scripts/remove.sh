@@ -7,8 +7,8 @@ set -e
 # Clean old innoAgent dashboard images.
 echo -e "Stop and remove existing dashboard...\r"
 if [ "$(docker ps -a -q -f name=innoAgent-Dashboard)" ]; then
-    docker stop innoAgent-Dashboard
-    docker rm innoAgent-Dashboard -f
+    docker stop InnoAgent-Dashboard
+    docker rm InnoAgent-Dashboard -f
 fi
 
 # Remove network

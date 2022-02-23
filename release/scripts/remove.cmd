@@ -8,7 +8,7 @@ title innoAgent dashboard remove tools for Windows OS
 
 rem Clean old innoAgent dashboard images.
 echo Stop and remove existing dashboard...
-docker ps -a -q -f name=innoAgent-Dashboard >nul && docker stop innoAgent-Dashboard && echo. && docker rm innoAgent-Dashboard -f || echo innoAgent dashboard is not exist!
+docker ps -a -q -f name=InnoAgent-Dashboard >nul && docker stop InnoAgent-Dashboard && echo. && docker rm InnoAgent-Dashboard -f || echo InnoAgent dashboard is not exist!
 
 
 rem Remove vitual network device.

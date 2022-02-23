@@ -22,5 +22,5 @@ docker network ls | findstr innoagent_webservice_net && docker network rm innoAg
 goto :runContainer
 
 :runContainer
-docker image inspect innoagent-dashboard:v1 >nul && docker run -idt -p 80:80 --network=innoagent_webservice_net --ip 172.99.0.102 --restart always --name innoAgent-Dashboard innoagent-dashboard:v1
+docker image inspect innoagent-dashboard:v1 >nul && docker run -idt -p 80:80 --network=innoagent_webservice_net --ip 172.99.0.102 --restart always --name InnoAgent-Dashboard innoagent-dashboard:v1
 echo innoAgent dashboard is running!

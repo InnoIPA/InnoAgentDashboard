@@ -15,9 +15,7 @@ call npm run build
 
 rem Do release process
 echo Do release process...
-del dist\myAppFiles.zip /f /s /q
 xcopy dist release\innoAgent-dashboard /E /K /Y
-call powershell.exe "Compress-Archive -Path dist\* -DestinationPath release\InnoAgent-Dashboard-Azure.zip" -Force
 
 rem delay 10 sec.
 ping 127.0.0.1 -n 10 -w 1000 > nul

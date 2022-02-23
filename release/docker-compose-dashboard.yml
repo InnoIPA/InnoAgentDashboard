@@ -12,7 +12,7 @@ services:
     networks:
       innoagent_webservice_net:
         ipv4_address: 172.99.0.102 # Fixed IP address.
-    container_name: innoAgent-Dashboard # Container name.
+    container_name: InnoAgent-Dashboard # Container name.
 
 # Virtual network device config.
 networks:

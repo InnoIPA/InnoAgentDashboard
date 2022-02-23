@@ -40,7 +40,7 @@ export default class PageFooterComponent {
      * @param {string} text The copyright text to be set as page footer.
      */
     setCopyrightText(text) {
-        if (!text) this.copyrightDOM.innerHTML = "© 2021 Innodisk Corporation. All Rights Reserved.";
+        if (!text) this.copyrightDOM.innerHTML = "© 2022 Innodisk Corporation. All Rights Reserved.";
 
         this.copyrightDOM.innerHTML = text;
     }

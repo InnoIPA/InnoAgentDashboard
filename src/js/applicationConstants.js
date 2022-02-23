@@ -9,7 +9,7 @@ export const getDashboardDefaultConfiguration = () => {
     return {
         serverAddress: getCurrentWindowsURL,
         dashboardWebTitle: "InnoAgent Web Utility",
-        dashboardCopyrightText: "© 2021 Innodisk Corporation. All Rights Reserved.",
+        dashboardCopyrightText: "© 2022 Innodisk Corporation. All Rights Reserved.",
         checkStatusInterval: 5000
     };
 };

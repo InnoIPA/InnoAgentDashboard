@@ -80,16 +80,7 @@ export class APIHandler {
             return response.data.payload.params.response;
         }
         catch (error) {
-            return {
-                "hostHB": 0,
-                "mode": 0,
-                "gpio_model": 1,
-                "net_type": 0,
-                "LAN_MAC": "e0d55e4d9bc6",
-                "WIFI_MAC": "",
-                "remote_type":"0",
-
-            };
+            return undefined;
         }
     }
 
@@ -99,14 +90,7 @@ export class APIHandler {
             return response.data.payload.params.response;
         }
         catch (error) {
-            return {
-                "name": "eth0",
-                "ip": "172.16.92.133",
-                "gateway": "172.16.92.254",
-                "netmask": "255.255.255.0",
-                "DNS1": "192.168.168.45",
-                "DNS2": "192.168.168.11"
-            };
+            return undefined;
         }
     }
 
@@ -127,10 +111,7 @@ export class APIHandler {
         }
         catch (error) {
             // return undefined;
-            return {
-                "IO_INTERVAL": 1000,
-                "HB_INTERVAL": 30,
-            };
+            return undefined;
         }
 
     }
@@ -142,7 +123,7 @@ export class APIHandler {
         }
         catch (error) {
             // return undefined;
-            return { "LAN_STATIC_USE": 0, "LAN_STATIC_IP": "192.168.3.102", "LAN_STATIC_DEFAULT_GATEWAY": "192.168.3.1", "LAN_STATIC_NETMASK": "255.255.255.0", "LAN_STATIC_DNS1": "192.168.168.45", "LAN_STATIC_DNS2": "192.168.168.11" };
+            return undefined;
         }
 
     }
@@ -153,12 +134,7 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return {
-                "USERNAME": "innoage",
-                "PASSWORD": "B673AEBC6D65E7F42CFABFC7E01C02D0",
-                "IP": "172.16.92.127",
-                "PORT": "1883"
-            };
+            return undefined;
         }
 
     }
@@ -169,20 +145,7 @@ export class APIHandler {
             return response.data.payload.params.response.data;
         }
         catch (error) {
-            return {
-                "INNO_UART": {
-                    "BAUDRATE": 115200,
-                    "DATABITS": 8,
-                    "PARITY": "N",
-                    "STOPBITS": 1
-                },
-                "INNO_RS232": {
-                    "BAUDRATE": 115200,
-                    "DATABITS": 8,
-                    "PARITY": "N",
-                    "STOPBITS": 1
-                }
-            };
+            return undefined;
         }
 
     }
@@ -194,9 +157,7 @@ export class APIHandler {
         }
         catch (error) {
             // return undefined;
-            return {
-                "INNO_GPIO_1": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_2": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_3": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_4": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_5": { "DIRECTION": "in", "VALUE": "1" }, "INNO_GPIO_6": { "DIRECTION": "in", "VALUE": "1" }
-            };
+            return undefined;
 
         }
     }
@@ -326,16 +287,7 @@ export class APIHandler {
         }
         catch (error) {
 
-            return {
-                "INNO_GPIO_1": { "DIRECTION": "in", "VALUE": "1" },
-                "INNO_GPIO_2": { "DIRECTION": "in", "VALUE": "1" },
-                "INNO_GPIO_3": { "DIRECTION": "in", "VALUE": "1" },
-                "INNO_GPIO_4": { "DIRECTION": "in", "VALUE": "1" },
-                "INNO_GPIO_5": { "DIRECTION": "in", "VALUE": "1" },
-                "INNO_GPIO_6": { "DIRECTION": "out", "VALUE": "0" },
-                "INNO_GPIO_OUTPUT1": { "DIRECTION": "out", "VALUE": "0" },
-                "INNO_GPIO_OUTPUT2": { "DIRECTION": "out", "VALUE": "0" }
-            };
+            return undefined;
 
         }
     }

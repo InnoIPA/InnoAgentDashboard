@@ -5,74 +5,36 @@ This package provides the InnoAgent dashboard and its source code.
 - If you want to customize or re-develop this dashboard, see how to customize or re-develop the chapter description.
 
 ---
-
+***
 ## System requirements
 
 - Linux (Ubuntu) or Windows
 - node.js
 - npm
+- InnoAgent web service
 
-This package supports both public and private clouds. If used in private cloud environments, a Docker engine is required.
 
-- docker(Linux container)
+Note: This package requires the InnoAgent web service as its backend service. Please set the InnoAgent Web service before using this package. For more information, please refer to the InnoAgent ReadMe document.
 
 If you want to use the docker-compose method to execute, must have docker and docker-compose installed.
 
 - docker compose
 
 ---
+***
 
-## Configure file
+## Configuration
 
 ### Connect to the InnoAgent web service
 
-Before you start the InnoAgent dashboard service, you must be set the InnoAgent Web Service IP into the following file.
+Before using the InnoAgent dashboard, you must be set the "InnoAgent web service address" at the dashboard setting page.
 
-- src/js/config/commonConfig.js
 
-```JS
+![avatar](dashboard_config.png)
 
-/*
- * serviceAddress (string)
- * If the server is hosting on public cloud, the variable serverAddress must be given its value.
- *
- */
-export const serviceAddress = "https://innoagectlv4v5.azurewebsites.net";
 
-```
-
-## Add device into the deviceConfig file
-
-Modify the "deviceConfig" file to add new InnoAgent devices and control page elements visible status.
-
-- src/js/config/deviceConfig.js
-
-> The "serialNumber" field is the device MAC address without ":" symbol.
-
-```javascript
-export const deviceConfig = [
-  {
-    serialNumber: "999A8D759B2D",
-    name: "InnoAgent #1",
-    "reboot-button": true,
-    "power-button": true,
-    "gpio-button": true,
-    "tty-button": true,
-    "config-button": true,
-    "function-test": true,
-  },
-  {
-    serialNumber: "999A8D759B2A",
-    name: "InnoAgent #2",
-    "reboot-button": true,
-    "power-button": true,
-    "gpio-button": true,
-    "tty-button": true,
-    "config-button": true,
-    "function-test": true,
-  },
-];
-```
+---
+***
 
 ## Building from source code
 
@@ -90,7 +52,7 @@ export const deviceConfig = [
 
 ## Running the application
 
-### Deploy to private cloud (Using the docker)
+### Deploy using the docker
 
 If your environment doesn't have docker compose installed, or you want to manually build InnoAgent Dashboard docker images, you can use the following script to build & save docker image.
 
@@ -119,7 +81,7 @@ Before run the following command, please make sure the InnoAgent dashboard docke
 - Windows
   > ./deploy.cmd
 
-### Deploy to private cloud (Using the docker-compose)
+### Deploy using the docker-compose
 
 Docker compose can makes build and run in one-click, we recommend use this method to build and run the InnoAgent Dashboard.
 
@@ -131,10 +93,12 @@ Using the following script to deploy InnoAgent Dashboard.
   > ./install.cmd
 
 ---
+***
 
 ## The script file usage
 
 This section describes usage for another script file.
+
 
 ## Start dashboard
 
@@ -190,21 +154,10 @@ Execute the remove script to remove InnoAgent dashboard.
 
 ---
 
-## Verify dashboard start status
-
-After started the InnoAgent dashboard, you can check the dashboard status via the URL
-
-> http://{YourDomainName}
-
-![avatar](dashboard.png)
-
----
 
 ## How to customize or re-develop
 
 All source codes are located in the "src" directory.
-- This source code is just for the demo propose.
-- To keep this example simple, if you need it, you can modify the location of the device config source, to get it from your own web service.
 
 
 
@@ -221,19 +174,14 @@ All source codes are located in the "src" directory.
 |   |   |-- ...
 |   |-- html                                                        // Page layouts
 |   |   `-- pages       
-|   |       |-- deviceInfoTabs.html                                 // Device tabs section
-|   |       |-- gpioButtonAlert.html                                // GPIO pop-up page
-|   |       |-- header.html                                         // Header section
-|   |       |-- powerSwitchAlert.html                               // Power switch pop-up
-|   |       |-- uartPassThruAlert.html                              // UART PassThur pop-up
-|   |       `-- updateDeviceConfigAlert.html                        // Update board config pop-up
+|   |       |-- ...
 |   |-- js
 |   |   |-- components                                              // Components
 |   |   |   |-- device                                              // Device control components
 |               | -- ...                                              
 |   |   |   `-- pages                                               // Page components
 |   |   |       |-- ...
-|   |   |-- config                                                  // Device config file.
+|   |   |-- config                                                  // Device config file
 |   |   |   |-- ...
 |   |   |-- library                                                 // Shared libraries
 |   |   |   |-- utils

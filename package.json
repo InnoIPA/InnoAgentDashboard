@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "webpack-dev-server --progress --mode development --watch",
-        "start": "webpack-dev-server --progress --host 0.0.0.0 --mode development",
+        "start": "webpack-dev-server --progress --host 127.0.0.1 --mode development",
         "build": "webpack --mode production",
         "startx": "webpack-dev-server --host 172.16.36.97 --devtool eval --progress --colors --hot --content-base",
         "releasew": "@powershell -Command ./release-win.cmd",

@@ -6,14 +6,14 @@
 set -e
 # Clean old innoAgent dashboard images.
 echo -e "Stop and remove existing dashboard...\r"
-if [ "$(docker ps -a -q -f name=innoAgent-Dashboard)" ]; then
+if [ "$(docker ps -a -q -f name=InnoAgent-Dashboard)" ]; then
     docker stop InnoAgent-Dashboard
     docker rm InnoAgent-Dashboard -f
 fi
 
 # Remove network
 echo -e "\rRemove vitual network device...\r"
-if [ "$(docker network ls | grep innoAgent_webservice_net)" ]; then
+if [ "$(docker network ls | grep innoagent_webservice_net)" ]; then
     docker network rm innoagent_webservice_net
 fi
 

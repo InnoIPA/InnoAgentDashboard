@@ -439,7 +439,7 @@ export default class AddDeviceConfigButtonComponent {
             if (alert.isConfirmed) {
                 const data = (this.fileContent)
                     ? this.fileContent
-                    : formToJSON(this.popupAddDeviceConfigFormDOM);
+                    : [formToJSON(this.popupAddDeviceConfigFormDOM)];
 
                 const response = await apiHandler.createDeviceConfigAPI(data);
                 (response)

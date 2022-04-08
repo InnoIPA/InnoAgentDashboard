@@ -14,6 +14,12 @@ export const getDashboardDefaultConfiguration = () => {
     };
 };
 
+// Default web service URL.
+export const getDefaultWebServiceUrl = () => {
+    // Get current windows URL.
+    return `${document.location.protocol}//${document.location.hostname.startsWith("localhost") ? "127.0.0.1" : document.location.hostname}:8162`;
+};
+
 
 
 // Alert title

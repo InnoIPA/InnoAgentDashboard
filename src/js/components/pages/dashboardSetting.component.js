@@ -1,7 +1,8 @@
 import { apiHandler } from "../../library/APILibrary";
 import { alertUtils } from "../../library/alertUtils";
 import { formToJSON, JSONToForm } from "../../library/utils/formUtils";
-import { getDashboardDefaultConfiguration, GET_DASHBOARD_CONFIGURATION_STATUS, SETUP_DASHBOARD_CONFIGURATION_ALERT, SETUP_DASHBOARD_CONFIGURATION_STATUS, RESET_DASHBOARD_CONFIGURATION_ALERT, RESET_DASHBOARD_CONFIGURATION_STATUS } from "../../applicationConstants";
+// import { getDashboardDefaultConfiguration, GET_DASHBOARD_CONFIGURATION_STATUS, SETUP_DASHBOARD_CONFIGURATION_ALERT, SETUP_DASHBOARD_CONFIGURATION_STATUS, RESET_DASHBOARD_CONFIGURATION_ALERT, RESET_DASHBOARD_CONFIGURATION_STATUS, getDefaultWebServiceUrl } from "../../applicationConstants";
+import { getDashboardDefaultConfiguration, SETUP_DASHBOARD_CONFIGURATION_ALERT, SETUP_DASHBOARD_CONFIGURATION_STATUS, RESET_DASHBOARD_CONFIGURATION_ALERT, RESET_DASHBOARD_CONFIGURATION_STATUS } from "../../applicationConstants";
 import { setDashboardConfiguration, getDashboardConfiguration } from "../../sharedVariable";
 
 import { reloadAll } from "../../../index";
@@ -60,7 +61,7 @@ export default class DashboardSettingHandler {
     async fetchDashboardSetting() {
         const response = await apiHandler.getDashboardConfigAPI();
         if (!response) {
-            alertUtils.mixinAlert(GET_DASHBOARD_CONFIGURATION_STATUS.FAILED.ICON, GET_DASHBOARD_CONFIGURATION_STATUS.FAILED.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
+            // alertUtils.mixinAlert(GET_DASHBOARD_CONFIGURATION_STATUS.FAILED.ICON, GET_DASHBOARD_CONFIGURATION_STATUS.FAILED.MESSAGE, { showConfirmButton: false, timer: 3 * 1000, timerProgressBar: true });
             return getDashboardConfiguration();
         }
         return response;
@@ -71,7 +72,6 @@ export default class DashboardSettingHandler {
      */
     async onPageShow() {
         const response = await this.fetchDashboardSetting();
-        if (!response) return;
         setDashboardConfiguration(response);
         JSONToForm(this.dashboardSettingFormDOM, response, ["configId"]);
     }

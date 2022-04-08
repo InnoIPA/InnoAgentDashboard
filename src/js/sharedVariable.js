@@ -1,4 +1,4 @@
-import { getDashboardDefaultConfiguration } from "./applicationConstants";
+import { getDashboardDefaultConfiguration, getDefaultWebServiceUrl } from "./applicationConstants";
 
 // Export the selected device serial number (SN).
 let selectedDeviceUid;
@@ -25,6 +25,10 @@ export const getDashboardConfiguration = (item) => {
     if (config) {
         const parsedConfig = JSON.parse(config);
 
+        // Default address.
+        parsedConfig.serverAddress = getDefaultWebServiceUrl();
+        setDashboardConfiguration(parsedConfig);
+        
         return (item)
             ? parsedConfig[item]
             : parsedConfig;

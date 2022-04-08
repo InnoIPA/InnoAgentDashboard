@@ -56,11 +56,6 @@ export default class WebSocketHandler {
             // Web socket ping pong.
             this.pingInterval = setInterval(this.ping.bind(this), WS_PING_INTERVAL);
         };
-        this.wsClient.onclose = () => {
-            this.webSocketEventHandler.setCurrentClientId(this.clientId);
-            // If the connection was closed, emit the error event.
-            this.wsClient.emit("error");
-        };
 
         this.wsClient.onmessage = (message) => {
 

@@ -25,19 +25,6 @@ If you want to use the docker-compose method to execute, must have docker and do
 
 ---
 
----
-
-## Configuration
-
-### Connect to the InnoAgent web service
-
-Before using the InnoAgent dashboard, you must be set the "InnoAgent web service address" at the dashboard setting page.
-
-![avatar](dashboard_config.png)
-
----
-
----
 
 ## Deploy
 

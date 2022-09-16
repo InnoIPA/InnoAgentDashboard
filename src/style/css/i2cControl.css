@@ -1,0 +1,29 @@
+/* I2C control wrapper */
+.i2cControlWrapper {
+    margin-top: 10px;
+    position: relative;
+    height: 500px;
+    display: flex;
+}
+
+/* I2C control data table */
+.i2cControlDataTable {
+    border:1px solid black;
+    text-align: center;
+    flex: 1;
+}
+
+.i2cControlDataTable.caption {
+    font-weight:bold;
+    caption-side: top;
+    width: 100%;
+}
+
+.i2cControlDataTable.title {
+    border: 0px;
+    background-color: gray;
+}
+
+.i2cControlSetting {
+    flex: 1;
+}

@@ -51,6 +51,13 @@
             aria-controls="remote-log" aria-selected="false" data-tab-target="remoteLogTab">Remote
             log</a>
     </li>
+
+    <!-- I2C control tab button -->
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="i2cControl" data-toggle="tab" href="#nav-i2c-control" role="tab"
+            aria-controls="i2c-control" aria-selected="false" data-tab-target="i2cControlTab">I2C control</a>
+    </li>
+
 </ul>
 
 
@@ -312,6 +319,126 @@
             </div>
 
 
+        </div>
+    </div>
+
+    <!-- I2C Control tab content -->
+    <div class="tab-pane fade pt-3 pb-5 fg1" id="nav-i2c-control" role="tabpanel" aria-labelledby="nav-i2c-control">
+        <div class="col-12 pad5 i2cControlWrapper">
+            <!-- I2C Control data table -->
+            <div class="i2cControlDataTable">
+                <table id="registerTable" style="width:100%">
+                    <caption class="i2cControlDataTable caption">Register</caption>
+                    <tr contenteditable="false" class="i2cControlDataTable title">
+                        <th></th>
+                        <th>00</th>
+                        <th>01</th>
+                        <th>02</th>
+                        <th>03</th>
+                        <th>04</th>
+                        <th>05</th>
+                        <th>06</th>
+                        <th>07</th>
+                        <th>08</th>
+                        <th>09</th>
+                        <th>0A</th>
+                        <th>0B</th>
+                        <th>0C</th>
+                        <th>0D</th>
+                        <th>0E</th>
+                        <th>0F</th>
+                    </tr>
+                    <tr id="registerTableTr00" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">00</th>
+                    </tr>
+                    <tr id="registerTableTr10" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">10</th>
+                    </tr>
+                    <tr id="registerTableTr20" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">20</th>
+                    </tr>
+                    <tr id="registerTableTr30" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">30</th>
+                    </tr>
+                    <tr id="registerTableTr40" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">40</th>
+                    </tr>
+                    <tr id="registerTableTr50" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">50</th>
+                    </tr>
+                    <tr id="registerTableTr60" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">60</th>
+                    </tr>
+                    <tr id="registerTableTr70" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">70</th>
+                    </tr>
+                    <tr id="registerTableTr80" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">80</th>
+                    </tr>
+                    <tr id="registerTableTr90" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">90</th>
+                    </tr>
+                    <tr id="registerTableTrA0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">A0</th>
+                    </tr>
+                    <tr id="registerTableTrB0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">B0</th>
+                    </tr>
+                    <tr id="registerTableTrC0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">C0</th>
+                    </tr>
+                    <tr id="registerTableTrD0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">D0</th>
+                    </tr>
+                    <tr id="registerTableTrE0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">E0</th>
+                    </tr>
+                    <tr id="registerTableTrF0" contenteditable="true">
+                        <th contenteditable="false" class="i2cControlDataTable title">F0</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="i2cControlSetting">
+                <div class="container">
+                    <div class="row row-cols-3">
+                        <button id="i2cControlSettingDetect" type="submit" class="col btn btn-outline-secondary-override">Detect</button>
+                        <button id="i2cControlSettingRead"   type="submit" class="col btn btn-outline-secondary-override">Read  </button>
+                        <button id="i2cControlSettingWirte"  type="submit" class="col btn btn-outline-secondary-override">Write </button>
+                    </div>
+                </div>
+
+                <div display="flex">
+                    <label flex="1">Slave Address</label>
+                    <select id="i2cControlSlaveAddress" flex="1">
+                    </select>
+                    <label flex="1">Register Head</label>
+                    <select id="i2cControlRegisterHead" flex="1">
+                    </select>
+                    <label flex="1">Register Length</label>
+                    <select id="i2cControlRegisterLength" flex="1">
+                    </select>
+                </div>
+
+                <div display="flex">
+                    <label flex="1">Packet Error Code</label>
+                    <select id="i2cControlPEC" flex="1">
+                        <option>False</option>
+                        <option>True</option>
+                    </select>
+                    <label flex="1">Write Interval (ms)</label>
+                    <select id="i2cControlWriteInterval" flex="1">
+                    </select>
+                </div>
+
+                <div>
+                    <div id="i2cControlSricpt">
+                    </div>
+    
+                    <div id="i2cControlTerminal">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

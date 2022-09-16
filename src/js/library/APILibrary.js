@@ -303,6 +303,39 @@ export class APIHandler {
         }
     }
 
+    // I2C detect.
+    async i2cDetectAPI(deviceUid) {
+        try {
+            const response = await this.devicesAPI.get(`/api/devices/${deviceUid}/i2c-detect`);
+            return response.data.payload.params.response;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    // I2C read.
+    async i2cReadAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/${deviceUid}/i2c-read`, params);
+            return response.data.payload.params.response;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
+    // I2C write.
+    async i2cWriteAPI(deviceUid, params) {
+        try {
+            const response = await this.devicesAPI.post(`/api/devices/${deviceUid}/i2c-write`, params);
+            return response.data.payload.params.response;
+        }
+        catch (error) {
+            return undefined;
+        }
+    }
+
     // OTA 
     async uploadFWImageAPI(formData) {
         try {

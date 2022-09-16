@@ -16,6 +16,9 @@ import "./style/css/device-config-style.css";
 // Remote log stylesheet.
 import "./style/css/realTimeLog.css";
 
+// I2C control stylesheet.
+import "./style/css/i2cControl.css";
+
 // Stylesheet for custom toggle button.
 import "./style/css/customToggle.css";
 
@@ -44,6 +47,7 @@ import BoardRestartComponent from "./js/components/device/boardRestartButton.com
 import GpioButtonComponent from "./js/components/device/gpioButton.component";
 import DeviceTabsComponent from "./js/components/device/deviceTabs.component";
 import RemoteLogComponent from "./js/components/device/remoteLog.component";
+import I2cControlComponent from "./js/components/device/i2cControl.component";
 import UploadFWButtonComponent from "./js/components/device/uploadFWButton.component";
 import UpdateFWButtonComponent from "./js/components/device/updateFWButton.component";
 import DeleteFWButtonComponent from "./js/components/device/deleteFWButton.component";
@@ -59,6 +63,9 @@ export let deviceIndexGroupButtonComponentInstance = undefined;
 
 // Export remote log component instance.
 export let remoteLogComponentInstance = undefined;
+
+// Export i2c control component instance.
+export let i2cControlComponentInstance = undefined;
 
 // Export device tabs component instance.
 export let deviceTabComponentInstance = undefined;
@@ -93,6 +100,10 @@ const initialDevicePage = async () => {
     // Real-time log component.
     remoteLogComponentInstance = new RemoteLogComponent();
     remoteLogComponentInstance.initialEventListener();
+
+    // I2C control component.
+    i2cControlComponentInstance = new I2cControlComponent();
+    i2cControlComponentInstance.initialEventListener();
 
     // Device tabs component.
     deviceTabComponentInstance = new DeviceTabsComponent();

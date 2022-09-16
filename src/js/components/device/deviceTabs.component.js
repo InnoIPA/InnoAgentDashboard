@@ -241,7 +241,23 @@ export default class DeviceTabsComponent {
                 pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
                 break;
             }
+            case ("i2cControlTab"): {
 
+                const responseData = await this.apiHandler.agentStatusAPI(getSelectedDeviceSerialNumber());
+
+                if (!responseData) {
+                    pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
+                }
+
+                if(responseData.gpio_model != 2) {
+                    pageLoadingAnimate({ DOMElement: "#navTabContent", type: "unsupported" });
+                }
+                else {
+                    pageLoadingAnimate({ DOMElement: "#navTabContent", type: "stop" });
+                }
+
+                break;
+            }
         }
 
     }

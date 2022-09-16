@@ -43,6 +43,13 @@ export const REMOTE_LOG_STATUS = {
     CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user!" },
 };
 
+export const I2C_CONTROL_STATUS = {
+    SUCCESS: { ICON: "success", MESSAGE: "I2C Control successfully!" },
+    FAILED:  { ICON: "error",   MESSAGE: "Failed to I2C Control, please try again later!" },
+    EMPTY:   { ICON: "warning", MESSAGE: "The input parameter is empty!" },
+    DEVICE:  { ICON: "info",    MESSAGE: "Failed to I2C Control from device!" },
+};
+
 // OTA image is not present message.
 export const FW_IMAGE_NOT_PRESENT = "Please select a valid image file.";
 
@@ -161,4 +168,17 @@ export const DELETE_DEVICE_CONFIGURATION_STATUS = {
     SUCCESS: { ICON: "success", MESSAGE: "Delete device configuration successfully!" },
     FAILED: { ICON: "error", MESSAGE: "Failed to delete specified device, please try again later!" },
     CANCEL: { ICON: "info", MESSAGE: "This operation has been canceled by the user." },
+};
+
+
+// about I2C control component.
+export const I2C_CONTROL_C = {
+    TR_HEAD: "registerTableTr",
+    TD_HEAD: "registerTableTd",
+    HEX_HEAD: "0x",
+    FOCUS_TABLE_BG_COLOR: "rgba(255, 255, 0, 0.5)",
+    REG_MAX: 0xFF,
+    DEVICE_TIMEOUT: 3000, /* unit: ms */
+    DETECT_RET_SPLIT: ";",
+    DETECT_RET_ECHO: "(echo)",
 };
